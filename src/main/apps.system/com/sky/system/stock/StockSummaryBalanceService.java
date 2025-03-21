@@ -1,0 +1,1072 @@
+package com.sky.system.stock;
+
+import net.sky.http.dispatch.control.DefaultServiceHandler;
+
+import org.springframework.stereotype.Service;
+
+import com.sky.data.DataMessage;
+import com.sky.data.SqlResultMap;
+import com.sky.http.HttpRequestArgument;
+
+@Service
+public class StockSummaryBalanceService  extends DefaultServiceHandler {
+
+	/**
+	 * 수불현황
+	 * 
+	 * @param arg
+	 * @param page
+	 * @param rows
+	 * @return
+	 * @throws Exception
+	 */
+	public SqlResultMap getSearch(HttpRequestArgument arg, int page, int rows, String sort) throws Exception {
+		
+		DataMessage data = arg.newStorage("POS");
+		data.param // 집계
+			.total("select count(1) as maxsize ")
+			.total("      ,sum(b.trans_qty)                                                                   as trans_qty        ")
+			.total("      ,sum(b.trans_amt)                                                                   as trans_amt        ")
+			.total("      ,sum(a.in_qty)                                                                      as in_qty           ")
+			.total("      ,sum(a.in_amt)                                                                      as in_amt           ")
+			.total("      ,sum(a.inret_qty)                                                                   as inret_qty        ")
+			.total("      ,sum(a.inret_amt)                                                                   as inret_amt        ")
+			.total("      ,sum(a.movein_qty)                                                                  as movein_qty       ")
+			.total("      ,sum(a.movein_amt)                                                                  as movein_amt       ")
+			.total("      ,sum(a.out_qty)                                                                     as out_qty          ")
+			.total("      ,sum(a.out_amt)                                                                     as out_amt          ")
+			.total("      ,sum(a.outret_qty)                                                                  as outret_qty       ")
+			.total("      ,sum(a.outret_amt)                                                                  as outret_amt       ")
+			.total("      ,sum(a.moveout_qty)                                                                 as moveout_qty      ")
+			.total("      ,sum(a.moveout_amt)                                                                 as moveout_amt      ")
+			.total("      ,sum(a.etcout_qty)                                                                  as etcout_qty       ")
+			.total("      ,sum(a.etcout_amt)                                                                  as etcout_amt       ")
+			.total("      ,sum(a.modi_qty)                                                                    as modi_qty         ")
+			.total("      ,sum(a.modi_amt)                                                                    as modi_amt         ")
+			.total("      ,sum(isnull(b.trans_qty, 0)+a.tot_qty)                                                 as stock_qty        ")
+			.total("      ,sum(isnull(b.trans_amt, 0)+a.tot_amt)                                                 as stock_amt        ")
+			.total("      ,sum(s.safe_qty)                                                                    as safe_qty         ")
+			.total("      ,sum(t.stock)                                                                       as stock            ")
+			.total("      ,sum(decode(i.unt_qty, 0 , t.stock, t.stock/i.unt_qty))                           as bind_stock       ")
+			.total("      ,sum(isnull(t.stock, 0)-isnull(s.safe_qty, 0))                                            as lack_qty         ")
+			.total("      ,sum(decode(s.po_pri, 0, i.po_pri, s.po_pri)*(isnull(b.trans_qty, 0)+a.tot_qty)) as po_amt           ")
+			.total("      ,sum(c.stad_sale_pri*(isnull(b.trans_qty, 0)+a.tot_qty))                                  as compare_sale_amt ")
+		;
+		data.param // 조회
+			.query("select n.stor_nm                                                                                                              ")
+			.query("      ,i.item_code                                                                                                               ")
+			.query("      ,i.item_name                                                                                                               ")
+			.query("      ,i.item_spec                                                                                                               ")
+			.query("      ,u.unit_name                                                                                                               ")
+			.query("      ,m.bas_nm as mfg_nm                                                                                                     ")
+			.query("      ,v.vend_nm                                                                                                               ")
+			.query("      ,i.item_sts                                                                                                              ")
+			.query("      ,b.trans_qty                                                                                                             ")
+			.query("      ,b.trans_amt                                                                                                             ")
+			.query("      ,a.in_qty                                                                                                                ")
+			.query("      ,a.in_amt                                                                                                                ")
+			.query("      ,a.inret_qty                                                                                                             ")
+			.query("      ,a.inret_amt                                                                                                             ")
+			.query("      ,a.movein_qty                                                                                                            ")
+			.query("      ,a.movein_amt                                                                                                            ")
+			.query("      ,a.out_qty                                                                                                               ")
+			.query("      ,a.out_amt                                                                                                               ")
+			.query("      ,a.outret_qty                                                                                                            ")
+			.query("      ,a.outret_amt                                                                                                            ")
+			.query("      ,a.moveout_qty                                                                                                           ")
+			.query("      ,a.moveout_amt                                                                                                           ")
+			.query("      ,a.etcout_qty                                                                                                            ")
+			.query("      ,a.etcout_amt                                                                                                            ")
+			.query("      ,a.modi_qty                                                                                                              ")
+			.query("      ,a.modi_amt                                                                                                              ")
+			.query("      ,isnull(b.trans_qty, 0)+a.tot_qty as stock_qty                                                                              ")
+			.query("      ,isnull(b.trans_amt, 0)+a.tot_amt as stock_amt                                                                              ")
+			.query("      ,s.safe_qty                                                                                                              ")
+			.query("      ,t.stock                                                                                                                 ")
+			.query("      ,decode(i.unt_qty, 0 , t.stock, t.stock/i.unt_qty) as bind_stock                                                       ")
+			.query("      ,isnull(t.stock, 0)-isnull(s.safe_qty, 0)                  as lack_qty                                                         ")
+			.query("      ,decode((isnull(b.trans_qty, 0)+a.in_qty), 0, decode(s.po_pri, 0, i.po_pri, s.po_pri), round((isnull(b.trans_amt, 0)+a.in_amt)/(isnull(b.trans_qty, 0)+a.in_qty))) as standard_price ")
+			.query("      ,decode(s.po_pri, 0, i.po_pri, s.po_pri)                                 as po_pri                               ")
+			.query("      ,decode(s.po_pri, 0, i.po_pri, s.po_pri)*(isnull(b.trans_qty, 0)+a.tot_qty) as po_amt                                 ")
+			.query("      ,s.stad_sale_pri                                 as common_sale_price                                                       ")
+			.query("      ,c.stad_sale_pri                                 as compare_sale_price                                                      ")
+			.query("      ,c.stad_sale_pri*(isnull(b.trans_qty, 0)+a.tot_qty) as compare_sale_amt                                                        ")
+			.query("      ,(select class_nm from item_class where class_id = substr(i.class_id, 0, 2)) as class_nm1                                ")
+			.query("      ,(select class_nm from item_class where class_id = substr(i.class_id, 0, 4)) as class_nm2                                ")
+			.query("      ,(select class_nm from item_class where class_id = substr(i.class_id, 0, 6)) as class_nm3                                ")
+		;
+		data.param // 조건
+			.where("  from (                                                                                                                       ")
+			.where("       select a.stor_id                                                                                                       ")
+			.where("             ,a.item_idcd                                                                                                        ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', a.stock,      '2071302', a.stock,     '2071303', a.stock,      '2071304', a.stock,     '2071305', a.stock,     '2071306', a.stock,     0)) as tot_qty ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', -a.po_amount, '2071302', a.po_amount, '2071303', -a.po_amount, '2071304', a.po_amount, '2071305', a.po_amount, '2071306', a.po_amount, 0)) as tot_amt ")
+			.where("             ,sum(decode(a.inv_wk, '2071302', (case when a.qty>=0 then a.stock      else 0 end), 0)) as in_qty                 ")
+			.where("             ,sum(decode(a.inv_wk, '2071302', (case when a.qty>=0 then a.po_amount  else 0 end), 0)) as in_amt                 ")
+			.where("             ,sum(decode(a.inv_wk, '2071302', (case when a.qty< 0 then -a.stock     else 0 end), 0)) as inret_qty              ")
+			.where("             ,sum(decode(a.inv_wk, '2071302', (case when a.qty< 0 then -a.po_amount else 0 end), 0)) as inret_amt              ")
+			.where("             ,sum(decode(a.inv_wk, '2071304', a.stock, 0))                                           as movein_qty             ")
+			.where("             ,sum(decode(a.inv_wk, '2071304', a.po_amount, 0))                                       as movein_amt             ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', (case when a.qty>=0 then -a.stock     else 0 end), 0)) as out_qty                ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', (case when a.qty>=0 then a.po_amount  else 0 end), 0)) as out_amt                ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', (case when a.qty< 0 then a.stock      else 0 end), 0)) as outret_qty             ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', (case when a.qty< 0 then -a.po_amount else 0 end), 0)) as outret_amt             ")
+			.where("             ,sum(decode(a.inv_wk, '2071303', -a.stock, 0))                                          as moveout_qty            ")
+			.where("             ,sum(decode(a.inv_wk, '2071303', a.po_amount, 0))                                       as moveout_amt            ")
+			.where("             ,sum(decode(a.inv_wk, '2071306', -a.stock, 0))                                          as etcout_qty             ")
+			.where("             ,sum(decode(a.inv_wk, '2071306', -a.po_amount, 0))                                      as etcout_amt             ")
+			.where("             ,sum(decode(a.inv_wk, '2071305', a.stock, 0))                                           as modi_qty               ")
+			.where("             ,sum(decode(a.inv_wk, '2071305', a.po_amount, 0))                                       as modi_amt               ")
+			.where("         from stock_ledger a                                                                                                   ")
+			.where("        where a.row_sts = 0                                                                                                  ")
+			.where("          and a.stor_grp = :stor_grp                                                                                           ", arg.fixParameter("stor_grp"))
+			.where("          and a.stor_id = :stor_id                                                                                           ", arg.getParameter("stor_id"))
+			.where("          and a.inv_dt between :fr_dt                                                                                          ", arg.fixParamText("fr_dt"))
+			.where("                           and :to_dt                                                                                          ", arg.fixParamText("to_dt"))
+			.where("        group by a.stor_id, a.item_idcd                                                                                         ")
+			.where("       ) a                                                                                                                     ")
+			.where("       left outer join                                                                                                         ")
+			.where("       (                                                                                                                       ")
+			.where("       select a.stor_id                                                                                                       ")
+			.where("             ,a.item_idcd                                                                                                        ")
+			.where("             ,decode(b.sum_month_qty, null, 0, a.sum_stock+b.sum_month_qty) as trans_qty                                       ")
+			.where("             ,decode(b.sum_month_amt, null, 0, a.sum_amt  +b.sum_month_amt) as trans_amt                                       ")
+			.where("         from (                                                                                                                ")
+			.where("              select a.stor_id                                                                                                ")
+			.where("                    ,a.item_idcd                                                                                                 ")
+			.where("                    ,sum(a.stock)            sum_stock                                                                         ")
+			.where("                    ,sum(a.stock*a.po_pri) sum_amt                                                                           ")
+			.where("                from stock_ledger a                                                                                            ")
+			.where("               where a.row_sts = 0                                                                                           ")
+			.where("                 and a.stor_grp = :stor_grp                                                                                    ", arg.fixParameter("stor_grp"))
+			.where("                 and a.stor_id = :stor_id                                                                                    ", arg.getParameter("stor_id"))
+			.where("                 and a.inv_dt between substr(:fr_dt, 1, 6)||'01'                                                               ", arg.fixParamText("fr_dt"))
+			.where("                                  and to_char(to_date(:fr_dt, 'yyyymmdd')-1, 'yyyymmdd')                                       ", arg.fixParamText("fr_dt"))
+			.where("               group by a.stor_id, a.item_idcd                                                                                  ")
+			.where("              ) a                                                                                                              ")
+			.where("              left outer join                                                                                                  ")
+			.where("              (                                                                                                                ")
+			.where("              select a.stor_id                                                                                                ")
+			.where("                    ,a.item_idcd                                                                                                 ")
+			.where("                    ,case                                                                                                      ")
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '01' then sum(a.base_qty_01)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '02' then sum(a.base_qty_02)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '03' then sum(a.base_qty_03)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '04' then sum(a.base_qty_04)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '05' then sum(a.base_qty_05)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '06' then sum(a.base_qty_06)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '07' then sum(a.base_qty_07)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '08' then sum(a.base_qty_08)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '09' then sum(a.base_qty_09)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '10' then sum(a.base_qty_10)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '11' then sum(a.base_qty_11)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '12' then sum(a.base_qty_12)          ", arg.fixParameter("fr_dt"))
+			.where("                     end as sum_month_qty                                                                                      ")
+			.where("                    ,case                                                                                                      ")
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '01' then sum(a.base_amt_01)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '02' then sum(a.base_amt_02)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '03' then sum(a.base_amt_03)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '04' then sum(a.base_amt_04)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '05' then sum(a.base_amt_05)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '06' then sum(a.base_amt_06)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '07' then sum(a.base_amt_07)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '08' then sum(a.base_amt_08)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '09' then sum(a.base_amt_09)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '10' then sum(a.base_amt_10)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '11' then sum(a.base_amt_11)          ", arg.fixParameter("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '12' then sum(a.base_amt_12)          ", arg.fixParameter("fr_dt"))
+			.where("                     end as sum_month_amt                                                                                      ")
+			.where("                from item_month a                                                                                              ")
+			.where("               where a.stor_grp = :stor_grp                                                                                    ", arg.fixParameter("stor_grp"))
+			.where("                 and a.stor_id = :stor_id                                                                                    ", arg.getParameter("stor_id"))
+			.where("                 and a.lock_yy = to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'yyyy')                                  ", arg.fixParameter("fr_dt"))
+			.where("               group by a.stor_id, a.item_idcd                                                                                  ")
+			.where("              ) b on b.stor_id = a.stor_id                                                                                   ")
+			.where("                 and b.item_idcd = a.item_idcd                                                                                     ")
+			.where("       ) b on b.stor_id = a.stor_id                                                                                          ")
+			.where("          and b.item_idcd = a.item_idcd                                                                                            ")
+			.where("       join store n                                                                                                            ")
+			.where("         on n.stor_id = a.stor_id                                                                                            ")
+			.where("       join itm_stor s                                                                                                       ")
+			.where("         on s.stor_id = a.stor_id                                                                                            ")
+			.where("        and s.item_idcd = a.item_idcd                                                                                              ")
+			.where("       left outer join itm_stock t                                                                                            ")
+			.where("         on t.stor_id = a.stor_id                                                                                            ")
+			.where("        and t.item_idcd = a.item_idcd                                                                                              ")
+			.where("       left outer join itm_mst i                                                                                             ")
+			.where("         on i.item_idcd = a.item_idcd                                                                                              ")
+			.where("       left outer join item_unit u                                                                                             ")
+			.where("         on u.unit_idcd = i.unit_idcd                                                                                              ")
+			.where("       left outer join base_mst m                                                                                             ")
+			.where("         on m.bas_id = i.mfg_id                                                                                               ")
+			.where("       left outer join vend_mst v                                                                                             ")
+			.where("         on v.vend_id = i.vend_id                                                                                              ")
+			.where("       left outer join itm_stor c                                                                                            ")
+			.where("         on c.stor_id = '" + arg.getParamText("compare_stor_id") + "'                                                        ")
+			.where("        and c.item_idcd = a.item_idcd                                                                                              ")
+			.where(" where 1 = 1                                                                                                                   ")
+			.where("   and i.item_idcd = :item_idcd                                                                                                    ", arg.getParameter("item_idcd"))
+			.where("   and i.item_name like %:search_item_nm%                                                                                        ", arg.getParameter("search_item_nm"))
+			.where("   and i.item_sts = :item_sts                                                                                                  ", arg.getParameter("item_sts"))
+			.where("   and i.vend_id = :vend_id                                                                                                    ", arg.getParameter("vend_id"))
+			.where("   and i.class_id in ( select class_id from item_class start with class_id = :class_id connect by prior class_id = prnt_id ) ", arg.getParameter("class_id"))
+			.where("   and i.mfg_id = :mfg_id                                                                                                      ", arg.getParameter("mfg_id"))
+			.where("   and i.brand_id = :brand_id                                                                                                  ", arg.getParameter("brand_id"))
+		;
+		if ("false".equals(arg.getParamText("row_state_yn"))) {
+			data.param
+			.where("   and s.row_sts = 0                                                                                                         ")
+			;
+		}
+		if ("true".equals(arg.getParamText("has_stock_yn"))) {
+			data.param
+			.where("   and isnull(b.trans_qty, 0)+a.tot_qty > 0                                                                                       ")
+			;
+		}
+		if ("true".equals(arg.getParamText("sale_epo_yn"))) {
+			data.param
+			.where("   and s.sale_epo = '1'                                                                                                        ")
+			;
+		}
+		data.param
+			.where(" order by n.stor_id, i.item_idcd                                                                                                ")
+		;
+		
+		if (page == 0 && rows == 0) {
+			return data.selectForMap(sort);
+		} else {
+			return data.selectForMap(page, rows, (page==1),sort);
+		}
+	}
+
+	/**
+	 * 상품별
+	 * 
+	 * @param arg
+	 * @param page
+	 * @param rows
+	 * @return
+	 * @throws Exception
+	 */
+	public SqlResultMap getSearch2(HttpRequestArgument arg, int page, int rows, String sort) throws Exception {
+		
+		DataMessage data = arg.newStorage("POS");
+		data.param // 집계
+			.total("select count(1) as maxsize ")
+			.total("      ,sum(decode(a.inv_wk, '2071302', (case when a.qty>=0 then a.stock      else 0 end), 0)) as in_qty        ")
+			.total("      ,sum(decode(a.inv_wk, '2071302', (case when a.qty>=0 then a.eaqty      else 0 end), 0)) as in_eaqty      ")
+			.total("      ,sum(decode(a.inv_wk, '2071302', (case when a.qty>=0 then a.po_amount  else 0 end), 0)) as in_amt        ")
+			.total("      ,sum(decode(a.inv_wk, '2071302', (case when a.qty< 0 then -a.stock     else 0 end), 0)) as inret_qty     ")
+			.total("      ,sum(decode(a.inv_wk, '2071302', (case when a.qty< 0 then -a.eaqty     else 0 end), 0)) as inret_eaqty   ")
+			.total("      ,sum(decode(a.inv_wk, '2071302', (case when a.qty< 0 then -a.po_amount else 0 end), 0)) as inret_amt     ")
+			.total("      ,sum(decode(a.inv_wk, '2071304', a.stock, 0)                                          ) as movein_qty    ")
+			.total("      ,sum(decode(a.inv_wk, '2071304', a.eaqty, 0)                                          ) as movein_eaqty  ")
+			.total("      ,sum(decode(a.inv_wk, '2071304', a.po_amount, 0)                                      ) as movein_amt    ")
+			.total("      ,sum(decode(a.inv_wk, '2071301', (case when a.qty>=0 then -a.stock     else 0 end), 0)) as out_qty       ")
+			.total("      ,sum(decode(a.inv_wk, '2071301', (case when a.qty>=0 then -a.eaqty     else 0 end), 0)) as out_eaqty     ")
+			.total("      ,sum(decode(a.inv_wk, '2071301', (case when a.qty>=0 then a.po_amount  else 0 end), 0)) as out_amt       ")
+			.total("      ,sum(decode(a.inv_wk, '2071301', (case when a.qty< 0 then a.stock      else 0 end), 0)) as outret_qty    ")
+			.total("      ,sum(decode(a.inv_wk, '2071301', (case when a.qty< 0 then a.eaqty      else 0 end), 0)) as outret_eaqty  ")
+			.total("      ,sum(decode(a.inv_wk, '2071301', (case when a.qty< 0 then -a.po_amount else 0 end), 0)) as outret_amt    ")
+			.total("      ,sum(decode(a.inv_wk, '2071303', -a.stock, 0)                                         ) as moveout_qty   ")
+			.total("      ,sum(decode(a.inv_wk, '2071303', -a.eaqty, 0)                                         ) as moveout_eaqty ")
+			.total("      ,sum(decode(a.inv_wk, '2071303', a.po_amount, 0)                                      ) as moveout_amt   ")
+			.total("      ,sum(decode(a.inv_wk, '2071306', -a.stock, 0)                                         ) as etcout_qty    ")
+			.total("      ,sum(decode(a.inv_wk, '2071306', -a.eaqty, 0)                                         ) as etcout_eaqty  ")
+			.total("      ,sum(decode(a.inv_wk, '2071306', -a.po_amount, 0)                                     ) as etcout_amt    ")
+			.total("      ,sum(decode(a.inv_wk, '2071305', a.stock, 0)                                          ) as modi_qty      ")
+			.total("      ,sum(decode(a.inv_wk, '2071305', a.eaqty, 0)                                          ) as modi_eaqty    ")
+			.total("      ,sum(decode(a.inv_wk, '2071305', a.po_amount, 0)                                      ) as modi_amt      ")
+		;
+		data.param // 조회
+			.query("select n.stor_nm                                                                                                              ")
+			.query("      ,a.inv_dt                                                                                                                ")
+			.query("      ,a.inv_wk                                                                                                                ")
+			.query("      ,a.inv_no                                                                                                                ")
+			.query("      ,a.cust_id                                                                                                               ")
+			.query("      ,case                                                                                                                    ")
+			.query("         when a.inv_wk = '2071301' then x.cust_nm                                                                              ")
+			.query("         when a.inv_wk = '2071302' then y.vend_nm                                                                              ")
+			.query("         else z.stor_nm                                                                                                       ")
+			.query("       end as cust_nm                                                                                                          ")
+			.query("      ,i.item_code                                                                                                               ")
+			.query("      ,i.item_name                                                                                                               ")
+			.query("      ,i.item_spec                                                                                                               ")
+			.query("      ,u.unit_name                                                                                                               ")
+			.query("      ,i.unt_qty                                                                                                              ")
+			.query("      ,decode(a.inv_wk, '2071302', (case when a.qty>=0 then a.stock      else 0 end), 0) as in_qty                             ")
+			.query("      ,decode(a.inv_wk, '2071302', (case when a.qty>=0 then a.eaqty      else 0 end), 0) as in_eaqty                           ")
+			.query("      ,decode(a.inv_wk, '2071302', (case when a.qty>=0 then a.po_amount  else 0 end), 0) as in_amt                             ")
+			.query("      ,decode(a.inv_wk, '2071302', (case when a.qty< 0 then -a.stock     else 0 end), 0) as inret_qty                          ")
+			.query("      ,decode(a.inv_wk, '2071302', (case when a.qty< 0 then -a.eaqty     else 0 end), 0) as inret_eaqty                        ")
+			.query("      ,decode(a.inv_wk, '2071302', (case when a.qty< 0 then -a.po_amount else 0 end), 0) as inret_amt                          ")
+			.query("      ,decode(a.inv_wk, '2071304', a.stock, 0)                                           as movein_qty                         ")
+			.query("      ,decode(a.inv_wk, '2071304', a.eaqty, 0)                                           as movein_eaqty                       ")
+			.query("      ,decode(a.inv_wk, '2071304', a.po_amount, 0)                                       as movein_amt                         ")
+			.query("      ,decode(a.inv_wk, '2071301', (case when a.qty>=0 then -a.stock     else 0 end), 0) as out_qty                            ")
+			.query("      ,decode(a.inv_wk, '2071301', (case when a.qty>=0 then -a.eaqty     else 0 end), 0) as out_eaqty                          ")
+			.query("      ,decode(a.inv_wk, '2071301', (case when a.qty>=0 then a.po_amount  else 0 end), 0) as out_amt                            ")
+			.query("      ,decode(a.inv_wk, '2071301', (case when a.qty< 0 then a.stock      else 0 end), 0) as outret_qty                         ")
+			.query("      ,decode(a.inv_wk, '2071301', (case when a.qty< 0 then a.eaqty      else 0 end), 0) as outret_eaqty                       ")
+			.query("      ,decode(a.inv_wk, '2071301', (case when a.qty< 0 then -a.po_amount else 0 end), 0) as outret_amt                         ")
+			.query("      ,decode(a.inv_wk, '2071303', -a.stock, 0)                                          as moveout_qty                        ")
+			.query("      ,decode(a.inv_wk, '2071303', -a.eaqty, 0)                                          as moveout_eaqty                      ")
+			.query("      ,decode(a.inv_wk, '2071303', a.po_amount, 0)                                       as moveout_amt                        ")
+			.query("      ,decode(a.inv_wk, '2071306', -a.stock, 0)                                          as etcout_qty                         ")
+			.query("      ,decode(a.inv_wk, '2071306', -a.eaqty, 0)                                          as etcout_eaqty                       ")
+			.query("      ,decode(a.inv_wk, '2071306', -a.po_amount, 0)                                      as etcout_amt                         ")
+			.query("      ,decode(a.inv_wk, '2071305', a.stock, 0)                                           as modi_qty                           ")
+			.query("      ,decode(a.inv_wk, '2071305', a.eaqty, 0)                                           as modi_eaqty                         ")
+			.query("      ,decode(a.inv_wk, '2071305', a.po_amount, 0)                                       as modi_amt                           ")
+		;
+		data.param // 조건
+			.where("  from stock_ledger a                                                                                                          ")
+			.where("       join store n                                                                                                            ")
+			.where("         on n.stor_id = a.stor_id                                                                                            ")
+			.where("       join itm_stor s                                                                                                       ")
+			.where("         on s.stor_id = a.stor_id                                                                                            ")
+			.where("        and s.item_idcd = a.item_idcd                                                                                              ")
+			.where("       left outer join itm_stock t                                                                                            ")
+			.where("         on t.stor_id = a.stor_id                                                                                            ")
+			.where("        and t.item_idcd = a.item_idcd                                                                                              ")
+			.where("       left outer join itm_mst i                                                                                             ")
+			.where("         on i.item_idcd = a.item_idcd                                                                                              ")
+			.where("       left outer join item_unit u                                                                                             ")
+			.where("         on u.unit_idcd = i.unit_idcd                                                                                              ")
+			.where("       left outer join base_mst m                                                                                             ")
+			.where("         on m.bas_id = i.mfg_id                                                                                               ")
+			.where("       left outer join vend_mst v                                                                                             ")
+			.where("         on v.vend_id = i.vend_id                                                                                              ")
+			.where("       left outer join itm_stor c                                                                                            ")
+			.where("         on c.stor_id = '" + arg.getParamText("compare_stor_id") + "'                                                        ")
+			.where("        and c.item_idcd = a.item_idcd                                                                                              ")
+			.where("       left outer join cust_mst x                                                                                             ")
+			.where("         on x.cust_id = a.cust_id                                                                                              ")
+			.where("       left outer join vend_mst y                                                                                             ")
+			.where("         on y.vend_id = a.cust_id                                                                                              ")
+			.where("       left outer join store z                                                                                                 ")
+			.where("         on z.stor_id = a.cust_id                                                                                             ")
+			.where(" where a.row_sts = 0                                                                                                         ")
+			.where("   and a.stor_grp = :stor_grp                                                                                                  ", arg.fixParameter("stor_grp"))
+			.where("   and a.stor_id = :stor_id                                                                                                  ", arg.getParameter("stor_id"))
+			.where("   and a.inv_dt between :fr_dt                                                                                                 ", arg.fixParamText("fr_dt"))
+			.where("                    and :to_dt                                                                                                 ", arg.fixParamText("to_dt"))
+			.where("   and i.item_idcd = :item_idcd                                                                                                    ", arg.getParameter("item_idcd"))
+			.where("   and i.item_name like %:search_item_nm%                                                                                        ", arg.getParameter("search_item_nm"))
+			.where("   and i.item_sts = :item_sts                                                                                                  ", arg.getParameter("item_sts"))
+			.where("   and i.vend_id = :vend_id                                                                                                    ", arg.getParameter("vend_id"))
+			.where("   and i.class_id in ( select class_id from item_class start with class_id = :class_id connect by prior class_id = prnt_id ) ", arg.getParameter("class_id"))
+			.where("   and i.mfg_id = :mfg_id                                                                                                      ", arg.getParameter("mfg_id"))
+			.where("   and i.brand_id = :brand_id                                                                                                  ", arg.getParameter("brand_id"))
+		;
+		if ("false".equals(arg.getParamText("row_state_yn"))) {
+			data.param
+			.where("   and s.row_sts = 0                                                                                                         ")
+			;
+		}
+		if ("true".equals(arg.getParamText("has_stock_yn"))) {
+			data.param
+			.where("   and t.stock > 0                                                                                                             ")
+			;
+		}
+		if ("true".equals(arg.getParamText("sale_epo_yn"))) {
+			data.param
+			.where("   and s.sale_epo = '1'                                                                                                        ")
+			;
+		}
+		data.param
+			.where(" order by a.stor_id, n.stor_nm, a.inv_dt desc, a.inv_no desc, a.inv_wk, a.cust_id, a.item_idcd                                 ")
+		;
+		
+		if (page == 0 && rows == 0) {
+			return data.selectForMap(sort);
+		} else {
+			return data.selectForMap(page, rows, (page==1),sort);
+		}
+	}
+
+	/**
+	 * 분류별
+	 * 
+	 * @param arg
+	 * @param page
+	 * @param rows
+	 * @return
+	 * @throws Exception
+	 */
+	public SqlResultMap getSearch3(HttpRequestArgument arg, int page, int rows, String sort) throws Exception {
+		
+		DataMessage data = arg.newStorage("POS");
+		data.param // 집계
+			.total("select count(1) as maxsize ")
+			.total("      ,sum(b.trans_qty)                                                                   as trans_qty      ")
+			.total("      ,sum(b.trans_amt)                                                                   as trans_amt      ")
+			.total("      ,sum(a.in_qty)                                                                      as in_qty         ")
+			.total("      ,sum(a.in_amt)                                                                      as in_amt         ")
+			.total("      ,sum(a.inret_qty)                                                                   as inret_qty      ")
+			.total("      ,sum(a.inret_amt)                                                                   as inret_amt      ")
+			.total("      ,sum(a.movein_qty)                                                                  as movein_qty     ")
+			.total("      ,sum(a.movein_amt)                                                                  as movein_amt     ")
+			.total("      ,sum(a.out_qty)                                                                     as out_qty        ")
+			.total("      ,sum(a.out_amt)                                                                     as out_amt        ")
+			.total("      ,sum(a.outret_qty)                                                                  as outret_qty     ")
+			.total("      ,sum(a.outret_amt)                                                                  as outret_amt     ")
+			.total("      ,sum(a.moveout_qty)                                                                 as moveout_qty    ")
+			.total("      ,sum(a.moveout_amt)                                                                 as moveout_amt    ")
+			.total("      ,sum(a.etcout_qty)                                                                  as etcout_qty     ")
+			.total("      ,sum(a.etcout_amt)                                                                  as etcout_amt     ")
+			.total("      ,sum(a.modi_qty)                                                                    as modi_qty       ")
+			.total("      ,sum(a.modi_amt)                                                                    as modi_amt       ")
+			.total("      ,sum(isnull(b.trans_qty, 0)+a.tot_qty)                                                 as stock_qty      ")
+			.total("      ,sum(isnull(b.trans_amt, 0)+a.tot_amt)                                                 as stock_amt      ")
+			.total("      ,sum((isnull(b.trans_qty, 0)+a.tot_qty)*decode(s.po_pri, 0, i.po_pri, s.po_pri)) as stock_po_amt   ")
+			.total("      ,sum((isnull(b.trans_qty, 0)+a.tot_qty)*s.stad_sale_pri)                                  as stock_sale_amt ")
+		;
+		data.param // 조회
+			.query("select n.stor_nm                                                                                                              ")
+			.query("      ,(select class_nm from item_class where class_id = substr(i.class_id, 0, 2)) as class_nm1                                ")
+			.query("      ,(select class_nm from item_class where class_id = substr(i.class_id, 0, 4)) as class_nm2                                ")
+			.query("      ,(select class_nm from item_class where class_id = substr(i.class_id, 0, 6)) as class_nm3                                ")
+			.query("      ,b.trans_qty                                                                                                             ")
+			.query("      ,b.trans_amt                                                                                                             ")
+			.query("      ,a.in_qty                                                                                                                ")
+			.query("      ,a.in_amt                                                                                                                ")
+			.query("      ,a.inret_qty                                                                                                             ")
+			.query("      ,a.inret_amt                                                                                                             ")
+			.query("      ,a.movein_qty                                                                                                            ")
+			.query("      ,a.movein_amt                                                                                                            ")
+			.query("      ,a.out_qty                                                                                                               ")
+			.query("      ,a.out_amt                                                                                                               ")
+			.query("      ,a.outret_qty                                                                                                            ")
+			.query("      ,a.outret_amt                                                                                                            ")
+			.query("      ,a.moveout_qty                                                                                                           ")
+			.query("      ,a.moveout_amt                                                                                                           ")
+			.query("      ,a.etcout_qty                                                                                                            ")
+			.query("      ,a.etcout_amt                                                                                                            ")
+			.query("      ,a.modi_qty                                                                                                              ")
+			.query("      ,a.modi_amt                                                                                                              ")
+			.query("      ,isnull(b.trans_qty, 0)+a.tot_qty as stock_qty                                                                              ")
+			.query("      ,isnull(b.trans_amt, 0)+a.tot_amt as stock_amt                                                                              ")
+			.query("      ,(isnull(b.trans_qty, 0)+a.tot_qty)*decode(s.po_pri, 0, i.po_pri, s.po_pri) as stock_po_amt                           ")
+			.query("      ,(isnull(b.trans_qty, 0)+a.tot_qty)*s.stad_sale_pri                                  as stock_sale_amt                         ")
+		;
+		data.param // 조건
+			.where("  from (                                                                                                                       ")
+			.where("       select a.stor_id                                                                                                       ")
+			.where("             ,a.item_idcd                                                                                                        ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', a.stock,      '2071302', a.stock,     '2071303', a.stock,      '2071304', a.stock,     '2071305', a.stock,     '2071306', a.stock,     0)) as tot_qty ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', -a.po_amount, '2071302', a.po_amount, '2071303', -a.po_amount, '2071304', a.po_amount, '2071305', a.po_amount, '2071306', a.po_amount, 0)) as tot_amt ")
+			.where("             ,sum(decode(a.inv_wk, '2071302', (case when a.qty>=0 then a.stock      else 0 end), 0)) as in_qty                 ")
+			.where("             ,sum(decode(a.inv_wk, '2071302', (case when a.qty>=0 then a.po_amount  else 0 end), 0)) as in_amt                 ")
+			.where("             ,sum(decode(a.inv_wk, '2071302', (case when a.qty< 0 then -a.stock     else 0 end), 0)) as inret_qty              ")
+			.where("             ,sum(decode(a.inv_wk, '2071302', (case when a.qty< 0 then -a.po_amount else 0 end), 0)) as inret_amt              ")
+			.where("             ,sum(decode(a.inv_wk, '2071304', a.stock, 0))                                           as movein_qty             ")
+			.where("             ,sum(decode(a.inv_wk, '2071304', a.po_amount, 0))                                       as movein_amt             ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', (case when a.qty>=0 then -a.stock     else 0 end), 0)) as out_qty                ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', (case when a.qty>=0 then a.po_amount  else 0 end), 0)) as out_amt                ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', (case when a.qty< 0 then a.stock      else 0 end), 0)) as outret_qty             ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', (case when a.qty< 0 then -a.po_amount else 0 end), 0)) as outret_amt             ")
+			.where("             ,sum(decode(a.inv_wk, '2071303', -a.stock, 0))                                          as moveout_qty            ")
+			.where("             ,sum(decode(a.inv_wk, '2071303', a.po_amount, 0))                                       as moveout_amt            ")
+			.where("             ,sum(decode(a.inv_wk, '2071306', -a.stock, 0))                                          as etcout_qty             ")
+			.where("             ,sum(decode(a.inv_wk, '2071306', -a.po_amount, 0))                                      as etcout_amt             ")
+			.where("             ,sum(decode(a.inv_wk, '2071305', a.stock, 0))                                           as modi_qty               ")
+			.where("             ,sum(decode(a.inv_wk, '2071305', a.po_amount, 0))                                       as modi_amt               ")
+			.where("         from stock_ledger a                                                                                                   ")
+			.where("        where a.row_sts = 0                                                                                                  ")
+			.where("          and a.stor_grp = :stor_grp                                                                                           ", arg.fixParameter("stor_grp"))
+			.where("          and a.stor_id = :stor_id                                                                                           ", arg.getParameter("stor_id"))
+			.where("          and a.inv_dt between :fr_dt                                                                                          ", arg.fixParamText("fr_dt"))
+			.where("                           and :to_dt                                                                                          ", arg.fixParamText("to_dt"))
+			.where("        group by a.stor_id, a.item_idcd                                                                                         ")
+			.where("       ) a                                                                                                                     ")
+			.where("       left outer join                                                                                                         ")
+			.where("       (                                                                                                                       ")
+			.where("       select a.stor_id                                                                                                       ")
+			.where("             ,a.item_idcd                                                                                                        ")
+			.where("             ,decode(b.sum_month_qty, null, 0, a.sum_stock+b.sum_month_qty) as trans_qty                                       ")
+			.where("             ,decode(b.sum_month_amt, null, 0, a.sum_amt  +b.sum_month_amt) as trans_amt                                       ")
+			.where("         from (                                                                                                                ")
+			.where("              select a.stor_id                                                                                                ")
+			.where("                    ,a.item_idcd                                                                                                 ")
+			.where("                    ,sum(a.stock)            sum_stock                                                                         ")
+			.where("                    ,sum(a.stock*a.po_pri) sum_amt                                                                           ")
+			.where("                from stock_ledger a                                                                                            ")
+			.where("               where a.row_sts = 0                                                                                           ")
+			.where("                 and a.stor_grp = :stor_grp                                                                                    ", arg.fixParameter("stor_grp"))
+			.where("                 and a.stor_id = :stor_id                                                                                    ", arg.getParameter("stor_id"))
+			.where("                 and a.inv_dt between substr(:fr_dt, 1, 6)||'01'                                                               ", arg.fixParamText("fr_dt"))
+			.where("                                  and to_char(to_date(:fr_dt, 'yyyymmdd')-1, 'yyyymmdd')                                       ", arg.fixParamText("fr_dt"))
+			.where("               group by a.stor_id, a.item_idcd                                                                                  ")
+			.where("              ) a                                                                                                              ")
+			.where("              left outer join                                                                                                  ")
+			.where("              (                                                                                                                ")
+			.where("              select a.stor_id                                                                                                ")
+			.where("                    ,a.item_idcd                                                                                                 ")
+			.where("                    ,case                                                                                                      ")
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '01' then sum(a.base_qty_01)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '02' then sum(a.base_qty_02)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '03' then sum(a.base_qty_03)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '04' then sum(a.base_qty_04)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '05' then sum(a.base_qty_05)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '06' then sum(a.base_qty_06)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '07' then sum(a.base_qty_07)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '08' then sum(a.base_qty_08)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '09' then sum(a.base_qty_09)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '10' then sum(a.base_qty_10)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '11' then sum(a.base_qty_11)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '12' then sum(a.base_qty_12)          ", arg.fixParamText("fr_dt"))
+			.where("                     end as sum_month_qty                                                                                      ")
+			.where("                    ,case                                                                                                      ")
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '01' then sum(a.base_amt_01)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '02' then sum(a.base_amt_02)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '03' then sum(a.base_amt_03)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '04' then sum(a.base_amt_04)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '05' then sum(a.base_amt_05)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '06' then sum(a.base_amt_06)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '07' then sum(a.base_amt_07)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '08' then sum(a.base_amt_08)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '09' then sum(a.base_amt_09)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '10' then sum(a.base_amt_10)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '11' then sum(a.base_amt_11)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '12' then sum(a.base_amt_12)          ", arg.fixParamText("fr_dt"))
+			.where("                     end as sum_month_amt                                                                                      ")
+			.where("                from item_month a                                                                                              ")
+			.where("               where a.stor_grp = :stor_grp                                                                                    ", arg.fixParameter("stor_grp"))
+			.where("                 and a.stor_id = :stor_id                                                                                    ", arg.getParameter("stor_id"))
+			.where("                 and a.lock_yy = to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'yyyy')                                  ", arg.fixParamText("fr_dt"))
+			.where("               group by a.stor_id, a.item_idcd                                                                                  ")
+			.where("              ) b on b.stor_id = a.stor_id                                                                                   ")
+			.where("                 and b.item_idcd = a.item_idcd                                                                                     ")
+			.where("       ) b on b.stor_id = a.stor_id                                                                                          ")
+			.where("          and b.item_idcd = a.item_idcd                                                                                            ")
+			.where("       join store n                                                                                                            ")
+			.where("         on n.stor_id = a.stor_id                                                                                            ")
+			.where("       join itm_stor s                                                                                                       ")
+			.where("         on s.stor_id = a.stor_id                                                                                            ")
+			.where("        and s.item_idcd = a.item_idcd                                                                                              ")
+			.where("       left outer join itm_stock t                                                                                            ")
+			.where("         on t.stor_id = a.stor_id                                                                                            ")
+			.where("        and t.item_idcd = a.item_idcd                                                                                              ")
+			.where("       left outer join itm_mst i                                                                                             ")
+			.where("         on i.item_idcd = a.item_idcd                                                                                              ")
+			.where("       left outer join item_unit u                                                                                             ")
+			.where("         on u.unit_idcd = i.unit_idcd                                                                                              ")
+			.where("       left outer join base_mst m                                                                                             ")
+			.where("         on m.bas_id = i.mfg_id                                                                                               ")
+			.where("       left outer join vend_mst v                                                                                             ")
+			.where("         on v.vend_id = i.vend_id                                                                                              ")
+			.where("       left outer join itm_stor c                                                                                            ")
+			.where("         on c.stor_id = ''                                                                                                    ")
+			.where("        and c.item_idcd = a.item_idcd                                                                                              ")
+			.where(" where 1 = 1                                                                                                                   ")
+			.where("   and i.item_idcd = :item_idcd                                                                                                    ", arg.getParameter("item_idcd"))
+			.where("   and i.item_name like %:search_item_nm%                                                                                        ", arg.getParameter("search_item_nm"))
+			.where("   and i.item_sts = :item_sts                                                                                                  ", arg.getParameter("item_sts"))
+			.where("   and i.vend_id = :vend_id                                                                                                    ", arg.getParameter("vend_id"))
+			.where("   and i.class_id in ( select class_id from item_class start with class_id = :class_id connect by prior class_id = prnt_id ) ", arg.getParameter("class_id"))
+			.where("   and i.mfg_id = :mfg_id                                                                                                      ", arg.getParameter("mfg_id"))
+			.where("   and i.brand_id = :brand_id                                                                                                  ", arg.getParameter("brand_id"))
+		;
+		if ("false".equals(arg.getParamText("row_state_yn"))) {
+			data.param
+			.where("   and s.row_sts = 0                                                                                                         ")
+			;
+		}
+		if ("true".equals(arg.getParamText("has_stock_yn"))) {
+			data.param
+			.where("   and isnull(b.trans_qty, 0)+a.tot_qty > 0                                                                                       ")
+			;
+		}
+		if ("true".equals(arg.getParamText("sale_epo_yn"))) {
+			data.param
+			.where("   and s.sale_epo = '1'                                                                                                        ")
+			;
+		}
+		data.param
+			.where(" order by n.stor_id, i.item_idcd                                                                                                ")
+		;
+		
+		if (page == 0 && rows == 0) {
+			return data.selectForMap(sort);
+		} else {
+			return data.selectForMap(page, rows, (page==1),sort);
+		}
+	}
+
+	/**
+	 * 제조사별
+	 * 
+	 * @param arg
+	 * @param page
+	 * @param rows
+	 * @return
+	 * @throws Exception
+	 */
+	public SqlResultMap getSearch4(HttpRequestArgument arg, int page, int rows, String sort) throws Exception {
+		
+		DataMessage data = arg.newStorage("POS");
+		data.param // 집계
+			.total("select count(1) as maxsize ")
+			.total("      ,sum(sum(trans_qty     )) as trans_qty      ")
+			.total("      ,sum(sum(trans_amt     )) as trans_amt      ")
+			.total("      ,sum(sum(in_qty        )) as in_qty         ")
+			.total("      ,sum(sum(in_amt        )) as in_amt         ")
+			.total("      ,sum(sum(inret_qty     )) as inret_qty      ")
+			.total("      ,sum(sum(inret_amt     )) as inret_amt      ")
+			.total("      ,sum(sum(movein_qty    )) as movein_qty     ")
+			.total("      ,sum(sum(movein_amt    )) as movein_amt     ")
+			.total("      ,sum(sum(out_qty       )) as out_qty        ")
+			.total("      ,sum(sum(out_amt       )) as out_amt        ")
+			.total("      ,sum(sum(outret_qty    )) as outret_qty     ")
+			.total("      ,sum(sum(outret_amt    )) as outret_amt     ")
+			.total("      ,sum(sum(moveout_qty   )) as moveout_qty    ")
+			.total("      ,sum(sum(moveout_amt   )) as moveout_amt    ")
+			.total("      ,sum(sum(etcout_qty    )) as etcout_qty     ")
+			.total("      ,sum(sum(etcout_amt    )) as etcout_amt     ")
+			.total("      ,sum(sum(modi_qty      )) as modi_qty       ")
+			.total("      ,sum(sum(modi_amt      )) as modi_amt       ")
+			.total("      ,sum(sum(stock_qty     )) as stock_qty      ")
+			.total("      ,sum(sum(stock_amt     )) as stock_amt      ")
+			.total("      ,sum(sum(stock_po_amt  )) as stock_po_amt   ")
+			.total("      ,sum(sum(stock_sale_amt)) as stock_sale_amt ")
+		;
+		data.param // 조회
+			.query("select stor_nm                                                                                                                ")
+			.query("      ,mfg_id                                                                                                                  ")
+			.query("      ,mfg_nm                                                                                                                  ")
+			.query("      ,sum(trans_qty     ) as trans_qty                                                                                        ")
+			.query("      ,sum(trans_amt     ) as trans_amt                                                                                        ")
+			.query("      ,sum(in_qty        ) as in_qty                                                                                           ")
+			.query("      ,sum(in_amt        ) as in_amt                                                                                           ")
+			.query("      ,sum(inret_qty     ) as inret_qty                                                                                        ")
+			.query("      ,sum(inret_amt     ) as inret_amt                                                                                        ")
+			.query("      ,sum(movein_qty    ) as movein_qty                                                                                       ")
+			.query("      ,sum(movein_amt    ) as movein_amt                                                                                       ")
+			.query("      ,sum(out_qty       ) as out_qty                                                                                          ")
+			.query("      ,sum(out_amt       ) as out_amt                                                                                          ")
+			.query("      ,sum(outret_qty    ) as outret_qty                                                                                       ")
+			.query("      ,sum(outret_amt    ) as outret_amt                                                                                       ")
+			.query("      ,sum(moveout_qty   ) as moveout_qty                                                                                      ")
+			.query("      ,sum(moveout_amt   ) as moveout_amt                                                                                      ")
+			.query("      ,sum(etcout_qty    ) as etcout_qty                                                                                       ")
+			.query("      ,sum(etcout_amt    ) as etcout_amt                                                                                       ")
+			.query("      ,sum(modi_qty      ) as modi_qty                                                                                         ")
+			.query("      ,sum(modi_amt      ) as modi_amt                                                                                         ")
+			.query("      ,sum(stock_qty     ) as stock_qty                                                                                        ")
+			.query("      ,sum(stock_amt     ) as stock_amt                                                                                        ")
+			.query("      ,sum(stock_po_amt  ) as stock_po_amt                                                                                     ")
+			.query("      ,sum(stock_sale_amt) as stock_sale_amt                                                                                   ")
+		;
+		data.param // 조건
+			.where("  from (                                                                                                                       ")
+			.where("select a.stor_id                                                                                                              ")
+			.where("      ,n.stor_nm                                                                                                              ")
+			.where("      ,i.mfg_id                                                                                                                ")
+			.where("      ,m.bas_nm as mfg_nm                                                                                                     ")
+			.where("      ,b.trans_qty                                                                                                             ")
+			.where("      ,b.trans_amt                                                                                                             ")
+			.where("      ,a.in_qty                                                                                                                ")
+			.where("      ,a.in_amt                                                                                                                ")
+			.where("      ,a.inret_qty                                                                                                             ")
+			.where("      ,a.inret_amt                                                                                                             ")
+			.where("      ,a.movein_qty                                                                                                            ")
+			.where("      ,a.movein_amt                                                                                                            ")
+			.where("      ,a.out_qty                                                                                                               ")
+			.where("      ,a.out_amt                                                                                                               ")
+			.where("      ,a.outret_qty                                                                                                            ")
+			.where("      ,a.outret_amt                                                                                                            ")
+			.where("      ,a.moveout_qty                                                                                                           ")
+			.where("      ,a.moveout_amt                                                                                                           ")
+			.where("      ,a.etcout_qty                                                                                                            ")
+			.where("      ,a.etcout_amt                                                                                                            ")
+			.where("      ,a.modi_qty                                                                                                              ")
+			.where("      ,a.modi_amt                                                                                                              ")
+			.where("      ,isnull(b.trans_qty, 0)+a.tot_qty as stock_qty                                                                              ")
+			.where("      ,isnull(b.trans_amt, 0)+a.tot_amt as stock_amt                                                                              ")
+			.where("      ,(isnull(b.trans_qty, 0)+a.tot_qty)*decode(s.po_pri, 0, i.po_pri, s.po_pri) as stock_po_amt                           ")
+			.where("      ,(isnull(b.trans_qty, 0)+a.tot_qty)*s.stad_sale_pri                                  as stock_sale_amt                         ")
+			.where("  from (                                                                                                                       ")
+			.where("       select a.stor_id                                                                                                       ")
+			.where("             ,a.item_idcd                                                                                                        ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', a.stock,      '2071302', a.stock,     '2071303', a.stock,      '2071304', a.stock,     '2071305', a.stock,     '2071306', a.stock,     0)) as tot_qty ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', -a.po_amount, '2071302', a.po_amount, '2071303', -a.po_amount, '2071304', a.po_amount, '2071305', a.po_amount, '2071306', a.po_amount, 0)) as tot_amt ")
+			.where("             ,sum(decode(a.inv_wk, '2071302', (case when a.qty>=0 then a.stock      else 0 end), 0)) as in_qty                 ")
+			.where("             ,sum(decode(a.inv_wk, '2071302', (case when a.qty>=0 then a.po_amount  else 0 end), 0)) as in_amt                 ")
+			.where("             ,sum(decode(a.inv_wk, '2071302', (case when a.qty< 0 then -a.stock     else 0 end), 0)) as inret_qty              ")
+			.where("             ,sum(decode(a.inv_wk, '2071302', (case when a.qty< 0 then -a.po_amount else 0 end), 0)) as inret_amt              ")
+			.where("             ,sum(decode(a.inv_wk, '2071304', a.stock, 0))                                           as movein_qty             ")
+			.where("             ,sum(decode(a.inv_wk, '2071304', a.po_amount, 0))                                       as movein_amt             ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', (case when a.qty>=0 then -a.stock     else 0 end), 0)) as out_qty                ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', (case when a.qty>=0 then a.po_amount  else 0 end), 0)) as out_amt                ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', (case when a.qty< 0 then a.stock      else 0 end), 0)) as outret_qty             ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', (case when a.qty< 0 then -a.po_amount else 0 end), 0)) as outret_amt             ")
+			.where("             ,sum(decode(a.inv_wk, '2071303', -a.stock, 0))                                          as moveout_qty            ")
+			.where("             ,sum(decode(a.inv_wk, '2071303', a.po_amount, 0))                                       as moveout_amt            ")
+			.where("             ,sum(decode(a.inv_wk, '2071306', -a.stock, 0))                                          as etcout_qty             ")
+			.where("             ,sum(decode(a.inv_wk, '2071306', -a.po_amount, 0))                                      as etcout_amt             ")
+			.where("             ,sum(decode(a.inv_wk, '2071305', a.stock, 0))                                           as modi_qty               ")
+			.where("             ,sum(decode(a.inv_wk, '2071305', a.po_amount, 0))                                       as modi_amt               ")
+			.where("         from stock_ledger a                                                                                                   ")
+			.where("        where a.row_sts = 0                                                                                                  ")
+			.where("          and a.stor_grp = :stor_grp                                                                                           ", arg.fixParameter("stor_grp"))
+			.where("          and a.stor_id = :stor_id                                                                                           ", arg.getParameter("stor_id"))
+			.where("          and a.inv_dt between :fr_dt                                                                                          ", arg.fixParamText("fr_dt"))
+			.where("                           and :to_dt                                                                                          ", arg.fixParamText("to_dt"))
+			.where("        group by a.stor_id, a.item_idcd                                                                                         ")
+			.where("       ) a                                                                                                                     ")
+			.where("       left outer join                                                                                                         ")
+			.where("       (                                                                                                                       ")
+			.where("       select a.stor_id                                                                                                       ")
+			.where("             ,a.item_idcd                                                                                                        ")
+			.where("             ,decode(b.sum_month_qty, null, 0, a.sum_stock+b.sum_month_qty) as trans_qty                                       ")
+			.where("             ,decode(b.sum_month_amt, null, 0, a.sum_amt  +b.sum_month_amt) as trans_amt                                       ")
+			.where("         from (                                                                                                                ")
+			.where("              select a.stor_id                                                                                                ")
+			.where("                    ,a.item_idcd                                                                                                 ")
+			.where("                    ,sum(a.stock)            sum_stock                                                                         ")
+			.where("                    ,sum(a.stock*a.po_pri) sum_amt                                                                           ")
+			.where("                from stock_ledger a                                                                                            ")
+			.where("               where a.row_sts = 0                                                                                           ")
+			.where("                 and a.stor_grp = :stor_grp                                                                                    ", arg.fixParameter("stor_grp"))
+			.where("                 and a.stor_id = :stor_id                                                                                    ", arg.getParameter("stor_id"))
+			.where("                 and a.inv_dt between substr(:fr_dt, 1, 6)||'01'                                                               ", arg.fixParamText("fr_dt"))
+			.where("                                  and to_char(to_date(:fr_dt, 'yyyymmdd')-1, 'yyyymmdd')                                       ", arg.fixParamText("fr_dt"))
+			.where("               group by a.stor_id, a.item_idcd                                                                                  ")
+			.where("              ) a                                                                                                              ")
+			.where("              left outer join                                                                                                  ")
+			.where("              (                                                                                                                ")
+			.where("              select a.stor_id                                                                                                ")
+			.where("                    ,a.item_idcd                                                                                                 ")
+			.where("                    ,case                                                                                                      ")
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '01' then sum(a.base_qty_01)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '02' then sum(a.base_qty_02)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '03' then sum(a.base_qty_03)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '04' then sum(a.base_qty_04)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '05' then sum(a.base_qty_05)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '06' then sum(a.base_qty_06)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '07' then sum(a.base_qty_07)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '08' then sum(a.base_qty_08)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '09' then sum(a.base_qty_09)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '10' then sum(a.base_qty_10)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '11' then sum(a.base_qty_11)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '12' then sum(a.base_qty_12)          ", arg.fixParamText("fr_dt"))
+			.where("                     end as sum_month_qty                                                                                      ")
+			.where("                    ,case                                                                                                      ")
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '01' then sum(a.base_amt_01)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '02' then sum(a.base_amt_02)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '03' then sum(a.base_amt_03)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '04' then sum(a.base_amt_04)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '05' then sum(a.base_amt_05)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '06' then sum(a.base_amt_06)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '07' then sum(a.base_amt_07)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '08' then sum(a.base_amt_08)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '09' then sum(a.base_amt_09)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '10' then sum(a.base_amt_10)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '11' then sum(a.base_amt_11)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '12' then sum(a.base_amt_12)          ", arg.fixParamText("fr_dt"))
+			.where("                     end as sum_month_amt                                                                                      ")
+			.where("                from item_month a                                                                                              ")
+			.where("               where a.stor_grp = :stor_grp                                                                                    ", arg.fixParameter("stor_grp"))
+			.where("                 and a.stor_id = :stor_id                                                                                    ", arg.getParameter("stor_id"))
+			.where("                 and a.lock_yy = to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'yyyy')                                  ", arg.fixParamText("fr_dt"))
+			.where("               group by a.stor_id, a.item_idcd                                                                                  ")
+			.where("              ) b on b.stor_id = a.stor_id                                                                                   ")
+			.where("                 and b.item_idcd = a.item_idcd                                                                                     ")
+			.where("       ) b on b.stor_id = a.stor_id                                                                                          ")
+			.where("          and b.item_idcd = a.item_idcd                                                                                            ")
+			.where("       join store n                                                                                                            ")
+			.where("         on n.stor_id = a.stor_id                                                                                            ")
+			.where("       join itm_stor s                                                                                                       ")
+			.where("         on s.stor_id = a.stor_id                                                                                            ")
+			.where("        and s.item_idcd = a.item_idcd                                                                                              ")
+			.where("       left outer join itm_stock t                                                                                            ")
+			.where("         on t.stor_id = a.stor_id                                                                                            ")
+			.where("        and t.item_idcd = a.item_idcd                                                                                              ")
+			.where("       left outer join itm_mst i                                                                                             ")
+			.where("         on i.item_idcd = a.item_idcd                                                                                              ")
+			.where("       left outer join item_unit u                                                                                             ")
+			.where("         on u.unit_idcd = i.unit_idcd                                                                                              ")
+			.where("       left outer join base_mst m                                                                                             ")
+			.where("         on m.bas_id = i.mfg_id                                                                                               ")
+			.where("       left outer join vend_mst v                                                                                             ")
+			.where("         on v.vend_id = i.vend_id                                                                                              ")
+			.where("       left outer join itm_stor c                                                                                            ")
+			.where("         on c.stor_id = ''                                                                                                    ")
+			.where("        and c.item_idcd = a.item_idcd                                                                                              ")
+			.where(" where 1 = 1                                                                                                                   ")
+			.where("   and i.item_idcd = :item_idcd                                                                                                    ", arg.getParameter("item_idcd"))
+			.where("   and i.item_name like %:search_item_nm%                                                                                        ", arg.getParameter("search_item_nm"))
+			.where("   and i.item_sts = :item_sts                                                                                                  ", arg.getParameter("item_sts"))
+			.where("   and i.vend_id = :vend_id                                                                                                    ", arg.getParameter("vend_id"))
+			.where("   and i.class_id in ( select class_id from item_class start with class_id = :class_id connect by prior class_id = prnt_id ) ", arg.getParameter("class_id"))
+			.where("   and i.mfg_id = :mfg_id                                                                                                      ", arg.getParameter("mfg_id"))
+			.where("   and i.brand_id = :brand_id                                                                                                  ", arg.getParameter("brand_id"))
+		;
+		if ("false".equals(arg.getParamText("row_state_yn"))) {
+			data.param
+			.where("   and s.row_sts = 0                                                                                                         ")
+			;
+		}
+		if ("true".equals(arg.getParamText("has_stock_yn"))) {
+			data.param
+			.where("   and isnull(b.trans_qty, 0)+a.tot_qty > 0                                                                                       ")
+			;
+		}
+		if ("true".equals(arg.getParamText("sale_epo_yn"))) {
+			data.param
+			.where("   and s.sale_epo = '1'                                                                                                        ")
+			;
+		}
+		data.param
+			.where(" order by n.stor_id, i.item_idcd                                                                                                ")
+			.where("       )                                     ")
+			.where(" group by stor_id, stor_nm, mfg_id, mfg_nm ")
+			.where(" order by stor_id, stor_nm, mfg_id, mfg_nm ")
+		;
+		
+		if (page == 0 && rows == 0) {
+			return data.selectForMap(sort);
+		} else {
+			return data.selectForMap(page, rows, (page==1),sort);
+		}
+	}
+
+	/**
+	 * 매입처별
+	 * 
+	 * @param arg
+	 * @param page
+	 * @param rows
+	 * @return
+	 * @throws Exception
+	 */
+	public SqlResultMap getSearch5(HttpRequestArgument arg, int page, int rows, String sort) throws Exception {
+		
+		DataMessage data = arg.newStorage("POS");
+		data.param // 집계
+			.total("select count(1) as maxsize ")
+			.total("      ,sum(sum(trans_qty     )) as trans_qty      ")
+			.total("      ,sum(sum(trans_amt     )) as trans_amt      ")
+			.total("      ,sum(sum(in_qty        )) as in_qty         ")
+			.total("      ,sum(sum(in_amt        )) as in_amt         ")
+			.total("      ,sum(sum(inret_qty     )) as inret_qty      ")
+			.total("      ,sum(sum(inret_amt     )) as inret_amt      ")
+			.total("      ,sum(sum(movein_qty    )) as movein_qty     ")
+			.total("      ,sum(sum(movein_amt    )) as movein_amt     ")
+			.total("      ,sum(sum(out_qty       )) as out_qty        ")
+			.total("      ,sum(sum(out_amt       )) as out_amt        ")
+			.total("      ,sum(sum(outret_qty    )) as outret_qty     ")
+			.total("      ,sum(sum(outret_amt    )) as outret_amt     ")
+			.total("      ,sum(sum(moveout_qty   )) as moveout_qty    ")
+			.total("      ,sum(sum(moveout_amt   )) as moveout_amt    ")
+			.total("      ,sum(sum(etcout_qty    )) as etcout_qty     ")
+			.total("      ,sum(sum(etcout_amt    )) as etcout_amt     ")
+			.total("      ,sum(sum(modi_qty      )) as modi_qty       ")
+			.total("      ,sum(sum(modi_amt      )) as modi_amt       ")
+			.total("      ,sum(sum(stock_qty     )) as stock_qty      ")
+			.total("      ,sum(sum(stock_amt     )) as stock_amt      ")
+			.total("      ,sum(sum(stock_po_amt  )) as stock_po_amt   ")
+			.total("      ,sum(sum(stock_sale_amt)) as stock_sale_amt ")
+		;
+		data.param // 조회
+			.query("select stor_nm                                                                                                                ")
+			.query("      ,vend_id                                                                                                                 ")
+			.query("      ,vend_nm                                                                                                                 ")
+			.query("      ,sum(trans_qty     ) as trans_qty                                                                                        ")
+			.query("      ,sum(trans_amt     ) as trans_amt                                                                                        ")
+			.query("      ,sum(in_qty        ) as in_qty                                                                                           ")
+			.query("      ,sum(in_amt        ) as in_amt                                                                                           ")
+			.query("      ,sum(inret_qty     ) as inret_qty                                                                                        ")
+			.query("      ,sum(inret_amt     ) as inret_amt                                                                                        ")
+			.query("      ,sum(movein_qty    ) as movein_qty                                                                                       ")
+			.query("      ,sum(movein_amt    ) as movein_amt                                                                                       ")
+			.query("      ,sum(out_qty       ) as out_qty                                                                                          ")
+			.query("      ,sum(out_amt       ) as out_amt                                                                                          ")
+			.query("      ,sum(outret_qty    ) as outret_qty                                                                                       ")
+			.query("      ,sum(outret_amt    ) as outret_amt                                                                                       ")
+			.query("      ,sum(moveout_qty   ) as moveout_qty                                                                                      ")
+			.query("      ,sum(moveout_amt   ) as moveout_amt                                                                                      ")
+			.query("      ,sum(etcout_qty    ) as etcout_qty                                                                                       ")
+			.query("      ,sum(etcout_amt    ) as etcout_amt                                                                                       ")
+			.query("      ,sum(modi_qty      ) as modi_qty                                                                                         ")
+			.query("      ,sum(modi_amt      ) as modi_amt                                                                                         ")
+			.query("      ,sum(stock_qty     ) as stock_qty                                                                                        ")
+			.query("      ,sum(stock_amt     ) as stock_amt                                                                                        ")
+			.query("      ,sum(stock_po_amt  ) as stock_po_amt                                                                                     ")
+			.query("      ,sum(stock_sale_amt) as stock_sale_amt                                                                                   ")
+		;
+		data.param // 조건
+			.where("  from (                                                                                                                       ")
+			.where("select a.stor_id                                                                                                              ")
+			.where("      ,n.stor_nm                                                                                                              ")
+			.where("      ,i.vend_id                                                                                                               ")
+			.where("      ,v.vend_nm                                                                                                               ")
+			.where("      ,b.trans_qty                                                                                                             ")
+			.where("      ,b.trans_amt                                                                                                             ")
+			.where("      ,a.in_qty                                                                                                                ")
+			.where("      ,a.in_amt                                                                                                                ")
+			.where("      ,a.inret_qty                                                                                                             ")
+			.where("      ,a.inret_amt                                                                                                             ")
+			.where("      ,a.movein_qty                                                                                                            ")
+			.where("      ,a.movein_amt                                                                                                            ")
+			.where("      ,a.out_qty                                                                                                               ")
+			.where("      ,a.out_amt                                                                                                               ")
+			.where("      ,a.outret_qty                                                                                                            ")
+			.where("      ,a.outret_amt                                                                                                            ")
+			.where("      ,a.moveout_qty                                                                                                           ")
+			.where("      ,a.moveout_amt                                                                                                           ")
+			.where("      ,a.etcout_qty                                                                                                            ")
+			.where("      ,a.etcout_amt                                                                                                            ")
+			.where("      ,a.modi_qty                                                                                                              ")
+			.where("      ,a.modi_amt                                                                                                              ")
+			.where("      ,isnull(b.trans_qty, 0)+a.tot_qty as stock_qty                                                                              ")
+			.where("      ,isnull(b.trans_amt, 0)+a.tot_amt as stock_amt                                                                              ")
+			.where("      ,(isnull(b.trans_qty, 0)+a.tot_qty)*decode(s.po_pri, 0, i.po_pri, s.po_pri) as stock_po_amt                           ")
+			.where("      ,(isnull(b.trans_qty, 0)+a.tot_qty)*s.stad_sale_pri                                  as stock_sale_amt                         ")
+			.where("  from (                                                                                                                       ")
+			.where("       select a.stor_id                                                                                                       ")
+			.where("             ,a.item_idcd                                                                                                        ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', a.stock,      '2071302', a.stock,     '2071303', a.stock,      '2071304', a.stock,     '2071305', a.stock,     '2071306', a.stock,     0)) as tot_qty ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', -a.po_amount, '2071302', a.po_amount, '2071303', -a.po_amount, '2071304', a.po_amount, '2071305', a.po_amount, '2071306', a.po_amount, 0)) as tot_amt ")
+			.where("             ,sum(decode(a.inv_wk, '2071302', (case when a.qty>=0 then a.stock      else 0 end), 0)) as in_qty                 ")
+			.where("             ,sum(decode(a.inv_wk, '2071302', (case when a.qty>=0 then a.po_amount  else 0 end), 0)) as in_amt                 ")
+			.where("             ,sum(decode(a.inv_wk, '2071302', (case when a.qty< 0 then -a.stock     else 0 end), 0)) as inret_qty              ")
+			.where("             ,sum(decode(a.inv_wk, '2071302', (case when a.qty< 0 then -a.po_amount else 0 end), 0)) as inret_amt              ")
+			.where("             ,sum(decode(a.inv_wk, '2071304', a.stock, 0))                                           as movein_qty             ")
+			.where("             ,sum(decode(a.inv_wk, '2071304', a.po_amount, 0))                                       as movein_amt             ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', (case when a.qty>=0 then -a.stock     else 0 end), 0)) as out_qty                ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', (case when a.qty>=0 then a.po_amount  else 0 end), 0)) as out_amt                ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', (case when a.qty< 0 then a.stock      else 0 end), 0)) as outret_qty             ")
+			.where("             ,sum(decode(a.inv_wk, '2071301', (case when a.qty< 0 then -a.po_amount else 0 end), 0)) as outret_amt             ")
+			.where("             ,sum(decode(a.inv_wk, '2071303', -a.stock, 0))                                          as moveout_qty            ")
+			.where("             ,sum(decode(a.inv_wk, '2071303', a.po_amount, 0))                                       as moveout_amt            ")
+			.where("             ,sum(decode(a.inv_wk, '2071306', -a.stock, 0))                                          as etcout_qty             ")
+			.where("             ,sum(decode(a.inv_wk, '2071306', -a.po_amount, 0))                                      as etcout_amt             ")
+			.where("             ,sum(decode(a.inv_wk, '2071305', a.stock, 0))                                           as modi_qty               ")
+			.where("             ,sum(decode(a.inv_wk, '2071305', a.po_amount, 0))                                       as modi_amt               ")
+			.where("         from stock_ledger a                                                                                                   ")
+			.where("        where a.row_sts = 0                                                                                                  ")
+			.where("          and a.stor_grp = :stor_grp                                                                                           ", arg.fixParameter("stor_grp"))
+			.where("          and a.stor_id = :stor_id                                                                                           ", arg.getParameter("stor_id"))
+			.where("          and a.inv_dt between :fr_dt                                                                                          ", arg.fixParamText("fr_dt"))
+			.where("                           and :to_dt                                                                                          ", arg.fixParamText("to_dt"))
+			.where("        group by a.stor_id, a.item_idcd                                                                                         ")
+			.where("       ) a                                                                                                                     ")
+			.where("       left outer join                                                                                                         ")
+			.where("       (                                                                                                                       ")
+			.where("       select a.stor_id                                                                                                       ")
+			.where("             ,a.item_idcd                                                                                                        ")
+			.where("             ,decode(b.sum_month_qty, null, 0, a.sum_stock+b.sum_month_qty) as trans_qty                                       ")
+			.where("             ,decode(b.sum_month_amt, null, 0, a.sum_amt  +b.sum_month_amt) as trans_amt                                       ")
+			.where("         from (                                                                                                                ")
+			.where("              select a.stor_id                                                                                                ")
+			.where("                    ,a.item_idcd                                                                                                 ")
+			.where("                    ,sum(a.stock)            sum_stock                                                                         ")
+			.where("                    ,sum(a.stock*a.po_pri) sum_amt                                                                           ")
+			.where("                from stock_ledger a                                                                                            ")
+			.where("               where a.row_sts = 0                                                                                           ")
+			.where("                 and a.stor_grp = :stor_grp                                                                                    ", arg.fixParameter("stor_grp"))
+			.where("                 and a.stor_id = :stor_id                                                                                    ", arg.getParameter("stor_id"))
+			.where("                 and a.inv_dt between substr(:fr_dt, 1, 6)||'01'                                                               ", arg.fixParamText("fr_dt"))
+			.where("                                  and to_char(to_date(:fr_dt, 'yyyymmdd')-1, 'yyyymmdd')                                       ", arg.fixParamText("fr_dt"))
+			.where("               group by a.stor_id, a.item_idcd                                                                                  ")
+			.where("              ) a                                                                                                              ")
+			.where("              left outer join                                                                                                  ")
+			.where("              (                                                                                                                ")
+			.where("              select a.stor_id                                                                                                ")
+			.where("                    ,a.item_idcd                                                                                                 ")
+			.where("                    ,case                                                                                                      ")
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '01' then sum(a.base_qty_01)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '02' then sum(a.base_qty_02)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '03' then sum(a.base_qty_03)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '04' then sum(a.base_qty_04)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '05' then sum(a.base_qty_05)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '06' then sum(a.base_qty_06)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '07' then sum(a.base_qty_07)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '08' then sum(a.base_qty_08)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '09' then sum(a.base_qty_09)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '10' then sum(a.base_qty_10)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '11' then sum(a.base_qty_11)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '12' then sum(a.base_qty_12)          ", arg.fixParamText("fr_dt"))
+			.where("                     end as sum_month_qty                                                                                      ")
+			.where("                    ,case                                                                                                      ")
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '01' then sum(a.base_amt_01)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '02' then sum(a.base_amt_02)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '03' then sum(a.base_amt_03)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '04' then sum(a.base_amt_04)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '05' then sum(a.base_amt_05)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '06' then sum(a.base_amt_06)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '07' then sum(a.base_amt_07)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '08' then sum(a.base_amt_08)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '09' then sum(a.base_amt_09)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '10' then sum(a.base_amt_10)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '11' then sum(a.base_amt_11)          ", arg.fixParamText("fr_dt"))
+			.where("                       when to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'mm') = '12' then sum(a.base_amt_12)          ", arg.fixParamText("fr_dt"))
+			.where("                     end as sum_month_amt                                                                                      ")
+			.where("                from item_month a                                                                                              ")
+			.where("               where a.stor_grp = :stor_grp                                                                                    ", arg.fixParameter("stor_grp"))
+			.where("                 and a.stor_id = :stor_id                                                                                    ", arg.getParameter("stor_id"))
+			.where("                 and a.lock_yy = to_char(add_months(to_date(:fr_dt, 'yyyymmdd'), -1), 'yyyy')                                  ", arg.fixParamText("fr_dt"))
+			.where("               group by a.stor_id, a.item_idcd                                                                                  ")
+			.where("              ) b on b.stor_id = a.stor_id                                                                                   ")
+			.where("                 and b.item_idcd = a.item_idcd                                                                                     ")
+			.where("       ) b on b.stor_id = a.stor_id                                                                                          ")
+			.where("          and b.item_idcd = a.item_idcd                                                                                            ")
+			.where("       join store n                                                                                                            ")
+			.where("         on n.stor_id = a.stor_id                                                                                            ")
+			.where("       join itm_stor s                                                                                                       ")
+			.where("         on s.stor_id = a.stor_id                                                                                            ")
+			.where("        and s.item_idcd = a.item_idcd                                                                                              ")
+			.where("       left outer join itm_stock t                                                                                            ")
+			.where("         on t.stor_id = a.stor_id                                                                                            ")
+			.where("        and t.item_idcd = a.item_idcd                                                                                              ")
+			.where("       left outer join itm_mst i                                                                                             ")
+			.where("         on i.item_idcd = a.item_idcd                                                                                              ")
+			.where("       left outer join item_unit u                                                                                             ")
+			.where("         on u.unit_idcd = i.unit_idcd                                                                                              ")
+			.where("       left outer join base_mst m                                                                                             ")
+			.where("         on m.bas_id = i.mfg_id                                                                                               ")
+			.where("       left outer join vend_mst v                                                                                             ")
+			.where("         on v.vend_id = i.vend_id                                                                                              ")
+			.where("       left outer join itm_stor c                                                                                            ")
+			.where("         on c.stor_id = ''                                                                                                    ")
+			.where("        and c.item_idcd = a.item_idcd                                                                                              ")
+			.where(" where 1 = 1                                                                                                                   ")
+			.where("   and i.item_idcd = :item_idcd                                                                                                    ", arg.getParameter("item_idcd"))
+			.where("   and i.item_name like %:search_item_nm%                                                                                        ", arg.getParameter("search_item_nm"))
+			.where("   and i.item_sts = :item_sts                                                                                                  ", arg.getParameter("item_sts"))
+			.where("   and i.vend_id = :vend_id                                                                                                    ", arg.getParameter("vend_id"))
+			.where("   and i.class_id in ( select class_id from item_class start with class_id = :class_id connect by prior class_id = prnt_id ) ", arg.getParameter("class_id"))
+			.where("   and i.mfg_id = :mfg_id                                                                                                      ", arg.getParameter("mfg_id"))
+			.where("   and i.brand_id = :brand_id                                                                                                  ", arg.getParameter("brand_id"))
+		;
+		if ("false".equals(arg.getParamText("row_state_yn"))) {
+			data.param
+			.where("   and s.row_sts = 0                                                                                                         ")
+			;
+		}
+		if ("true".equals(arg.getParamText("has_stock_yn"))) {
+			data.param
+			.where("   and isnull(b.trans_qty, 0)+a.tot_qty > 0                                                                                       ")
+			;
+		}
+		if ("true".equals(arg.getParamText("sale_epo_yn"))) {
+			data.param
+			.where("   and s.sale_epo = '1'                                                                                                        ")
+			;
+		}
+		data.param
+			.where(" order by n.stor_id, i.item_idcd                                                                                                ")
+			.where("       )                                       ")
+			.where(" group by stor_id, stor_nm, vend_id, vend_nm ")
+			.where(" order by stor_id, stor_nm, vend_id, vend_nm ")
+		;
+		
+		if (page == 0 && rows == 0) {
+			return data.selectForMap(sort);
+		} else {
+			return data.selectForMap(page, rows, (page==1),sort);
+		}
+	}
+}

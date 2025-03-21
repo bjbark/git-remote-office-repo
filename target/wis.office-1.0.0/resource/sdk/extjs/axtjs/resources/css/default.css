@@ -1,0 +1,1379 @@
+@charset "utf-8";
+
+/* @font-face{font-family:NG;src:url(NanumGothic.eot);src:local(※),url(NanumGothic.woff) format('woff')} */
+
+/* @variables { */
+/* 	line_color: #99bce8; */
+/* } */
+
+/* .grid_line_left { border-left: solid #99bce8 1px; } */
+
+/* 폰트 적용 시작
+ * 사용할 폰트만 주석해제 해야한다. */
+
+/* 네이버 나눔고딕 폰트 */
+@font-face {
+   font-family: 'nanumgothic';
+   src: local(※),url('../fonts/NanumGothic.woff') format('woff');
+}
+/* 서울남산 장체 light */
+/* @font-face { */
+/*    font-family: 'seoulnamsanjangl'; */
+/*    src: local(※),url('../fonts/SeoulNamsanJangL.woff') format('woff'); */
+/* } */
+ 제주고딕체 */
+ @font-face {
+    font-family: 'jejugothic';
+    src: local(※),url('../fonts/JejuGothic.woff') format('woff');
+ }
+/* 네이버 나눔고딕 코딩체 폰트 */
+/* @font-face { */
+/*    font-family: 'nanumgothiccoding'; */
+/*    src: local(※),url('../fonts/NanumGothicCoding.woff') format('woff'); */
+/* } */
+
+.clock{
+	font-size: 3em !important;
+	font-weight: bold;
+	color:red;
+	background:black;
+	font-family:'jejugothic' !important;
+}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input:not(.textTemp),p:not(.textTemp),blockquote,th,td,span:not(.btnTemp),label:not(.textTemp),x-form-field:not(.textTemp) {
+	font-size  : 11px !important;
+	font-family:'nanumgothic' !important;
+}
+
+/*폰트 적용 끝*/
+
+/* textarea 메모 적용 (공통에서 예외처리된 부분을 추가) */
+.x-form-item, .x-form-field {
+	font-size  : 11px !important;
+	font-family:'nanumgothic' !important;
+}
+.x-fieldset-header{
+	margin:0px !important;
+}
+
+
+/* 읽기전용 필드 */
+.readonlyfield {
+	background-image: none;
+	background-color: #F2F2F2;
+	font-family:'nanumgothic' !important;
+}
+
+/* 필수입력필드 */
+.requiredfield {
+	background-image: none;
+	background-color: #F2F2F2;
+	font-size  : 11px !important;
+	font-family:'nanumgothic' !important;
+}
+
+/* #D5EFFD */
+
+/* 해당 화면의 KEY 필드 */
+.requiredindex {
+	background-image: none;
+	background-color: #D5EFFD;
+}
+
+
+/* 그리드 컬럼에 대해서 선택 되었을때...*/
+.x-grid-row .x-grid-cell-selected td {
+	background-color: #b8cfee !important;
+}
+/* 그리드 짝수 색상 */
+/* .x-grid-row-alt td{ */
+/* 	background-color : #DEDEDE ; */
+/* } */
+
+/* 그리드 컬럼중 수정 가능한 컬럼 */
+.editingcolumn {
+    background-color: #EFF5FB !important;
+}
+
+/* 그리드 컬럼중 수정 가능한 컬럼을 수정 불가능하게 표현하고자 할때  */
+.disablecolumn {
+    background-color: #F5F6CE !important;
+}
+/*
+.x-grid-row-summary {
+    background-color: #FFFFFF;
+}
+*/
+
+/* 그리드 summery 배경색 */
+.x-docked-summary {
+	background-color: #FFFFFF;
+}
+
+
+
+
+/*    #F5F6CE  연노랑  //	background-image: none; */
+
+
+
+
+/*  highlight */
+/*  primaryfield */
+
+
+/* 	FIELDS : {   참조 http://www.computerhope.com/htmcolor.htm */
+/* 		defaultReadOnly : 'background-color: #F2F2F2; background-image: none;' ,	 */
+/* 		primaryReadOnly : 'background-color: #D5EFFD; background-image: none;' */
+
+.hideCls{
+	display: none;
+}
+/* 필터 아이콘 */
+.filterIcon{
+	background: url(icon/filter.png) !important;
+	background-position: center;
+}
+
+.text-inner {
+	vertical-align:middle !important;
+}
+
+.text-warn {
+	color: red;
+	font-weight: bold;
+}
+
+.text-gray{
+	color: gray;
+}
+
+.text-blue{
+	color: blue;
+}
+
+.text-green{
+	color: green;
+}
+
+.back-lightgreen{
+	background-color: lightgreen;
+}
+
+.back-lightblue{
+	background-color: lightblue;
+}
+
+.line-plan .x-grid-cell{
+	background-color : #99ccff;
+	color: green;
+}
+
+.line-prod .x-grid-cell{
+	background-color : #ccff66;
+}
+
+.line-goods .x-grid-cell{
+	background-color : #ffa2e8;
+}
+
+.line-prod2 .x-grid-cell{
+	background-color : #d9ffcc;
+}
+
+.line-goods2 .x-grid-cell{
+	background-color : #ffe6ff;
+}
+.line-stock .x-grid-cell{
+	background-color : Yellow;
+}
+
+.line-month2 .x-grid-cell {
+	background-color : #d7ffb9;
+}
+
+.line-month3 .x-grid-cell{
+	background-color : #f4c8e4;
+}
+
+/**
+ * 거래명세서 설정팝업
+ */
+.invoice-red {
+	color : red;
+	font-weight: bold;
+	text-align: right;
+}
+
+.invoice-blue {
+	color : blue;
+	font-weight: bold;
+	text-align: right;
+}
+
+.invoice-green {
+	color : green;
+	font-weight: bold;
+	text-align: right;
+}
+
+.invoice-black {
+	color : black;
+	font-weight: bold;
+	text-align: right;
+}
+
+/* month picker bug */
+.x-monthpicker .x-monthpicker-buttons {
+	position: relative;
+}
+
+/**
+ * 주문 매출 검수 - 그리드 row height, font size
+ *	white-space: normal; - 줄바꿈 옵션
+ */
+.salecheck.x-grid-with-row-lines,.salecheck .x-grid-cell-inner {
+	line-height: 25px;
+	padding-bottom: 4px;
+	font-size: 13px !important;font-weight:bold;
+}
+
+/**
+ * form - font-size
+ */
+.salecheck-form {
+	font-size : 15px !important;
+}
+
+/**
+ * label - font-size, margin
+ */
+.salecheck-label {
+	line-height : 30px ;
+	font-size  : 15px !important;
+}
+
+/*
+	생산라인별 작업순서 btn child span의 사이즈 조정 및 색상조정
+*/
+.btnTemp{
+	font-family:'nanumgothic' !important;
+	color: white;
+	font-size:2em;
+}
+
+.write-button{
+	font-family:'nanumgothic' !important;
+	color: white;
+	font-size:11px;
+}
+.button-right{
+	right:0px !important;left:auto !important;
+}
+
+/*
+-------<  회사별로 정의되었던 css 를 특성별로 정의 함... 추후 추가 가능 함 >-----------
+*/
+
+
+.trigger-64-48{
+	width: 64px;
+    height: 48px;
+    border: 0;
+    background: url(icon/blob.jpg);
+    background-position: -64px -8px !important;
+}
+
+.smallclendarTrigger-28-29{
+	width: 28px;
+    height: 29px;
+    border: 0;
+    margin:0 6px;
+    background: url(icon/small-calendar.png);
+    background-position: -1px 0 !important;
+}
+
+
+.smallsearchTrigger-27-30{
+	width: 27px;
+    height: 30px;
+    margin: 0 6px;
+    border: 0;
+    background: url(icon/small-search.png);
+    background-position: -1px 0 !important;
+}
+.smalltimeTrigger-29-32{
+	width: 29px;
+    height: 32px;
+    margin: 0 6px;
+    border: 0;
+    background: url(icon/small-time.png);
+    background-position: -1px 0 !important;
+}
+.dateTrigger-48-48{
+	width: 48px;
+    height: 48px;
+    border: 0;
+    margin:0 10px;
+    background: url(icon/calendar.png);
+    background-position: -48px 0 !important;
+}
+
+
+
+.searchTrigger-48-48-10{
+	width: 48px;
+    height: 48px;
+    margin: 0 10px;
+    border: 0;
+    background: url(icon/search.png);
+    background-position: -48px 0 !important;
+}
+
+.searchTrigger-48-20-10{
+	width: 48px;
+    height: 20px;
+    margin: 0 10px;
+    border: 0;
+    background: url(icon/search.png);
+    background-position: -48px 0 !important;
+}
+
+
+.field-c-25{
+	text-align:center;
+	font-size:25px;
+}
+
+.field-c-27{
+	text-align:center;
+	font-size:27px;
+}
+
+.field-c-28{
+	text-align:center;
+	font-size:28px;
+}
+
+.field-c-33{
+	text-align:center;
+	font-size:33px;
+}
+
+.field-c-80{
+	text-align:center;
+	font-size:80px;
+}
+
+.label-39-25{
+	line-height: 39px;
+	font-size:25px;
+	text-align:right;
+}
+
+.label-41-25{
+	line-height: 41px;
+	font-size:25px;
+	text-align:right;
+}
+
+.label-41-27{
+	line-height: 41px;
+	font-size:27px;
+	text-align:right;
+}
+
+.label-41-30{
+	line-height: 41px;
+	font-size:30px;
+	text-align:right;
+}
+
+.item-3{
+	font-size:3em !important;
+	text-align:center;
+}
+
+.grid-15 .x-column-header-text{
+	font-size: 15px !important;
+	font: normal 12px/18px tahoma,arial,verdana,sans-serif;
+}
+
+.grid-17 .x-column-header-text{
+	font-size: 17px !important;
+	font: normal 12px/18px tahoma,arial,verdana,sans-serif;
+}
+
+.grid-38 .x-box-inner{
+	height:38px;
+}
+
+.cell-13 .x-grid-cell-inner {
+	line-height:normal;
+	font-size:13px !important;
+	font-weight:bold;
+	color:#00007c;
+}
+
+.cell-15 .x-grid-cell-inner {
+	line-height:normal;
+	font-size:15px !important;
+	font-weight:bold;
+	color:#00007c;
+}
+.cell-17 .x-grid-cell-inner {
+	line-height:normal;
+	font-size:17px !important;
+	font-weight:bold;
+	color:#00007c;
+}
+
+
+.iteminfo-41-20{
+	line-height: 41px;
+	font-size:20px;
+	text-align:right;
+}
+
+.iteminfoPopupfield-23{
+	text-align:center;
+	font-size:23px;
+}
+
+.smallgrid-12 .x-column-header-text{
+	font-size: 12px !important;
+	font: normal 12px/18px tahoma,arial,verdana,sans-serif;
+}
+
+.Popupfield-27{
+	text-align:center;
+	font-size:27px;
+}
+
+/*
+-------<  여기까지 재 정의 함  >-----------
+*/
+
+
+/*
+	WINFO
+ */
+.N1000WINFOtrigger{
+	width: 64px;
+    height: 48px;
+    border: 0;
+    background: url(icon/blob.jpg);
+    background-position: -64px -8px !important;
+}
+.N1000WINFOgrid .x-column-header-text{
+	font-size: 15px !important;
+	font: normal 12px/18px tahoma,arial,verdana,sans-serif;
+}
+.N1000WINFOgrid .x-box-inner{
+	height:38px;
+}
+.N1000WINFOcell .x-grid-cell-inner {
+	line-height:normal;
+	font-size:15px !important;
+	font-weight:bold;
+	color:#00007c;
+}
+.N1000WINFOitem{
+	font-size:3em !important;
+	text-align:center;
+}
+.N1000WINFOlabel{
+	line-height: 41px;
+	font-size:25px;
+	text-align:right;
+}
+.N1000WINFOiteminfo{
+	line-height: 41px;
+	font-size:20px;
+	text-align:right;
+}
+.N1000WINFOiteminfoPopupfield{
+	text-align:center;
+	font-size:23px;
+}
+.N1000WINFOdateTrigger{
+	width: 48px;
+    height: 48px;
+    border: 0;
+    margin:0 10px;
+    background: url(icon/calendar.png);
+    background-position: -48px 0 !important;
+}
+.N1000WINFOsearchTrigger{
+	width: 48px;
+    height: 48px;
+    margin: 0 10px;
+    border: 0;
+    background: url(icon/search.png);
+    background-position: -48px 0 !important;
+}
+.N1000WINFOsmallclendarTrigger{
+	width: 28px;
+    height: 29px;
+    border: 0;
+    margin:0 6px;
+    background: url(icon/small-calendar.png);
+    background-position: -1px 0 !important;
+}
+.N1000WINFOsmallsearchTrigger{
+	width: 27px;
+    height: 30px;
+    margin: 0 6px;
+    border: 0;
+    background: url(icon/small-search.png);
+    background-position: -1px 0 !important;
+}
+.N1000WINFOsmalltimeTrigger{
+	width: 29px;
+    height: 32px;
+    margin: 0 6px;
+    border: 0;
+    background: url(icon/small-time.png);
+    background-position: -1px 0 !important;
+}
+.N1000WINFOsmallgrid .x-column-header-text{
+	font-size: 12px !important;
+	font: normal 12px/18px tahoma,arial,verdana,sans-serif;
+}
+
+.N1000WINFOlabel{
+	line-height: 41px;
+	font-size:25px;
+	text-align:right;
+}
+
+.N1000WINFOlabel1{
+	line-height: 41px;
+	font-size:27px;
+	text-align:right;
+}
+
+.N1000WINFOfield1{
+	text-align:center;
+	font-size:28px;
+}
+
+.N1000WINFOfield{
+	text-align:center;
+	font-size:33px;
+}
+
+.N1000WINFOPopupfield{
+	text-align:center;
+	font-size:27px;
+}
+
+/*
+	DOOIN
+ */
+.N1000DOOINiteminfo{
+	line-height: 41px;
+	font-size:18px;
+	text-align:right;
+}
+.N1000DOOINiteminfoPopupfield{
+	text-align:center;
+	font-size:19px;
+}
+
+.N1000DOOINtrigger{
+	width: 64px;
+    height: 48px;
+    border: 0;
+    background: url(icon/blob.jpg);
+    background-position: -64px -8px !important;
+}
+.N1000DOOINgrid .x-column-header-text{
+	font-size: 15px !important;
+	font: normal 12px/18px tahoma,arial,verdana,sans-serif;
+}
+.N1000DOOINgrid .x-box-inner{
+	height:38px;
+}
+.N1000DOOINcell .x-grid-cell-inner {
+	line-height:normal;
+	font-size:15px !important;
+	font-weight:bold;
+	color:#00007c;
+}
+.N1000DOOINitem{
+	font-size:2.5em !important;
+	text-align:center;
+}
+.N1000DOOINlabel{
+	line-height: 39px;
+	font-size:25px;
+	text-align:right;
+}
+
+.N1000DOOINlabel1{
+	line-height: 41px;
+	font-size:27px;
+	text-align:right;
+}
+
+.N1000DOOINfield1{
+	text-align:center;
+	font-size:28px;
+}
+
+.N1000DOOINPopupfield{
+	text-align:center;
+	font-size:27px;
+}
+
+.N1000DOOINfield{
+	text-align:center;
+	font-size:25px;
+}
+.N1000DOOINdateTrigger{
+	width: 48px;
+    height: 48px;
+    border: 0;
+    margin:0 10px;
+    background: url(icon/calendar.png);
+    background-position: -48px 0 !important;
+}
+.N1000DOOINsearchTrigger{
+	width: 48px;
+    height: 48px;
+    margin: 0 10px;
+    border: 0;
+    background: url(icon/search.png);
+    background-position: -48px 0 !important;
+}
+
+
+/*
+	DOWON
+ */
+.N1000DOWONtrigger{
+	width: 64px;
+    height: 48px;
+    border: 0;
+    background: url(icon/blob.jpg);
+    background-position: -64px -8px !important;
+}
+.N1000DOWONgrid .x-column-header-text{
+	font-size: 17px !important;
+	font: normal 12px/18px tahoma,arial,verdana,sans-serif;
+}
+.N1000DOWONgrid .x-box-inner{
+	height:38px;
+}
+.N1000DOWONcell .x-grid-cell-inner {
+	line-height:normal;
+	font-size:17px !important;
+	font-weight:bold;
+	color:#00007c;
+}
+.N1000DOWONitem{
+	font-size:3em !important;
+	text-align:center;
+}
+.N1000DOWONlabel{
+	line-height: 41px;
+	font-size:30px;
+	text-align:right;
+}
+.N1000DOWONfield{
+	text-align:center;
+	font-size:33px;
+}
+.N1000DOWONdateTrigger{
+	width: 48px;
+    height: 48px;
+    border: 0;
+    margin:0 10px;
+    background: url(icon/calendar.png);
+    background-position: -48px 0 !important;
+}
+.N1000DOWONsearchTrigger{
+	width: 48px;
+    height: 48px;
+    margin: 0 10px;
+    border: 0;
+    background: url(icon/search.png);
+    background-position: -48px 0 !important;
+}
+
+
+/*
+	WONTC
+ */
+.N1000WONTCtrigger{
+	width: 64px;
+    height: 48px;
+    border: 0;
+    background: url(icon/blob.jpg);
+    background-position: -64px -8px !important;
+}
+.N1000WONTCgrid .x-column-header-text{
+	font-size: 17px !important;
+	font: normal 12px/18px tahoma,arial,verdana,sans-serif;
+}
+.N1000WONTCgrid .x-box-inner{
+	height:38px;
+}
+.N1000WONTCcell .x-grid-cell-inner {
+	line-height:normal;
+	font-size:17px !important;
+	font-weight:bold;
+	color:#00007c;
+}
+.N1000WONTCitem{
+	font-size:2em !important;
+	text-align:center;
+}
+.N1000WONTClabel{
+	line-height: 45px;
+	font-size:20px;
+	text-align:right;
+}
+.N1000WONTCfield{
+	text-align:center;
+	font-size:20px;
+}
+.N1000WONTCdateTrigger{
+	width: 48px;
+    height: 48px;
+    border: 0;
+    margin:0 10px;
+    background: url(icon/calendar.png);
+    background-position: -48px 0 !important;
+}
+.N1000WONTCsearchTrigger{
+	width: 48px;
+    height: 48px;
+    margin: 0 10px;
+    border: 0;
+    background: url(icon/search.png);
+    background-position: -48px 0 !important;
+}
+
+
+/*
+	NBOLT
+ */
+.N1000NBOLTtrigger{
+	width: 64px;
+    height: 48px;
+    border: 0;
+    background: url(icon/blob.jpg);
+    background-position: -64px -8px !important;
+}
+.N1000NBOLTgrid .x-column-header-text{
+	font-size: 17px !important;
+	font: normal 12px/18px tahoma,arial,verdana,sans-serif;
+}
+.N1000NBOLTgrid .x-box-inner{
+	height:38px;
+}
+.N1000NBOLTcell .x-grid-cell-inner {
+	line-height:normal;
+	font-size:18px !important;
+	font-weight:bold;
+	color:#00007c;
+}
+.N1000NBOLTitem{
+	font-size:3em !important;
+	text-align:center;
+}
+.N1000NBOLTlabel{
+	line-height: 39px;
+	font-size:25px;
+	text-align:right;
+}
+.N1000NBOLTfield{
+	text-align:center;
+	font-size:25px;
+}
+.N1000NBOLTiteminfo{
+	line-height: 41px;
+	font-size:18px;
+	text-align:right;
+}
+.N1000NBOLTiteminfoPopupfield{
+	text-align:center;
+	font-size:19px;
+}
+.N1000NBOLTlabel1{
+	line-height: 41px;
+	font-size:27px;
+	text-align:right;
+}
+
+.N1000NBOLTPopupfield{
+	text-align:center;
+	font-size:27px;
+}
+.N1000NBOLTdateTrigger{
+	width: 48px;
+    height: 48px;
+    border: 0;
+    margin:0 10px;
+    background: url(icon/calendar.png);
+    background-position: -48px 0 !important;
+}
+.N1000NBOLTsearchTrigger{
+	width: 48px;
+    height: 48px;
+    margin: 0 10px;
+    border: 0;
+    background: url(icon/search.png);
+    background-position: -48px 0 !important;
+}
+.N1000NBOLTsmallclendarTrigger{
+	width: 28px;
+    height: 29px;
+    border: 0;
+    margin:0 6px;
+    background: url(icon/small-calendar.png);
+    background-position: -1px 0 !important;
+}
+.N1000NBOLTsmallsearchTrigger{
+	width: 27px;
+    height: 30px;
+    margin: 0 6px;
+    border: 0;
+    background: url(icon/small-search.png);
+    background-position: -1px 0 !important;
+}
+.N1000NBOLTsmalltimeTrigger{
+	width: 29px;
+    height: 32px;
+    margin: 0 6px;
+    border: 0;
+    background: url(icon/small-time.png);
+    background-position: -1px 0 !important;
+}
+.N1000NBOLTsmallgrid .x-column-header-text{
+	font-size: 12px !important;
+	font: normal 12px/18px tahoma,arial,verdana,sans-serif;
+}
+
+
+
+/*
+	N1000KORTC
+ */
+.N1000KORTCiteminfo{
+	line-height: 41px;
+	font-size:18px;
+	text-align:right;
+}
+.N1000KORTCiteminfoPopupfield{
+	text-align:center;
+	font-size:19px;
+}
+
+.N1000KORTCtrigger{
+	width: 64px;
+    height: 48px;
+    border: 0;
+    background: url(icon/blob.jpg);
+    background-position: -64px -8px !important;
+}
+.N1000KORTCgrid .x-column-header-text{
+	font-size: 15px !important;
+	font: normal 12px/18px tahoma,arial,verdana,sans-serif;
+}
+.N1000KORTCgrid .x-box-inner{
+	height:38px;
+}
+.N1000KORTCcell .x-grid-cell-inner {
+	line-height:normal;
+	font-size:15px !important;
+	font-weight:bold;
+	color:#00007c;
+}
+.N1000KORTCitem{
+	font-size:2.5em !important;
+	text-align:center;
+}
+.N1000KORTClabel{
+	line-height: 39px;
+	font-size:25px;
+	text-align:right;
+}
+
+.N1000KORTClabel1{
+	line-height: 41px;
+	font-size:27px;
+	text-align:right;
+}
+
+.N1000KORTCfield1{
+	text-align:center;
+	font-size:28px;
+}
+
+.N1000KORTCPopupfield{
+	text-align:center;
+	font-size:27px;
+}
+
+.N1000KORTCfield{
+	text-align:center;
+	font-size:25px;
+}
+.N1000KORTCdateTrigger{
+	width: 48px;
+    height: 48px;
+    border: 0;
+    margin:0 10px;
+    background: url(icon/calendar.png);
+    background-position: -48px 0 !important;
+}
+.N1000KORTCNsearchTrigger{
+	width: 48px;
+    height: 48px;
+    margin: 0 10px;
+    border: 0;
+    background: url(icon/search.png);
+    background-position: -48px 0 !important;
+}
+
+
+
+
+
+
+
+/* middle */
+
+.Middleiteminfo{
+	line-height: 41px;
+	font-size:18px;
+	text-align:right;
+}
+.MiddleiteminfoPopupfield{
+	text-align:center;
+	font-size:19px;
+}
+
+.Middletrigger{
+	width: 64px;
+    height: 48px;
+    border: 0;
+    background: url(icon/blob.jpg);
+    background-position: -64px -8px !important;
+}
+.Middlegrid .x-column-header-text{
+	font-size: 15px !important;
+	font: normal 12px/18px tahoma,arial,verdana,sans-serif;
+}
+.Middlegrid .x-box-inner{
+	height:38px;
+}
+.Middlecell .x-grid-cell-inner {
+	line-height:normal;
+	font-size:15px !important;
+	font-weight:bold;
+	color:#00007c;
+}
+.Middlegrid2 .x-column-header-text{
+	font-size: 20px !important;
+	font: normal 15px/20px tahoma,arial,verdana,sans-serif;
+}
+.Middlegrid2 .x-box-inner{
+	height:50px;
+}
+.Middlecell2 .x-grid-cell-inner {
+	line-height:normal;
+	font-size:20px !important;
+	font-weight:bold;
+	color:#00007c;
+}
+.Middleitem{
+	font-size:2.5em !important;
+	text-align:center;
+}
+.Middlelabel{
+	line-height: 39px;
+	font-size:25px;
+	text-align:right;
+}
+
+.Middlelabel1{
+	line-height: 41px;
+	font-size:27px;
+	text-align:right;
+}
+
+.Middlefield1{
+	text-align:center;
+	font-size:28px;
+}
+
+.MiddlePopupfield{
+	text-align:center;
+	font-size:27px;
+}
+
+.Middlefield{
+	text-align:center;
+	font-size:25px;
+}
+.MiddledateTrigger{
+	width: 48px;
+    height: 48px;
+    border: 0;
+    margin:0 10px;
+    background: url(icon/calendar.png);
+    background-position: -48px 0 !important;
+}
+.MiddlesearchTrigger{
+	width: 48px;
+    height: 48px;
+    margin: 0 10px;
+    border: 0;
+    background: url(icon/search.png);
+    background-position: -48px 0 !important;
+}
+
+
+
+
+/* eis */
+
+#eisDetailDock-body{
+	background-color: white;
+}
+#eisDetailLookup-body{
+	border:0px;
+}
+#eisDetailLookup-targetEl .textTemp{
+	font-weight: bold;
+}
+
+.Eisgrid .x-box-inner{
+	height:38px;
+}
+.Eiscell .x-grid-cell-inner {
+	line-height:normal;
+	font-size:30px !important;
+	font-weight:bold;
+	color:#00007c;
+}
+.EiscellSmall .x-grid-cell-inner {
+	line-height:normal;
+	font-size:20px !important;
+	font-weight:bold;
+	color:#00007c;
+}
+.Eisgrid .x-column-header-text{
+	font-size: 20px !important;
+	font: normal 12px/18px tahoma,arial,verdana,sans-serif;
+}
+
+.Eisgrid2 .x-column-header-text{
+	font-size: 30px !important;
+	font: normal 23px/29px tahoma,arial,verdana,sans-serif;
+}
+
+/* bom keypad button ( 한탑 키패드 )*/
+
+.hntop_number_0{
+	 background:transparent url(../img/icon/keypad/0.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_1{
+	 background:transparent url(../img/icon/keypad/1.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_2{
+	 background:transparent url(../img/icon/keypad/2.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_3{
+	 background:transparent url(../img/icon/keypad/3.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_4{
+	 background:transparent url(../img/icon/keypad/4.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_5{
+	 background:transparent url(../img/icon/keypad/5.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_6{
+	 background:transparent url(../img/icon/keypad/6.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_7{
+	 background:transparent url(../img/icon/keypad/7.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_8{
+	 background:transparent url(../img/icon/keypad/8.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_9{
+	 background:transparent url(../img/icon/keypad/9.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_avg{
+	 background:transparent url(../img/icon/keypad/avg.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_bfh{
+	 background:transparent url(../img/icon/keypad/bfh.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_bft{
+	 background:transparent url(../img/icon/keypad/bft.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_bfw{
+	 background:transparent url(../img/icon/keypad/bfw.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_clr{
+	 background:transparent url(../img/icon/keypad/clr.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_dcnt{
+	 background:transparent url(../img/icon/keypad/dcnt.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_gfix{
+	 background:transparent url(../img/icon/keypad/gfix.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_if{
+	 background:transparent url(../img/icon/keypad/if.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_mccnt{
+	 background:transparent url(../img/icon/keypad/mccnt.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_mfh{
+	 background:transparent url(../img/icon/keypad/mfh.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_mfw{
+	 background:transparent url(../img/icon/keypad/mfw.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_min{
+	 background:transparent url(../img/icon/keypad/min.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_mul{
+	 background:transparent url(../img/icon/keypad/mul.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_mwc{
+	 background:transparent url(../img/icon/keypad/mwc.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_par1{
+	 background:transparent url(../img/icon/keypad/par1.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_par2{
+	 background:transparent url(../img/icon/keypad/par2.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_plus{
+	 background:transparent url(../img/icon/keypad/plus.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_point{
+	 background:transparent url(../img/icon/keypad/point.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_sfh{
+	 background:transparent url(../img/icon/keypad/sfh.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_sft{
+	 background:transparent url(../img/icon/keypad/sft.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_sfw{
+	 background:transparent url(../img/icon/keypad/sfw.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_spot{
+	 background:transparent url(../img/icon/keypad/spot.JPG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_enter{
+	 background:transparent url(../img/icon/keypad/enter.PNG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_cancel{
+	 background:transparent url(../img/icon/keypad/cancel.PNG);
+	 background-size: 100% 100%;
+}
+
+.hntop_number_del{
+	 background:transparent url(../img/icon/keypad/del.PNG);
+	 background-size: 100% 100%;
+}
+
+
+
+/* number button ( 숫자버튼 )*/
+
+.number_1{
+	 background:transparent url(../img/icon/number/num_1.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_2{
+	 background:transparent url(../img/icon/number/num_2.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_3{
+	 background:transparent url(../img/icon/number/num_3.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_4{
+	 background:transparent url(../img/icon/number/num_4.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_5{
+	 background:transparent url(../img/icon/number/num_5.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_6{
+	 background:transparent url(../img/icon/number/num_6.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_7{
+	 background:transparent url(../img/icon/number/num_7.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_8{
+	 background:transparent url(../img/icon/number/num_8.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_9{
+	 background:transparent url(../img/icon/number/num_9.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_0{
+	 background:transparent url(../img/icon/number/num_0.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_1 a:hober{
+	 background:transparent url(../img/icon/number/number_1_2.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_2 .x_btn_over{
+	 background:transparent url(../img/icon/number/number_2_2.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_3 .x_btn_over{
+	 background:transparent url(../img/icon/number/number_3_2.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_4 .x_btn_over{
+	 background:transparent url(../img/icon/number/number_4_2.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_5 .x_btn_over{
+	 background:transparent url(../img/icon/number/number_5_2.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_6 .x_btn_over{
+	 background:transparent url(../img/icon/number/number_6_2.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_7 .x_btn_over{
+	 background:transparent url(../img/icon/number/number_7_2.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_8 .x_btn_over{
+	 background:transparent url(../img/icon/number/number_8_2.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_9 .x_btn_over{
+	 background:transparent url(../img/icon/number/number_9_2.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.number_0 .x_btn_over{
+	 background:transparent url(../img/icon/number/number_0_2.png);
+	 background-size: 100% 100%;
+/* 	border: 1px thin blue; */
+}
+.button_clear{
+	 background:transparent url(../img/icon/number/num_clr.png);
+	 background-size: 100% 100%;
+}
+.button_enter{
+	 background:transparent url(../img/icon/number/num_ent.png);
+	 background-size: 100% 100%;
+}
+.button_cancle{
+	 background:transparent url(../img/icon/number/num_cnl.png);
+	 background-size: 100% 100%;
+}
+.clear_left{
+	 background:transparent url(../img/icon/number/num_del.png);
+	 background-size: 100% 100%;
+}
+.dot{
+	 background:transparent url(../img/icon/number/dot.png);
+	 background-size: 100% 100%;
+}

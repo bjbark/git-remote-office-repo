@@ -1,0 +1,170 @@
+<html>
+<head>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+
+<form name="the_form">
+	<table>
+		<tbody>
+		<tr>
+			<td nowrap="">String to encrypt: <input type="text" name="str" size="32"></td>
+			<td colspan="2"><input type="button" onclick="xor_str()" value="Encrypt"></td>
+		</tr>
+		<tr>
+			<td nowrap="">Encrypted string:&nbsp;&nbsp;<input type="text" name="res" size="32"></td>
+			<td><input type="button" onclick="decrypt_str()" value="Decrypt"></td>
+		</tr>
+		<tr>
+			<td calspan="3"><input type="text" name="dec_res" size="32"></td>
+		</tr>
+		</tbody>
+	</table>
+</form>
+
+<script>
+
+
+var Base64 = {
+	_keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+	
+	encode : function (input) {
+		var output = "";
+		var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+		var i = 0;
+ 		input = Base64._utf8_encode(input);
+ 		while (i < input.length) {
+ 			chr1 = input.charCodeAt(i++);
+			chr2 = input.charCodeAt(i++);
+			chr3 = input.charCodeAt(i++);
+ 			enc1 = chr1 >> 2;
+			enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+			enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+			enc4 = chr3 & 63;
+ 			if (isNaN(chr2)) {
+				enc3 = enc4 = 64;
+			} else if (isNaN(chr3)) {
+				enc4 = 64;
+			}
+ 			output = output +
+			this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) + this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+ 		}
+ 		return output;
+	},
+	
+	decode : function (input) {
+		var output = "";
+		var chr1, chr2, chr3;
+		var enc1, enc2, enc3, enc4;
+		var i = 0;
+ 
+		input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+ 
+		while (i < input.length) {
+			enc1 = this._keyStr.indexOf(input.charAt(i++));
+			enc2 = this._keyStr.indexOf(input.charAt(i++));
+			enc3 = this._keyStr.indexOf(input.charAt(i++));
+			enc4 = this._keyStr.indexOf(input.charAt(i++));
+			
+			chr1 = (enc1 << 2) | (enc2 >> 4);
+			chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+			chr3 = ((enc3 & 3) << 6) | enc4;
+ 
+			output = output + String.fromCharCode(chr1);
+			if (enc3 != 64) {
+				output = output + String.fromCharCode(chr2);
+			}
+			if (enc4 != 64) {
+				output = output + String.fromCharCode(chr3);
+			}
+		}
+		output = Base64._utf8_decode(output);
+		return output;
+	},
+ 
+	// private method for UTF-8 encoding
+	_utf8_encode : function (string) {
+		string = string.replace(/\r\n/g,"\n");
+		var utftext = "";
+		for (var n = 0; n < string.length; n++) {
+			var c = string.charCodeAt(n);
+			if (c < 128) {
+				utftext += String.fromCharCode(c);
+			}
+			else if((c > 127) && (c < 2048)) {
+				utftext += String.fromCharCode((c >> 6) | 192);
+				utftext += String.fromCharCode((c & 63) | 128);
+			}
+			else {
+				utftext += String.fromCharCode((c >> 12) | 224);
+				utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+				utftext += String.fromCharCode((c & 63) | 128);
+			}
+		}
+		return utftext;
+	},
+ 
+	// private method for UTF-8 decoding
+	_utf8_decode : function (utftext) {
+		var string = "";
+		var i = 0;
+		var c = c1 = c2 = 0;
+		while ( i < utftext.length ) {
+			c = utftext.charCodeAt(i);
+			if (c < 128) {
+				string += String.fromCharCode(c);
+				i++;
+			}
+			else if((c > 191) && (c < 224)) {
+				c2 = utftext.charCodeAt(i+1);
+				string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+				i += 2;
+			}
+			else {
+				c2 = utftext.charCodeAt(i+1);
+				c3 = utftext.charCodeAt(i+2);
+				string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+				i += 3;
+			}
+		}
+		return string;
+	}
+}
+
+function encryptString(str)
+{
+	var xor_key=173;
+	var the_res='';
+	for(i=0;i<str.length;++i)
+	{
+		the_res+=String.fromCharCode(xor_key^str.charCodeAt(i));
+	}
+	return Base64.encode(the_res);
+}
+
+function decryptString(str)
+{
+	var to_dec=Base64.decode(str), result='';
+	var xor_key=173;
+	for(i=0;i<to_dec.length;i++)
+	{
+		result+=String.fromCharCode(xor_key^to_dec.charCodeAt(i));
+	}
+	return result;
+}
+
+function xor_str()
+{
+	var to_enc = document.forms['the_form'].elements["str"].value;
+	document.forms['the_form'].elements['res'].value=encryptString(to_enc);
+}
+function decrypt_str()
+{
+	var to_enc = document.forms['the_form'].elements["res"].value;
+	document.forms['the_form'].elements.dec_res.value="";
+	document.forms['the_form'].elements['dec_res'].value=decryptString(to_enc);
+}
+
+</script>
+</body>
+</html>

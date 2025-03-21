@@ -1,0 +1,73 @@
+Ext.define( 'module.custom.sjflv.sale.sale.salework.model.SaleWorkListerDetail2', { extend : 'Axt.data.Model',
+	fields: [
+		{	name: 'invc_numb'			, type: 'string'	/* INVOICE번호		*/
+		},{	name: 'line_seqn'			, type: 'float '	/* 순번				*/
+		},{	name: 'acpt_numb'			, type: 'string'	/* acpt번호			*/
+		},{	name: 'acpt_seqn'			, type: 'float '	/* acpt순번			*/
+		},{	name: 'item_idcd'			, type: 'string'	/* 품목ID			*/
+		},{	name: 'sale_unit'			, type: 'string'	/* 판매단위			*/
+		},{	name: 'norm_sale_pric'		, type: 'float '	/* 정상판매단가		*/
+		},{	name: 'sale_stnd_pric'		, type: 'float '	/* 판매기준단가		*/
+		},{	name: 'sale_pric'			, type: 'float '	/* 판매단가			*/
+		},{	name: 'ostt_qntt'			, type: 'float '	/* 출고수량			*/
+		},{	name: 'vatx_incl_yorn'		, type: 'string'	/* 부가세포함여부		*/
+		},{	name: 'vatx_rate'			, type: 'string'	/* 부가세율			*/
+		},{	name: 'sale_amnt'			, type: 'float '	/* 판매금액			*/
+		},{	name: 'vatx_amnt'			, type: 'float '	/* 부가세금액			*/
+		},{	name: 'ttsm_amnt'			, type: 'float '	/* 합계금액			*/
+		},{	name: 'deli_date'			, type: 'string'	/* 납기일자			*/
+		},{	name: 'dlvy_date'			, type: 'string'	/* 납품일자			*/
+		},{	name: 'dlvy_hhmm'			, type: 'string'	/* 납품시분			*/
+		},{	name: 'stnd_unit'			, type: 'string'	/* 					*/
+		},{	name: 'stnd_unit_qntt'		, type: 'string'	/* 기준단위수량		*/
+		},{	name: 'wrhs_idcd'			, type: 'string'	/* 창고ID			*/
+		},{	name: 'zone_idcd'			, type: 'string'	/* 구역ID			*/
+		},{	name: 'dlvy_cstm_idcd'		, type: 'string'	/* 납품거래처ID		*/
+		},{	name: 'dsct_yorn'			, type: 'string'	/* 중단여부			*/
+		},{	name: 'ostt_dvcd'			, type: 'string'	/* 출고구분코드		*/
+		},{	name: 'insp_dvcd'			, type: 'string'	/* 검사구분코드		*/
+		},{	name: 'insp_date'			, type: 'string'	/* 검사일자			*/
+		},{	name: 'pcod_numb'			, type: 'string'	/* PONO				*/
+		},{	name: 'rett_date'			, type: 'string'	/* 반품일자			*/
+		},{	name: 'rett_resn_dvcd'		, type: 'string'	/* 반품사유구분코드	*/
+		},{	name: 'rett_qntt'			, type: 'float '	/* 반품수량			*/
+		},{	name: 'rett_drtr_idcd'		, type: 'string'	/* 반품담당자ID		*/
+		},{	name: 'rqod_date'			, type: 'string'	/* 청구일자			*/
+		},{	name: 'rqod_invc_numb'		, type: 'string'	/* 청구INVOICE번호	*/
+		},{	name: 'rqod_qntt'			, type: 'float '	/* 청구수량			*/
+		},{	name: 'sale_date'			, type: 'string'	/* 판매일자			*/
+		},{	name: 'sale_invc_numb'		, type: 'string'	/* 판매INVOICE번호	*/
+		},{	name: 'sale_qntt'			, type: 'string'	/* 판매수량			*/
+		},{	name: 'lott_numb'			, type: 'string'	/* LOT번호			*/
+		},{	name: 'orig_invc_numb'		, type: 'string'	/* 원INVOICE번호		*/
+		},{	name: 'orig_seqn'			, type: 'float '	/* 원순번			*/
+		},{	name: 'json_data'			, type: 'string'	/* JSONDATA			*/
+		},{	name: 'uper_seqn'			, type: 'float '	/* 상위순번			*/
+		},{	name: 'disp_seqn'			, type: 'float '	/* 표시순번			*/
+		},{	name: 'item_code'			, type: 'string'	/* 품목코드			*/
+		},{	name: 'item_name'			, type: 'string'	/* 품명				*/
+		},{	name: 'item_spec'			, type: 'string'	/* 규격				*/
+		},{	name: 'unit_name'			, type: 'string'	/* 단위명			*/
+
+		},{	name: 'user_memo'			, type: 'string'	/* 사용자메모	*/
+		},{	name: 'sysm_memo'			, type: 'string'	/* 시스템메모	*/
+		},{	name: 'prnt_idcd'			, type: 'string'	/* 부모ID		*/
+		},{	name: 'line_levl'			, type: 'float'		/* ROW레벨	*/ , defaultValue : 0
+		},{	name: 'line_ordr'			, type: 'float'		/* ROW순서	*/ , defaultValue : 0
+		},{	name: 'line_stat'			, type: 'string'	/* ROW상태	*/ , defaultValue: '0'
+		},{	name: 'line_clos'			, type: 'string'	/* ROW마감	*/
+		},{	name: 'find_name'			, type: 'string'	/* 찾기명		*/
+		},{	name: 'updt_user_name'		, type: 'string'	/* 수정사용자명	*/
+		},{	name: 'updt_ipad'			, type: 'string'	/* 수정IP		*/
+		},{	name: 'updt_dttm'			, type: 'string'	/* 수정일시		*/ , convert : Ext.util.Format.strToDateTime
+		},{	name: 'updt_idcd'			, type: 'string'	/* 수정ID		*/ , defaultValue: _global.login_pk
+		},{	name: 'updt_urif'			, type: 'string'	/* 수정UI		*/
+		},{	name: 'crte_user_name'		, type: 'string'	/* 생성사용자명	*/
+		},{	name: 'crte_ipad'			, type: 'string'	/* 생성IP		*/
+		},{	name: 'crte_dttm'			, type: 'string'	/* 생성일시		*/ , convert : Ext.util.Format.strToDateTime
+		},{	name: 'crte_idcd'			, type: 'string'	/* 생성ID		*/ , defaultValue: _global.login_pk
+		},{	name: 'crte_urif'			, type: 'string'	/* 생성UI		*/
+		},{	name: 'crte_urif'			, type: 'string'	/* 생성UI		*/
+		}
+	]
+});

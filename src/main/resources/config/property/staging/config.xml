@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<!--
+#######################################
+#
+#     공용 설정 정보
+#
+#######################################
+ -->
+<properties>
+	<entry key="databasePropertiesHost">NETHOSTING</entry>
+	<entry key="databasePropertiesPath">classpath:config/database/staging</entry>
+	<entry key="databasePropertiesMode">1</entry> <!-- (0=file : 파일을 통해 읽어옴, 1=ddns 호스트 서버에서 읽어옴, 2=data : 인증서버를 통해 읽어옴) -->
+	<entry key="databaseAccessLogWrite">0</entry> <!-- 0:안함/1:기록 [databasePropertiesMode 2인경만 해당 cnct_dttm 와 ip를 기록하도록 한다] -->
+</properties>

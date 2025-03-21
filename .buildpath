@@ -1,0 +1,14 @@
+<!--
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="src/main/java"/>
+	<buildpathentry kind="src" path="src/main/apps.arumv8"/>
+	<buildpathentry kind="src" path="src/main/apps.system"/>
+	<buildpathentry kind="src" path="src/main/apps.servlets"/>
+	<buildpathentry kind="src" path="src/main/resources"/>
+	<buildpathentry kind="con" path="org.eclipse.dltk.mod.launching.INTERPRETER_CONTAINER"/>
+	<buildpathentry kind="con" path="org.eclipse.vjet.eclipse.core.JSNATIVE_CONTAINER/JS Native Types"/>
+	<buildpathentry kind="con" path="org.eclipse.vjet.eclipse.core.BROWSER_CONTAINER/Browser SDK"/>
+	<buildpathentry external="true" kind="lib" path="/Users/bjbark/.m2/repository/net/sf/jasperreports/jasperreports/4.7.1/jasperreports-4.7.1.jar"/>
+</buildpath>
+-->

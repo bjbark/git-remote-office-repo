@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- http://logback.qos.ch/manual/layouts.html -->
+	<!-- http://logback.qos.ch/manual/appenders.html -->
+	<!-- http://dev.anyframejava.org/docs/anyframe/plugin/optional/logback/1.0.1/reference/htmlsingle/logback.html -->
+
+<!-- 1. APPENDER 설정 -->
+	<!-- CONSOLE LOG -->
+	<appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %c - %msg%n</Pattern>
+		</layout>
+		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
+			by default -->
+	</appender>
+	
+	<!-- Debug File LOG -->
+	<appender name="fileLog_Debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <prudent>true</prudent> <!-- multi jvm에서 하나의 로그파일에 쓰기 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${catalina.base}/logs/debug/debug.%d{yyyy-MM-dd}.log</fileNamePattern> <!-- 날짜 형식에 맞춰서 파일이 나눠서 log됨 -->
+			<maxHistory>30</maxHistory>								  <!-- 파일을 최대 30개만 저장(30일) -->
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %c - %msg%n</pattern>
+		</encoder>
+	</appender>
+			
+	
+	<!-- Error File LOG  -->
+	<appender name="fileLog_Error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <prudent>true</prudent> <!-- multi jvm에서 하나의 로그파일에 쓰기 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${catalina.base}/logs/error/error.%d{yyyy-MM-dd}.log</fileNamePattern> <!-- 날짜 형식에 맞춰서 파일이 나눠서 log됨 -->
+			<maxHistory>30</maxHistory>								  <!-- 파일을 최대 30개만 저장(30일) -->
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %c - %msg%n</pattern>
+		</encoder>
+		
+		 <filter class="ch.qos.logback.classic.filter.LevelFilter">
+		     <level>ERROR</level> <!-- multi jvm에서 하나의 로그파일에 쓰기 -->
+		     <onMatch>ACCEPT</onMatch>
+		     <onMismatch>DENY</onMismatch>
+		 </filter>
+    
+	</appender>
+	<!-- Warn File LOG  -->
+	<appender name="fileLog_Warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <prudent>true</prudent> <!-- multi jvm에서 하나의 로그파일에 쓰기 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${catalina.base}/logs/warn/warn.%d{yyyy-MM-dd}.log</fileNamePattern> <!-- 날짜 형식에 맞춰서 파일이 나눠서 log됨 -->
+			<maxHistory>30</maxHistory>								  <!-- 파일을 최대 30개만 저장(30일) -->
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %c - %msg%n</pattern>
+		</encoder>
+		
+		 <filter class="ch.qos.logback.classic.filter.LevelFilter">
+		     <level>WARN</level>
+		     <onMatch>ACCEPT</onMatch>
+		     <onMismatch>DENY</onMismatch>
+		 </filter>
+    
+	</appender>
+
+	
+	
+<!-- 2. 배포 환경에 따른 패키지별 세부적인 log level변경 변수 설정 -->
+	<logger name="org.apache.cxf"      additivity="false"><level value="info"/></logger>
+	<logger name="org.springframework" additivity="false"><level value="info"/></logger>
+
+    <!-- log4jdbc -->
+	<logger name="jdbc.sqlonly" level="info"/>
+		
+	
+<!-- 3. 가장 메인이 되는 ROOT LEVEL 설정 (위의 세부로그 레벨설정 이외의 것들은 모두 warn레벨) -->
+	<root level="debug">
+	    <appender-ref ref="fileLog_Error" />
+		<appender-ref ref="fileLog_Warn"  />
+		<appender-ref ref="fileLog_Info"  />
+	</root>
+</configuration>
+

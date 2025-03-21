@@ -1,0 +1,15 @@
+# NETHOSTING
+db.sqltypes=mssql
+db.provider=mssql
+db.hostname=127.0.0.1
+db.host_conn_port=1433
+db.database=control_db
+db.username=sa
+db.password=byengjin13050
+db.maxcount=5
+##############################################
+# don't kill :0
+# time unit :second
+##############################################
+db.pooltime=0
+

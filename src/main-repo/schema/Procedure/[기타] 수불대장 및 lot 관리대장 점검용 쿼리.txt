@@ -1,0 +1,156 @@
+
+/*
+트리거 작동 여부를 확인하기 위한 자료 조정 테스트
+*/
+
+
+insert into isos_book (
+       bzpl_idcd
+     , invc_dvcd
+     , invc_numb
+     , line_seqn
+     , invc_date
+     , invc_orgn
+     , wrhs_idcd
+     , dept_idcd
+     , drtr_idcd
+     , cstm_dvcd
+     , cstm_idcd
+     , acct_bacd
+     , item_idcd
+     , item_code
+     , unit_idcd
+     , stnd_pric
+     , vatx_incl_yorn
+     , vatx_rate
+     , qntt
+     , pric
+     , amnt
+     , vatx
+     , stok_qntt
+     , stok_pric
+     , stok_amnt
+     , lott_numb
+     , orig_invc_numb
+     , orig_seqn
+) 
+select 
+       bzpl_idcd
+     , invc_dvcd
+     , invc_numb
+     , 4
+     , invc_date
+     , invc_orgn
+     , wrhs_idcd
+     , dept_idcd
+     , drtr_idcd
+     , cstm_dvcd
+     , cstm_idcd
+     , acct_bacd
+     , item_idcd
+     , item_code
+     , unit_idcd
+     , stnd_pric
+     , vatx_incl_yorn
+     , vatx_rate
+     , qntt
+     , pric
+     , amnt
+     , vatx
+     , stok_qntt
+     , stok_pric
+     , stok_amnt
+     , lott_numb
+     , orig_invc_numb
+     , orig_seqn
+from isos_book
+where bzpl_idcd = 'WINFOBZPLMAST001' and invc_dvcd = '2300' and invc_numb = '0001' and line_seqn = 1
+
+
+
+
+
+
+
+
+
+
+select * from lot_isos_book
+
+update  lot_isos_book set qntt = 3333 where lott_numb = '1111-1111' and line_seqn = 242
+delete from   lot_isos_book where lott_numb = '1111-1111' and line_seqn = 242
+
+
+
+
+
+
+
+insert into lot_isos_book
+(lott_numb
+,line_seqn
+,bzpl_idcd
+,isos_dvcd
+,invc_date
+,invc_numb
+,invc_seqn
+,wrhs_idcd
+,item_idcd
+,qntt
+,stok_symb
+,uper_seqn
+,disp_seqn
+,user_memo
+,sysm_memo
+,prnt_idcd
+,line_levl
+,line_ordr
+,line_stat
+,line_clos
+,find_name
+,updt_user_name
+,updt_ipad
+,updt_dttm
+,updt_idcd
+,updt_urif
+,crte_user_name
+,crte_ipad
+,crte_dttm
+,crte_idcd
+,crte_urif
+)
+select 
+ lott_numb
+,245
+,bzpl_idcd
+,isos_dvcd
+,invc_date
+,invc_numb
+,invc_seqn
+,wrhs_idcd
+,item_idcd
+,qntt
+,stok_symb
+,uper_seqn
+,disp_seqn
+,user_memo
+,sysm_memo
+,prnt_idcd
+,line_levl
+,line_ordr
+,line_stat
+,line_clos
+,find_name
+,updt_user_name
+,updt_ipad
+,updt_dttm
+,updt_idcd
+,updt_urif
+,crte_user_name
+,crte_ipad
+,crte_dttm
+,crte_idcd
+,crte_urif
+from lot_isos_book
+where lott_numb = '1111-1111'
+and   line_seqn = 242

@@ -1,0 +1,16 @@
+# NETHOSTING
+db.sqltypes=mysql
+db.provider=mysql
+db.hostname=180.67.220.138
+db.host_conn_port=53307
+db.database=control_db
+db.username=wis
+db.password=rmadydlfdmszkfxhl8282!@#
+db.maxcount=5
+db.validationQuery ="select 1"
+db.autoReconnect=true
+##############################################
+# don't kill :0
+# time unit :second
+##############################################
+db.pooltime=3600

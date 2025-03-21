@@ -1,0 +1,1 @@
+Ext.define('module.cust.cstmclass.store.CstmClassCate1', { extend:'module.cust.cstmclass.store.CstmClass'});

@@ -1,0 +1,15 @@
+# NETHOSTING
+db.sqltypes=mssql
+db.provider=mssql
+db.hostname=222.231.57.57
+db.host_conn_port=1433
+db.database=control_db
+db.username=sa
+db.password=gabia_sky2013!@#$
+db.maxcount=5
+##############################################
+# don't kill :0
+# time unit :second
+##############################################
+db.pooltime=0
+

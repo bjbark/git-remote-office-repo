@@ -1,0 +1,15 @@
+#  AUTHCENTER
+db.sqltypes=oracle
+db.provider=oracle
+db.hostname=220.73.144.177
+db.host_conn_port=1521
+db.database=BONDB
+db.username=OAK
+db.password=cham1st
+db.maxcount=5
+##############################################
+# don't kill :0
+# time unit :second
+##############################################
+db.pooltime=0
+

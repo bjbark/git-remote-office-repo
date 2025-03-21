@@ -1,0 +1,15 @@
+
+# NETHOSTING
+db.sqltypes=mysql
+db.provider=mysql
+db.hostname=180.67.220.132
+db.host_conn_port=3306
+db.database=control_db
+db.username=root
+db.password=abc123!@#
+db.maxcount=5
+##############################################
+# don't kill :0
+# time unit :second
+##############################################
+db.pooltime=3600

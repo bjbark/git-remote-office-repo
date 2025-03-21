@@ -1,0 +1,211 @@
+@CHARSET "UTF-8";
+
+*{
+		padding:0;
+		margin : 0;
+	}
+	#container{
+		width: 100%;
+
+	}
+	#first{
+		background-color: #FFFFCC;
+		width: 100%;
+	}
+	table{
+		width: 80%;
+		margin: 0 auto;
+	}
+	table input[readonly=readonly]{
+		text-align: center;
+		width: 252px;
+		background-color: lightgray;
+	}
+	table{
+		font-size: 2.0em;
+	}
+	table th{
+		text-align: right;
+	}
+	table:not(.table-responsive) td{
+		text-align: left;
+		padding-left: 10px;
+	}
+
+	#first table input[type=text]:not(.dt):not(#acpt_seqn):not(#acpt_numb):not(#deli_date){
+		width: 70%;
+		height: 30px;
+		margin: 5px 0 ;
+	}
+
+
+	table input,table select:not(#acpt_seqn):not(#acpt_numb):not(#chek_dvsn):not(#trtm_atcl):not(#need_amnt):not(.selectNot){
+		height: 40px;
+	}
+	#submit{
+		background-color: #3399FF;
+		border: 0;
+		color: white;
+		padding: 5px 15px;
+		border-radius: 5px;
+		font-weight: bold;
+		width: 100%;
+	}
+
+	#footer{
+		margin-top:30px;
+		font-size:2em;
+		text-align: center;
+	}
+	.tab select{
+		width: 44%;
+		height: 40px;
+		margin: 10px 0;
+	}
+	.tab textarea{
+		width: 70%;
+		 margin: 10px 0;
+	}
+	.tab input[type=text]:not(.Datepicker):not(.styleChange){
+		 width: 80%;
+		 height: 40px;
+		 margin: 10px 0;
+	}
+	.times input[type=text]{
+		width:50%;
+		text-align: center;
+	}
+	.setTime::-webkit-datetime-edit-ampm-field {
+
+    display: none;
+
+}
+	#repairChart th{
+		font-size: 0.1em;
+		text-align: center;
+		background-color: #ECFFFD;
+	}
+	.nav-tabs{
+		height: 30px;
+	}
+	.nav-item .nav-link{
+		height: 32px;
+		padding-top: 5px;
+
+	}
+	#totalTime{
+		margin-left:4px;
+		width: 60px;
+	}
+	.Datepicker:not(.widthDate):not(.widthDate2){
+		width: 76%;
+		margin-right: 5px;
+		height: 40px;
+		margin: 10px 0;
+	}
+
+	.table-responsive tr th{
+		text-align: center;
+		font-size: 8px;
+		width: 150px;
+
+
+	}
+	.ui-datepicker-trigger{
+		width: 37px;
+
+	}
+	.tab-content{
+		margin-top: 20px;
+	}
+	.table-bordered tr th{
+		background-color: #78BAF3;
+		color: white;
+		white-space: nowrap;
+
+	}
+	.styleChange table tr td .wtd1{
+		width:85.5%;
+	}
+	.doubleTh{
+		padding-left: 0px;
+		width: 11%;
+	}
+	#chk input[type=text]:not(.widthDate):not(.widthDate2){
+	 width: 70%;
+	}
+	.widthDate{
+		width: 33%
+	}
+	.widthDate2{
+		width: 16%;
+	}
+	#selectWidth{
+		width: 18.5%;
+	}
+	#chk textarea {
+    	width: 70%;
+	}
+	#repair .Datepicker{
+		width: 150px;
+	}
+	#repair input[name=repa_entr_name],#repair input[name=repa_resn],#repair textarea[name="repa_cont"]
+	, #repair textarea[name="dmge_regn"]{
+		width: 70%;
+	}
+	#repair .td2{
+		width: 11%;
+	}
+	#repair input[name=repa_amnt]{
+		    width: 135%;
+
+	}
+	.search {
+		border: 0;
+		background-color: #78BAF3;
+		color: white;
+	}
+	.insert, .delete{
+		width: 80%;
+		    height: 100%;
+		    margin: auto 10px;
+	}
+	.ui-datepicker td span, .ui-datepicker td a {
+	 padding: 0;
+	}
+	.table-responsive tr:not(first-child):HOVER {
+		background-color: #78BAF3;
+		color: white;
+	}
+	.table-responsive input[type=button]{
+		color:black;
+	}
+	#move select{
+		width: 69.8%;
+		height: 40px;
+	}
+	.dateTd .ui-datepicker-trigger{
+	 width : 4.5%;
+	}
+	.numberFmt {
+    text-align: right;
+	}
+		.colb{
+		width: 30%;
+	}
+	.colc{
+		width: 16%;
+
+	}
+	.cold{
+		width: 40%;
+	}
+	.table-responsive table tr td:not(.numberFmt){
+			text-align: center;
+	}
+	.table-responsive tr td:not(.centers):not(.numberFmt){
+			text-align: left;
+		}
+		.table-responsive tr td:nth-child(1) {
+			text-align: center;
+		}

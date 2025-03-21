@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        ">
+	<!--  default-autowire="byName">	-->
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+        	<bean class="com.sky.http.HttpMessageAdapter"/>
+    	</mvc:argument-resolvers>
+    </mvc:annotation-driven>
+
+	<!-- JasperReportView, ExcelView에서 사용하는 view resolver -->
+    <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="1"/>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+	<!-- bean을 자동스캔하여 등록하는 부분 -->
+	<context:component-scan base-package="net.sky.http" />
+	<context:component-scan base-package="com.sky.core.db.pooling" />
+	<context:component-scan base-package="com.sky.core.common" />
+	<context:component-scan base-package="com.sky.http" />
+
+	<context:component-scan base-package="com.sky.listener" />
+<!-- 	<context:component-scan base-package="com.sky.services" /> -->
+	<context:component-scan base-package="com.sky.system" />
+	<context:component-scan base-package="com.sky.mobile" />
+	<context:component-scan base-package="com.sky.mobile.inventory" />
+	<context:component-scan base-package="com.sky.mobile.misreport" />
+
+	<!-- TEST 시범 -->
+	<context:component-scan base-package="com.sky.testcall" />
+	<!--바로빌 -->
+	<context:component-scan base-package="com.sky.barobill" />
+
+	<!-- controller실행전 전/후 처리 -->
+	<mvc:interceptors>
+		<bean class="net.sky.http.dispatch.DispatchInterceptorAdapter"/>
+	</mvc:interceptors>
+
+	<!-- 예외처리 -->
+	<!-- Spring Framework 에서 예외가 발생한 경우 (com.sky.dispatch.ServletExceptionHandler)에서 처리 하도록 한다. -->
+	<bean id="exceptionMapping" class="net.sky.http.dispatch.DispatchExceptionDelegate">
+    </bean>
+
+	<!-- 스케쥴러 등록 -->
+	<task:annotation-driven scheduler="scheduler"/>
+	<task:scheduler id="scheduler" pool-size="10"/>
+</beans>
+

@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoiceSale" language="groovy" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" uuid="44ed2119-91de-47e5-9d17-676e59b33b68">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="title-border-align-center" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" hAlign="Center" vAlign="Middle" pdfFontName="fonts/gulim.ttf" pdfEncoding="Identity-H">
+		<box>
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="title-border-align-left" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" hAlign="Left" vAlign="Middle" isBlankWhenNull="true" fontSize="10" pdfFontName="fonts/gulim.ttf" pdfEncoding="Identity-H">
+		<box leftPadding="3">
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="title-border-align-right" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" hAlign="Right" vAlign="Middle" isBlankWhenNull="true" fontSize="10" pdfFontName="fonts/gulim.ttf" pdfEncoding="Identity-H">
+		<box leftPadding="0" rightPadding="4">
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="title-align-left" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" hAlign="Left" vAlign="Middle" isBlankWhenNull="true" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="fonts/gulim.ttf" pdfEncoding="Identity-H">
+		<box leftPadding="3">
+			<pen lineWidth="0.0"/>
+			<topPen lineWidth="0.0"/>
+			<leftPen lineWidth="0.0"/>
+			<bottomPen lineWidth="0.0"/>
+			<rightPen lineWidth="0.0"/>
+		</box>
+	</style>
+	<style name="title-align-right" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" hAlign="Right" vAlign="Middle" pdfFontName="fonts/gulim.ttf" pdfEncoding="Identity-H">
+		<box leftPadding="0" rightPadding="2">
+			<pen lineWidth="0.0"/>
+			<topPen lineWidth="0.0"/>
+			<leftPen lineWidth="0.0"/>
+			<bottomPen lineWidth="0.0"/>
+			<rightPen lineWidth="0.0"/>
+		</box>
+	</style>
+	<style name="title-align-center" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" hAlign="Center" vAlign="Middle" isBlankWhenNull="true" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="fonts/gulim.ttf" pdfEncoding="Identity-H">
+		<box leftPadding="3">
+			<pen lineWidth="0.0"/>
+			<topPen lineWidth="0.0"/>
+			<leftPen lineWidth="0.0"/>
+			<bottomPen lineWidth="0.0"/>
+			<rightPen lineWidth="0.0"/>
+		</box>
+	</style>
+	<subDataset name="dataset1" uuid="16ba00bc-fe86-42cc-98ee-f87e9bfd7b0c"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="invoice" class="java.util.Map"/>
+	<parameter name="stamp_url" class="java.awt.image.BufferedImage"/>
+	<field name="itm_cd" class="java.lang.String"/>
+	<field name="itm_nm" class="java.lang.String"/>
+	<field name="unt_nm" class="java.lang.String"/>
+	<field name="qty" class="java.lang.String"/>
+	<field name="price" class="java.lang.String"/>
+	<field name="sply_amt" class="java.lang.String"/>
+	<field name="tax" class="java.lang.String"/>
+	<field name="amount" class="java.lang.String"/>
+	<field name="seq_dsp" class="java.lang.String"/>
+	<field name="itm_sp" class="java.lang.String"/>
+	<field name="unt_qty" class="java.lang.String"/>
+	<background>
+		<band height="786" splitType="Stretch">
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="0" y="0" width="539" height="786" backcolor="#33FF99" uuid="af15f3ce-ace8-4d7e-888f-60911b29579a"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+		</band>
+	</background>
+	<pageHeader>
+		<band height="205">
+			<image>
+				<reportElement positionType="Float" mode="Transparent" x="504" y="67" width="35" height="35" uuid="f448e602-479b-4006-9644-e1fb221ca9a0"/>
+				<imageExpression><![CDATA[$P{stamp_url}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="title-align-left" x="519" y="75" width="24" height="15" uuid="886d4dc3-171c-4866-bfbf-6e1a7f5e0b86"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[(인)]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="title-border-align-left" x="339" y="53" width="200" height="20" uuid="71d58afd-e060-414f-a240-3991055053d6"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("send_biz_no")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="title-border-align-center" x="260" y="53" width="29" height="112" uuid="39b1294e-acf6-49d4-be56-358df828ef8c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[공
+
+급
+
+자]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title-border-align-center" x="289" y="53" width="50" height="20" uuid="64cbbd91-11de-4042-9491-704b7151e3a5"/>
+				<text><![CDATA[등록 번호]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title-border-align-center" x="289" y="73" width="50" height="20" uuid="86dfe151-a721-475c-ab4e-1c0750ee774c"/>
+				<text><![CDATA[상    호]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title-border-align-center" x="289" y="93" width="50" height="32" uuid="75681d5e-efad-4f04-8c47-896cf699ce1c"/>
+				<text><![CDATA[사업장
+소재지]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title-border-align-center" x="289" y="125" width="50" height="20" uuid="d6be4364-d0fa-4b3c-9fe0-f70e3aacb5fd"/>
+				<text><![CDATA[업     태]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title-border-align-center" x="441" y="73" width="26" height="20" uuid="5f13bd92-a915-4841-8d09-20d3de6eaaa0"/>
+				<text><![CDATA[성명]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="title-border-align-left" x="339" y="73" width="102" height="20" uuid="ff5c03e2-114c-43e0-902e-fb3475e80590"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("send_biz_nm")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="title-border-align-left" x="467" y="73" width="72" height="20" uuid="c70d2d4f-0760-41e6-98fa-2cff85a593e8"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("send_biz_owner")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="title-border-align-left" x="449" y="125" width="90" height="20" uuid="f8c9222e-bc14-4218-899d-e6c8da431e2f"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("send_biz_types")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="title-border-align-center" x="423" y="125" width="26" height="20" uuid="e0a475ad-211a-40aa-852e-325a5ddcb387"/>
+				<text><![CDATA[종목]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="title-border-align-left" x="339" y="125" width="84" height="20" uuid="99fd36b1-f1cd-461d-8cd7-85407ce93600"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("send_biz_cond")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="title-align-left" x="211" y="1" width="150" height="40" uuid="7fb5c6d1-4861-47c4-af97-58114d2feef4"/>
+				<textElement>
+					<font size="27" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="title-align-left" x="339" y="94" width="198" height="14" uuid="1fe64aea-53dc-4178-95a8-cebaf6fd34ff"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("send_biz_addr_1")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="title-align-left" x="339" y="109" width="198" height="14" uuid="184621d0-e3af-44e1-a4a7-c4fa1f8a2dae"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("send_biz_addr_2")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="title-align-left" x="27" y="6" width="109" height="14" uuid="3b26fcbd-50c4-4ede-b458-daa6d188603d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("inv_no")]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="10" y="22" width="106" height="1" uuid="2b201aa3-700a-4fe6-85e9-25f3d210c98f"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="title-align-left" x="8" y="1" width="20" height="24" uuid="7f616837-45c7-4455-b543-29f0a83012f4"/>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="title-align-right" x="5" y="56" width="30" height="14" uuid="b55eceb3-f046-4b37-9a28-a43936ee6724"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("inv_yy")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="title-align-right" x="33" y="56" width="40" height="14" uuid="2f7dba1c-410f-42e3-a4c7-94715380aadd"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("inv_mm")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="title-align-right" x="69" y="56" width="40" height="14" uuid="2f820895-5dec-4fef-b41c-4de7ae7c8722"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("inv_dd")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="title-align-left" x="29" y="51" width="20" height="24" uuid="d7772a6d-42ef-4bb7-9426-1811f1076743"/>
+				<text><![CDATA[년]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title-align-left" x="67" y="51" width="20" height="24" uuid="2050709b-0cc2-4591-b70c-86b9852149d6"/>
+				<text><![CDATA[월]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title-align-left" x="104" y="51" width="20" height="24" uuid="02a9b960-b0f8-4ad2-a527-501fabdd503a"/>
+				<text><![CDATA[일]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="73" width="115" height="1" uuid="71908154-47b6-4aec-9cf6-2d3fd9150f6b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="title-align-left" x="6" y="83" width="138" height="14" uuid="c43a2c05-b3b6-4679-b9cd-8b476eb53883"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("recv_biz_nm")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="title-align-right" x="144" y="83" width="20" height="14" uuid="6d3fc745-6690-44f9-8f31-28039119d3fd"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("recv_honorary")]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="9" y="102" width="160" height="1" uuid="3937a433-714a-4ad3-be5c-c8755a495ea4"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="title-align-left" x="6" y="116" width="138" height="14" uuid="25e3c34c-4f46-4357-9487-af7ee784ceee"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("send_limitday")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="title-align-left" x="6" y="133" width="158" height="26" uuid="775243f4-a123-409d-9cb3-12e5a7cdd5d5"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[아래와 같이 견적합니다.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title-border-align-center" x="289" y="145" width="50" height="20" uuid="c309de81-644e-4b23-a509-57eba32015d8"/>
+				<text><![CDATA[전화번호]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="title-border-align-left" x="339" y="145" width="84" height="20" uuid="24e870b5-b744-446b-aef7-65aec1fdc8c3"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("send_biz_tel_no")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="title-border-align-center" x="423" y="145" width="26" height="20" uuid="487b8077-4a2f-400e-8cfa-8e204225a418"/>
+				<text><![CDATA[FAX]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="title-border-align-left" x="449" y="145" width="90" height="20" uuid="1a1619c1-a659-44e2-b427-fbcc92a5e7f4"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("send_biz_fax_no")]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="165" width="539" height="1" uuid="d58eac79-ff13-4bc3-b7dc-bfafa123a1b8"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="208" y="43" width="104" height="1" uuid="64e81c5b-1067-43c5-a88f-34a22d780095"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="title-align-center" x="0" y="164" width="84" height="24" uuid="115ead9c-fe8e-4072-84dd-2e2e6d226c60"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[합 계 금 액]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title-align-center" x="-4" y="181" width="97" height="24" uuid="16e1ac56-a506-4d33-8713-df783aa31af3"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(공급가액 + 세액)]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement style="title-align-center" x="93" y="172" width="443" height="24" uuid="a54ea3df-c45d-4b19-85cc-1027b291ae6a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["金 " + $P{invoice}.get("total_amount_kor") +"원 整(￦"+NumberFormat.getInstance().format($P{invoice}.get("total_amount"))+")"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="208" y="45" width="104" height="1" uuid="44b1ed70-ab3b-4e14-9735-801c5e44f9fd"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement style="title-border-align-center" x="0" y="0" width="27" height="17" uuid="5b85e429-024f-46ad-891e-2e09edace7fa"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title-border-align-center" x="232" y="0" width="47" height="17" uuid="dc8da013-4f7a-4df5-b9a8-29bc42c20908"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[단위]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title-border-align-center" x="279" y="0" width="31" height="17" uuid="ef114034-bc21-46db-8cfe-0f00be474160"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[수량]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title-border-align-center" x="352" y="0" width="55" height="17" uuid="7be224c0-9893-41ea-9863-3797b1b64402"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[공급가]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title-border-align-center" x="407" y="0" width="46" height="17" uuid="e7f2c299-010b-4c8c-8a54-1eedea966bb0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[세액]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title-border-align-center" x="453" y="0" width="55" height="17" uuid="e772f6f5-5af8-4c3f-a34f-70ed3b5cffea"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[합계]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title-border-align-center" x="310" y="0" width="42" height="17" uuid="1663bce7-e6ff-4a15-98a2-034cb774de06"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[단가]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title-border-align-center" x="27" y="0" width="205" height="17" uuid="28424e0d-ea34-42fd-92ec-9cbef5c35486"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[품 목 / 규 격]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title-border-align-center" x="508" y="0" width="31" height="17" uuid="db28533d-d0a2-4e8e-a8d7-be76ca2ffded"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[비고]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="title-border-align-center" x="232" y="0" width="47" height="23" uuid="0a7a3816-e7e6-431b-a965-1a4ec67671fa"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0">
+				<reportElement style="title-border-align-right" x="279" y="0" width="31" height="23" uuid="6274e4e2-d32f-44af-af94-7e7d161e0ac5"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[NumberFormat.getInstance().format(Double.parseDouble($F{qty}))]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0">
+				<reportElement style="title-border-align-right" x="310" y="0" width="42" height="23" uuid="9913ef2e-a125-414a-bf05-849fee9d2bb8"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[NumberFormat.getInstance().format(Double.parseDouble($F{price}))]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement style="title-border-align-right" x="352" y="0" width="55" height="23" uuid="2e77f139-addf-4c69-8e52-24eb3bbb4962"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[NumberFormat.getInstance().format(Double.parseDouble($F{sply_amt}))]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="title-border-align-right" x="407" y="0" width="46" height="23" uuid="65110b8b-b709-4c13-b449-9237b9134041"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[NumberFormat.getInstance().format(Double.parseDouble($F{tax}))]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0">
+				<reportElement style="title-border-align-right" x="453" y="0" width="55" height="23" uuid="b0c8ee7b-cd14-4914-88d4-3b3852d1f84f"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[NumberFormat.getInstance().format(Double.parseDouble($F{amount}.toString()))]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="title-border-align-right" x="0" y="0" width="27" height="23" uuid="fed9c7a7-12fa-4d1b-a02f-6be3638f363c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{seq_dsp}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="title-border-align-center" x="27" y="0" width="205" height="23" uuid="70d571f9-5fbe-480b-8c8a-7e5ff0e81a8d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="title-align-left" x="27" y="0" width="205" height="23" uuid="238383b7-573e-46c8-9b8e-2907e55f0536"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{itm_nm}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0">
+				<reportElement style="title-border-align-right" x="508" y="0" width="31" height="23" uuid="7f00bd91-bdeb-4d6a-8098-6d2796142cf2"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement style="title-align-center" x="230" y="11" width="50" height="12" uuid="4aa9dce2-434a-4be1-871b-80b94fed1838"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unt_qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="title-align-center" isPrintRepeatedValues="false" x="230" y="1" width="50" height="12" uuid="4a006353-5002-47ee-b305-e66cda483950"/>
+				<textElement>
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unt_nm}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="100">
+			<staticText>
+				<reportElement style="title-align-left" x="0" y="20" width="50" height="20" uuid="09ef9996-098a-49e8-b6a8-6b69214397b8"/>
+				<text><![CDATA[참조사항]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="476" y="23" width="40" height="15" uuid="1ebf67cb-a894-4e66-bccf-0438c1a6cbea"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="title-align-left" x="50" y="20" width="383" height="20" uuid="dbdb7ef2-dc23-4652-8915-9811fd645390"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("remarks")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0">
+				<reportElement style="title-border-align-right" x="453" y="0" width="55" height="21" uuid="e53bc2dc-2cdc-4ae1-a3e3-07c57ef38d8f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("amount")]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="516" y="23" width="21" height="15" uuid="1494bb76-dfdb-4af9-b0a8-b088f08cc402"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false">
+				<reportElement style="title-border-align-right" x="407" y="0" width="46" height="21" uuid="8c88aa47-1345-4ac9-9e02-b03d23f2fc64"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("tax")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0">
+				<reportElement style="title-border-align-right" x="352" y="0" width="55" height="21" uuid="025df1c3-9105-4bb2-a5a1-32eea3b7bdd1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{invoice}.get("sply_amt")]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="539" height="1" uuid="36d6c500-e2bf-4cce-b4da-df7ad9335ac5"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="#,##0">
+				<reportElement style="title-border-align-right" x="508" y="0" width="31" height="21" uuid="029bddaf-cbcf-4b3c-957a-07294947f194"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement style="title-border-align-center" x="0" y="0" width="352" height="21" uuid="1b4488ae-519b-453f-8389-829500390642"/>
+				<text><![CDATA[계]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

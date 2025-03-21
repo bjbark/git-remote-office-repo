@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InvoiceTax" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="515" leftMargin="40" rightMargin="40" topMargin="45" bottomMargin="40" isIgnorePagination="true" uuid="d91513fc-43e7-48e5-9c30-e528c316fe4d">
+	<property name="ireport.zoom" value="0.9982500000000003"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="title-border-align-center" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" hAlign="Center" vAlign="Middle" pdfFontName="fonts/NanumGothic.ttf" pdfEncoding="Identity-H">
+		<box>
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="title-border-align-left" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" hAlign="Left" vAlign="Middle" isBlankWhenNull="true" fontSize="10" pdfFontName="fonts/NanumGothic.ttf" pdfEncoding="Identity-H">
+		<box leftPadding="6">
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="title-border-align-right" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" hAlign="Right" vAlign="Middle" isBlankWhenNull="true" fontSize="10" pdfFontName="fonts/NanumGothic.ttf" pdfEncoding="Identity-H">
+		<box leftPadding="0" rightPadding="4">
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="title-align-left" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" hAlign="Left" vAlign="Middle" isBlankWhenNull="true" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="fonts/NanumGothic.ttf" pdfEncoding="Identity-H">
+		<box leftPadding="6">
+			<pen lineWidth="0.0"/>
+			<topPen lineWidth="0.0"/>
+			<leftPen lineWidth="0.0"/>
+			<bottomPen lineWidth="0.0"/>
+			<rightPen lineWidth="0.0"/>
+		</box>
+	</style>
+	<style name="title-align-right" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" hAlign="Right" vAlign="Middle" pdfFontName="fonts/NanumGothic.ttf" pdfEncoding="Identity-H">
+		<box leftPadding="0" rightPadding="2">
+			<pen lineWidth="0.0"/>
+			<topPen lineWidth="0.0"/>
+			<leftPen lineWidth="0.0"/>
+			<bottomPen lineWidth="0.0"/>
+			<rightPen lineWidth="0.0"/>
+		</box>
+	</style>
+	<style name="title-align-center" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" hAlign="Center" vAlign="Middle" pdfFontName="fonts/NanumGothic.ttf" pdfEncoding="Identity-H">
+		<box leftPadding="8">
+			<pen lineWidth="0.0"/>
+			<topPen lineWidth="0.0"/>
+			<leftPen lineWidth="0.0"/>
+			<bottomPen lineWidth="0.0"/>
+			<rightPen lineWidth="0.0"/>
+		</box>
+	</style>
+	<parameter name="subreportDir" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="invoice" class="java.util.Map" isForPrompting="false"/>
+	<parameter name="stamp_url" class="java.awt.image.BufferedImage"/>
+	<parameter name="sublist" class="java.util.List"/>
+	<field name="itm_nm" class="java.lang.String"/>
+	<field name="sply_amt" class="java.math.BigDecimal"/>
+	<field name="tax" class="java.math.BigDecimal"/>
+	<detail>
+		<band height="67">
+			<subreport>
+				<reportElement isPrintRepeatedValues="false" x="45" y="0" width="425" height="20" uuid="7f778665-6b2d-4715-b05e-ebdad39d3b8f"/>
+				<subreportParameter name="taxcolor">
+					<subreportParameterExpression><![CDATA["blue"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="title">
+					<subreportParameterExpression><![CDATA[$P{title}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="stamp_url">
+					<subreportParameterExpression><![CDATA[$P{stamp_url}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="title_sub">
+					<subreportParameterExpression><![CDATA["공  급  받  는  자\n     보  관  용"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoice">
+					<subreportParameterExpression><![CDATA[$P{invoice}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{sublist})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{subreportDir} + "/InvoiceTax_sub.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="67">
+			<line direction="BottomUp">
+				<reportElement mode="Transparent" x="17" y="0" width="480" height="1" backcolor="#000000" uuid="c2e626e0-f66b-41f2-8c41-836c0f17de49"/>
+				<graphicElement>
+					<pen lineWidth="0.4" lineStyle="Dashed" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+			<subreport>
+				<reportElement isPrintRepeatedValues="false" x="45" y="46" width="425" height="20" uuid="273e91f4-5461-4727-a0ee-269b64ba3a27"/>
+				<subreportParameter name="taxcolor">
+					<subreportParameterExpression><![CDATA["red"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="title">
+					<subreportParameterExpression><![CDATA[$P{title}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="stamp_url">
+					<subreportParameterExpression><![CDATA[$P{stamp_url}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="title_sub">
+					<subreportParameterExpression><![CDATA["     공  급  자\n     보  관  용"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="invoice">
+					<subreportParameterExpression><![CDATA[$P{invoice}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{sublist})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{subreportDir} + "/InvoiceTax_sub.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

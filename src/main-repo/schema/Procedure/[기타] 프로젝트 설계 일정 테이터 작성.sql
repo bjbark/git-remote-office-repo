@@ -1,0 +1,61 @@
+insert into prjt_dsig_schd (
+      prjt_idcd
+	, dsig_schd_dvcd
+    , id
+    , seqn
+    , name
+    , progress
+    , progressByWorklog
+    , relevance
+    , type
+    , typeld
+    , description
+    , code
+    , level
+    , status
+    , depends
+    , START
+    , duration
+    , end
+    , startismilestone
+    , endismilestone
+    , collapsed
+    , canWrite
+    , canAdd
+    , canDelete
+    , canaddlssue
+    , hasChild
+    , startTime
+    , endTime
+)
+
+select 
+      'test project'
+	, '1000'  
+    , id
+    , seqn
+    , name
+    , progress
+    , progressByWorklog
+    , relevance
+    , type
+    , typeld
+    , description
+    , code
+    , level
+    , status
+    , depends
+    , START
+    , duration
+    , end
+    , startismilestone
+    , endismilestone
+    , collapsed
+    , canWrite
+    , canAdd
+    , canDelete
+    , canaddlssue
+    , hasChild
+    , startTime
+    , endTime
+from gantt_chart_tasks

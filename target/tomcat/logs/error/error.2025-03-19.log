@@ -1,0 +1,5 @@
+2025-03-19 10:17:23.385 [ERROR] net.sky.http.dispatch.service.HostPropertiesService - ERROR null
+2025-03-19 10:18:31.004 [ERROR] com.sky.data.SqlRepository - org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call mes_log_insert (						
+   ?			
+ ) 											
+]; SQL state [HY000]; error code [1364]; Field 'log_idcd' doesn't have a default value; nested exception is java.sql.SQLException: Field 'log_idcd' doesn't have a default value

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><UbiServer version="4.0.0000.0000">
+	<Environment admin="YWRtcEBzc3dkIQ==" adminImgUri="./ubi4/js/images" licensePath="{APP_ROOT}/resource/js/ubi/license" osCharset="KSC5601" xslPath=""/>
+	<LogInfo backupPattern="yyyy-MM-dd" backupSize="30" backupStyle="date" info="false" logPath="{APP_ROOT}/resource/js/ubi/logs" rowSize="5" timeZone="GMT+9" useDebug="true" useLog="true"/>
+	<Resources>
+
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="inkop" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/inko_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="deduk" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/deduk_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="filko" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/filling_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="nbolt" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/nbolt_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="symct" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/symc_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="winfo" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/wismes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="hjsys" password="zhfhsk2251" type="direct" url="jdbc:mysql://222.121.171.191:63307/hjsys_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="cscin" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/csc_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="hntop" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/hntop_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="iypkg" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/iypkg_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="wontc" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/wontc_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="hnsun" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/hnsun_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="liebe" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/liebe_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="sjflv" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/sjflv_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="sjung" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/sjung_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="gpcpy" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/gpcpy_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="saeil" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/saeil_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="jacpy" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/jacpy_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="kortc" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/kortc_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="a-one" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/aone_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="dae-a" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/daea_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="komec" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/komec_mes" username="wis" vendor="mysql"/>
+
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="dowon" password="abc123!@#" type="direct" url="jdbc:mysql://1.212.59.26:3306/dowon_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="dooin" password="abc123!@#" type="direct" url="jdbc:mysq l://1.212.142.34:63307/wismes" username="root" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="dehan" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://106.243.211.18:63489/dehansol_mes" username="wis" vendor="mysql"/>
+		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="kitec" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://180.67.220.138:53307/kitec_mes" username="wis" vendor="mysql"/>
+<!--		<DataSource charset="KSC5601" driverClassName="com.mysql.jdbc.Driver" id="kitec" password="rmadydlfdmszkfxhl8282!@#" type="direct" url="jdbc:mysql://121.66.197.115:53306/kitec_mes" username="wis" vendor="mysql"/>
+-->
+	</Resources>
+	<UbiServiceInfo connectionTime="1800000" urftype="normal" >
+		<UbiService ip="localhost" port="16996"/>
+	</UbiServiceInfo>
+</UbiServer>

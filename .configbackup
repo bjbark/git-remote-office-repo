@@ -1,0 +1,73 @@
+
+.buildpath 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+
+	<buildpathentry excluding="resources/" kind="src" path="src/websource"/>
+	<buildpathentry kind="con" path="org.eclipse.vjet.eclipse.core.VJO_CONTAINER/VJO LIB"/>
+	<buildpathentry kind="con" path="org.eclipse.vjet.eclipse.core.BROWSER_CONTAINER/Browser SDK"/>
+	<buildpathentry kind="con" path="org.eclipse.vjet.eclipse.core.JSNATIVE_CONTAINER/JS Native Types"/>
+	
+
+</buildpath>
+
+
+
+.project 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>sales.desktop</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	
+		<buildCommand>
+			<name>org.eclipse.vjet.eclipse.core.builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.m2e.core.maven2Builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+<!-- 		<buildCommand> -->
+<!-- 			<name>com.googlecode.jslint4java.eclipse.jsLintBuilder</name> -->
+<!-- 			<arguments> -->
+<!-- 			</arguments> -->
+<!-- 		</buildCommand> -->
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.vjet.core.nature</nature>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.eclipse.m2e.core.maven2Nature</nature>
+<!-- 		<nature>com.googlecode.jslint4java.eclipse.jsLintNature</nature> -->
+	</natures>
+</projectDescription>
+
+.classpath
+
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/apps.arumv8"/>
+	<classpathentry kind="src" path="src/main/apps.control"/>
+	<classpathentry kind="src" path="src/main/apps.system"/>
+	<classpathentry kind="src" path="src/main/apps.supply"/>
+	<classpathentry kind="src" path="src/main/apps.market"/>
+	<classpathentry kind="src" path="src/main/apps.servlets"/>
+	<classpathentry kind="src" output="target/classes" path="src/main/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
+

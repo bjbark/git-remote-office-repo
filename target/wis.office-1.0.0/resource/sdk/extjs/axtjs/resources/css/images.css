@@ -1,0 +1,261 @@
+@charset "utf-8";
+
+
+
+
+.button1-style   { border:solid 1px#8C8C8C;}
+.button-style   { border:solid 1px#8C8C8C;}
+
+/* main-logo */
+.logo-main { background-image: url(../img/logo.png) !important; }
+
+/* enrollment */
+.icon-enrollment { background-image: url(../img/enrollment.png) !important; margin:2 0 0 2;}
+
+/* icon-logo  */
+.icon-user { background-image: url(../img/icon/user.png) !important; }
+
+/* select*/
+ .icon-select { background-image: url(../img/icon/toolbar-select.png) !important; }
+/* modify */
+.icon-modify { background-image: url(../img/icon/toolbar-modify.png) !important; }
+/* insert */
+.icon-insert { background-image: url(../img/icon/toolbar-insert.png) !important; }
+/* update*/
+.icon-update { background-image: url(../img/icon/toolbar-update.png) !important; }
+/* cancel */
+.icon-cancel { background-image: url(../img/icon/toolbar-cancel.png) !important; }
+/* delete */
+.icon-delete { background-image: url(../img/icon/toolbar-delete.png) !important; }
+/* report */
+.icon-report { background-image: url(../img/icon/toolbar-report.png) !important; }
+/* export */
+.icon-export { background-image: url(../img/icon/toolbar-export.png) !important; }
+/* closer */
+.icon-closer { background-image: url(../img/icon/toolbar-cancel.png) !important; }
+/* finish */
+.icon-finish { background-image: url(../img/icon/toolbar-finish.png) !important; }
+/* config */
+.icon-config { background-image: url(../img/icon/toolbar-config.png) !important; }
+/* logout  */
+.icon-logout { background-image: url(../img/icon/toolbar-logout.png) !important; }
+/* passwd  */
+.icon-passwd { background-image: url(../img/icon/toolbar-passwd.png) !important; }
+/* passwd  */
+.icon-gear { background-image: url(icon/gear.svg) !important; }
+
+
+
+
+/* pdf */
+.icon-pdf { background-image: url(../img/icon/document--pdf.png) !important; }
+/* word */
+.icon-word { background-image: url(../img/icon/document--word.png) !important; }
+/* fax */
+.icon-fax { background-image: url(../img/icon/document-export.png) !important; }
+
+/* SMS */
+.icon-sms { background-image: url(../img/icon/sms.png) !important; }
+
+/* EMAIL */
+.icon-email { background-image: url(../img/icon/email.png) !important; }
+
+/* FAX */
+.icon-fax { background-image: url(../img/icon/fax.png) !important; }
+
+
+
+/* 설정 */
+.icon-setting { background-image: url(../img/icon/toolbar-config.png) !important; }
+
+/* 암호 */
+.icon-pwd { background-image: url(../img/icon/pwd.png) !important; }
+
+
+/*
+* TreeGrid.js(그리드의 트리그리드 플러그인)에서 사용
+*/
+.treegrid-elbow {
+	background-image: url(../img/icon/elbow.gif)  !important; background-repeat:no-repeat;
+	padding:4px 0 4px 12px;
+}
+.treegrid-elbow-end {
+	background-image: url(../img/icon/elbow-end.gif)  !important; background-repeat:no-repeat;
+	padding:4px 0 4px 12px;
+}
+.treegrid-elbow-plus {
+	background-image: url(../img/icon/elbow-plus.gif)  !important; background-repeat:no-repeat;
+	padding:4px 0 4px 12px;
+}
+.treegrid-elbow-plus-end {
+	background-image: url(../img/icon/elbow-end-plus.gif)  !important; background-repeat:no-repeat;
+	padding:4px 0 4px 12px;
+}
+.treegrid-elbow-minus {
+	background-image: url(../img/icon/elbow-minus.gif)  !important; background-repeat:no-repeat;
+	padding:4px 0 4px 12px;
+}
+.treegrid-elbow-minus-end {
+	background-image: url(../img/icon/elbow-end-minus.gif)  !important; background-repeat:no-repeat;
+	padding:4px 0 4px 12px;
+}
+.treegrid-elbow-line {
+	background-image: url(../img/icon/elbow-line.gif)  !important; background-repeat:no-repeat;
+	padding:4px 0 4px 12px;
+}
+
+/*{
+	xtype : 'label' ,
+	region:'west',
+	width : 190,
+	itemId : 'login_logo' ,
+	style : 'background-color:white; border-left: solid #99bce8 1px; border-right: solid #99bce8 1px;', //{backgroundColor:'white', solid #99bce8 1px;},
+	html : '<img src="http://images.sky.com/system/N2130ALPHA/alpha_1.png" width="190" height="45">'
+		//html : '<img src="resource/img/logo.png" width="190" height="45">'
+		//html : '<div class="logo-main" width="190" height="45"></div>'
+		//<div class="content"><div class="Invitation">form goes here....</div></div>
+}*/
+
+
+/*
+* NumberPad 숫자버튼 (주문매출검수) 사용
+*/
+/* 0 */ /* .icon-number-button_0 { background-image: url(../img/icon/number/button_0.png) !important; } */
+.icon-aa { background-image: url(../img/icon/number/button_0.png) !important; width : 80px !important; height: 41px !important;}
+.icon-number-button_0 { background-image: url(../img/icon/number/button_0.png) !important; width : 80px !important; height: 41px !important;}
+
+/* 1 */ /* .icon-number-button_1 { background-image: url(../img/icon/number/button_1.png) !important; } */
+.icon-number-button_1 { background-image: url(../img/icon/number/button_1.png) !important; width : 80px !important; height: 41px !important;}
+
+/* 2 */ /* .icon-number-button_2 { background-image: url(../img/icon/number/button_2.png) !important; } */
+.icon-number-button_2 { background-image: url(../img/icon/number/button_2.png) !important; width : 80px !important; height: 41px !important;}
+
+/* 3 */ /* .icon-number-button_3 { background-image: url(../img/icon/number/button_3.png) !important; } */
+.icon-number-button_3 { background-image: url(../img/icon/number/button_3.png) !important; width : 80px !important; height: 41px !important;}
+
+/* 4 */ /* .icon-number-button_4 { background-image: url(../img/icon/number/button_4.png) !important; } */
+.icon-number-button_4 { background-image: url(../img/icon/number/button_4.png) !important; width : 80px !important; height: 41px !important;}
+
+/* 5 */ /* .icon-number-button_5 { background-image: url(../img/icon/number/button_5.png) !important; } */
+.icon-number-button_5 { background-image: url(../img/icon/number/button_5.png) !important; width : 80px !important; height: 41px !important;}
+
+/* 6 */ /* .icon-number-button_6 { background-image: url(../img/icon/number/button_6.png) !important; } */
+.icon-number-button_6 { background-image: url(../img/icon/number/button_6.png) !important; width : 80px !important; height: 41px !important;}
+
+/* 7 */ /* .icon-number-button_7 { background-image: url(../img/icon/number/button_7.png) !important; } */
+.icon-number-button_7 { background-image: url(../img/icon/number/button_7.png) !important; width : 80px !important; height: 41px !important;}
+
+/* 8 */ /* .icon-number-button_8 { background-image: url(../img/icon/number/button_8.png) !important; } */
+.icon-number-button_8 { background-image: url(../img/icon/number/button_8.png) !important; width : 80px !important; height: 41px !important;}
+
+/* 9 */ /* .icon-number-button_9 { background-image: url(../img/icon/number/button_9.png) !important; } */
+.icon-number-button_9 { background-image: url(../img/icon/number/button_9.png) !important; width : 80px !important; height: 41px !important;}
+
+/* enter */ /* .icon-number-button_enter { background-image: url(../img/icon/number/button_enter.png) !important; } */
+.icon-number-button_enter { background-image: url(../img/icon/number/button_enter.png) !important; width : 80px !important; height: 41px !important;}
+
+/* clear */ /* .icon-number-button_clear { background-image: url(../img/icon/number/button_clear.png) !important; } */
+.icon-number-button_clear { background-image: url(../img/icon/number/button_clear.png) !important; width : 80px !important; height: 41px !important;}
+
+/* search */ /* .icon-number-search { background-image: url(../img/icon/number/search.png) !important; } */
+.icon-number-search { background-image: url(../img/icon/number/search.png) !important; width : 90px !important; height: 41px !important;}
+
+/* 신규작업 */ /* .icon-number-newinsert { background-image: url(../img/icon/number/newinsert.png) !important; } */
+.icon-number-newinsert { background-image: url(../img/icon/number/newinsert.png) !important; width : 71px !important; height: 40px !important;}
+
+/* 송장재발행 */ /* .icon-number-reissue { background-image: url(../img/icon/number/reissue.png) !important; } */
+.icon-number-reissue { background-image: url(../img/icon/number/reissue.png) !important; width : 71px !important; height: 40px !important;}
+
+/* 송장설정 */ /* .icon-number-option { background-image: url(../img/icon/number/option.png) !important; } */
+.icon-number-option { background-image: url(../img/icon/number/option.png) !important; width : 71px !important; height: 40px !important;}
+
+/* 주문숨김 */ /* .icon-number-orderhide { background-image: url(../img/icon/number/orderhide.png) !important; } */
+.icon-number-orderhide { background-image: url(../img/icon/number/orderhide.png) !important; width : 71px !important; height: 40px !important;}
+
+
+/* top */ /* .icon-number-top { background-image: url(../img/icon/number/top.png) !important; } */
+.icon-number-top { background-image: url(../img/icon/number/top.png) !important; width : 50px !important; height: 40px !important;}
+
+/* bottom */ /* .icon-number-bottom { background-image: url(../img/icon/number/bottom.png) !important; } */
+.icon-number-bottom { background-image: url(../img/icon/number/bottom.png) !important; width : 50px !important; height: 40px !important;}
+
+/* left */ /* .icon-number-left { background-image: url(../img/icon/number/left.png) !important; } */
+.icon-number-left { background-image: url(../img/icon/number/left.png) !important; width : 50px !important; height: 40px !important;}
+
+/* right */ /* .icon-number-right { background-image: url(../img/icon/number/right.png) !important; } */
+.icon-number-right { background-image: url(../img/icon/number/right.png) !important; width : 50px !important; height: 40px !important;}
+
+
+/* 검수보류 */ /* .icon-number-testhold { background-image: url(../img/icon/number/testhold.png) !important; } */
+.icon-number-testhold { background-image: url(../img/icon/number/testhold.png) !important; width : 80px !important; height: 41px !important;}
+
+/* 보류복원 */ /* .icon-number-restore { background-image: url(../img/icon/number/restore.png) !important; } */
+.icon-number-restore { background-image: url(../img/icon/number/restore.png) !important; width : 80px !important; height: 41px !important;}
+
+/* 전체검수 */ /* .icon-number-alltest { background-image: url(../img/icon/number/alltest.png) !important; } */
+.icon-number-alltest { background-image: url(../img/icon/number/alltest.png) !important; width : 80px !important; height: 41px !important;}
+
+/* 한줄검수 */ /* .icon-number-linetest { background-image: url(../img/icon/number/linetest.png) !important; } */
+.icon-number-linetest { background-image: url(../img/icon/number/linetest.png) !important; width : 80px !important; height: 41px !important;}
+
+/* 한줄취소 */ /* .icon-number-linecancel { background-image: url(../img/icon/number/linecancel.png) !important; } */
+.icon-number-linecancel { background-image: url(../img/icon/number/linecancel.png) !important; width : 80px !important; height: 41px !important;}
+
+/* 전체취소 */ /* .icon-number-allcancel { background-image: url(../img/icon/number/allcancel.png) !important; } */
+.icon-number-allcancel { background-image: url(../img/icon/number/allcancel.png) !important; width : 80px !important; height: 41px !important;}
+
+/* 메모추가 */ /* .icon-number-itemmemo { background-image: url(../img/icon/number/itemmemo.png) !important; } */
+.icon-number-itemmemo { background-image: url(../img/icon/number/itemmemo.png) !important; width : 80px !important; height: 60px !important;}
+
+/* 검수완료 */ /* .icon-number-testcomp { background-image: url(../img/icon/number/testcomp.png) !important; } */
+.icon-number-testcomp { background-image: url(../img/icon/number/testcomp.png) !important; width : 80px !important; height: 41px !important;}
+
+/* 등록 */ /* .icon-number-insert { background-image: url(../img/icon/number/insert.png) !important; } */
+.icon-number-insert { background-image: url(../img/icon/number/insert.png) !important; width : 80px !important; height: 41px !important;}
+
+/* 취소 */ /* .icon-number-cancel { background-image: url(../img/icon/number/cancel.png) !important; } */
+.icon-number-cancel { background-image: url(../img/icon/number/cancel.png) !important; width : 80px !important; height: 41px !important;}
+
+
+
+/*
+* Login NumberPad 숫자버튼 (로그인) 사용
+*/
+/* 00 */ /* .login_number_00 { background-image: url(../img/icon/login/login_number_00.png) !important; } */
+.login_number_00 { background-image: url(../img/icon/login/login_number_00.png) !important; width : 64px !important; height: 36px !important;}
+
+/* 01 */ /* .login_number_01 { background-image: url(../img/icon/login/login_number_01.png) !important; } */
+.login_number_01 { background-image: url(../img/icon/login/login_number_01.png) !important; width : 64px !important; height: 36px !important;}
+
+/* 02 */ /* .login_number_02 { background-image: url(../img/icon/login/login_number_02.png) !important; } */
+.login_number_02 { background-image: url(../img/icon/login/login_number_02.png) !important; width : 64px !important; height: 36px !important;}
+
+/* 03 */ /* .login_number_03 { background-image: url(../img/icon/login/login_number_03.png) !important; } */
+.login_number_03 { background-image: url(../img/icon/login/login_number_03.png) !important; width : 64px !important; height: 36px !important;}
+
+/* 04 */ /* .login_number_04 { background-image: url(../img/icon/login/login_number_04.png) !important; } */
+.login_number_04 { background-image: url(../img/icon/login/login_number_04.png) !important; width : 64px !important; height: 36px !important;}
+
+/* 05 */ /* .login_number_05 { background-image: url(../img/icon/login/login_number_05.png) !important; } */
+.login_number_05 { background-image: url(../img/icon/login/login_number_05.png) !important; width : 64px !important; height: 36px !important;}
+
+/* 06 */ /* .login_number_06 { background-image: url(../img/icon/login/login_number_06.png) !important; } */
+.login_number_06 { background-image: url(../img/icon/login/login_number_06.png) !important; width : 64px !important; height: 36px !important;}
+
+/* 07 */ /* .login_number_07 { background-image: url(../img/icon/login/login_number_07.png) !important; } */
+.login_number_07 { background-image: url(../img/icon/login/login_number_07.png) !important; width : 64px !important; height: 36px !important;}
+
+/* 08 */ /* .login_number_08 { background-image: url(../img/icon/login/login_number_08.png) !important; } */
+.login_number_08 { background-image: url(../img/icon/login/login_number_08.png) !important; width : 64px !important; height: 36px !important;}
+
+/* 09 */ /* .login_number_09 { background-image: url(../img/icon/login/login_number_09.png) !important; } */
+.login_number_09 { background-image: url(../img/icon/login/login_number_09.png) !important; width : 64px !important; height: 36px !important;}
+
+/* back */ /* .login_number_back { background-image: url(../img/icon/login/login_number_back.png) !important; } */
+.login_number_back { background-image: url(../img/icon/login/login_number_back.png) !important; width : 64px !important; height: 36px !important;}
+
+/* enter */ /* .login_number_enter { background-image: url(../img/icon/login/login_number_enter.png) !important; } */
+.login_number_enter { background-image: url(../img/icon/login/login_number_enter.png) !important; width : 64px !important; height: 36px !important;}
+
+/* login keypad */ /* .login_keypad { background-image: url(../img/icon/login/login_keypad.png) !important; } */
+.login_keypad { background-image: url(../img/icon/login/login_keypad.png) !important; width : 64px !important; height: 27px !important;}

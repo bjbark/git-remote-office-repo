@@ -1,0 +1,187 @@
+@CHARSET "UTF-8";
+/**/
+*{margin:0; padding : 0;}
+
+	#container{
+		width: 100%;
+
+	}
+
+	div{
+		width: 100%;
+	}
+	#first{
+		background-color: #FFFFCC;
+	}
+	table{
+		width:100%;
+		margin: 0 auto;
+	}
+	table:not(.table-responsive) tr th:not(.repairTh){
+		text-align: right;
+		padding-right: 7%;
+		width: 18%;
+		font-size: 1.2em;
+	}
+	.repairTable{
+		font-size: 1.8em;
+	}
+	table tr td{
+		font-size: 2.0em;
+		text-align:left;
+		width: 50%;
+	}
+	input[type=text]:not(.Datepicker):not(.numberFmt), select{
+		width: 76%;
+		height:60px;
+		margin: 1% 0 ;
+		text-align: left;
+
+	}
+	#first input[readonly=readonly]{
+		text-align: center;
+	}
+	input[type=text]:not(.numberFmt){
+		text-align: center;
+	}
+	.nav-link{
+		font-size: 3.5em;
+	}
+	textarea{
+		width: 70%;
+		margin-bottom: 10px;
+		border: 2px solid;
+	}
+	.nav-tabs .nav-item:FIRST-CHILD{
+		margin-left: 27%;
+	}
+	#submit{
+		width: 100%;
+		border: 0;
+		height: 100px;
+		background-color: #99CCFF;
+		color: white;
+		font-size: 3em;
+		border-radius:10px;
+
+	}
+	input[readonly=readonly]{
+		background-color: lightgray;
+	}
+	.ui-datepicker-trigger{
+		width: 10%;
+	}
+	#ui-datepicker-div,.ui-datepicker-header{
+		width: 480px;
+		font-size: 1.5em;
+	}
+	.ui-datepicker-title select{
+		width: 200px;
+	}
+	input,select{
+		border: 2px solid ;
+	}
+	#totalTime{
+		margin-left: 86px;
+		width: 80px;
+	}
+	.Datepicker:not(.dt){
+		width: 66%;
+		height:60px;
+		margin: 1% 0 ;
+	}
+
+	#footer{
+		bottom: 10px;
+	}
+	.table-responsive tr th{
+		width: 10%;
+		margin: 0;
+		text-align: center;
+		font-size: 1.2em;
+		white-space:nowrap;
+
+	}
+	.table-responsive{
+		overflow: scroll;
+	}
+	.search{
+		      width: 21%;
+			    font-size: 42px;
+			    margin-top: 0.5%;
+			    margin-left: 7%;
+			    border: 0;
+		background-color: #78BAF3;
+		color: white;
+	}
+	.dt{
+	height: 56px;
+    width: 39%;
+    font-size: 30px;
+    margin: 5% 0;
+
+	}
+	#cstm_name{
+		width: 88%;
+	}
+	#chk table tr th{
+		width: 33%
+	}
+	#chk .wtd1{
+		width: 100%;
+	}
+	#chk .td1,#repair .td1{
+		width: 16%;
+		margin: 0;
+		padding: 0;
+	}
+	#chk .dobleTh{
+		width: 13%;
+		padding:0;
+	}
+	#chk .widthDate{
+		    width: 53%;
+		    margin: 5% 0;
+	}
+	#chk textarea[name=dmge_regn],#repair textarea{
+		width: 76%;
+	}
+	#chk input[name=nxrm_chek_date]{
+		width: 27%
+	}
+
+	#repair select[name=need_amnt]{
+		width: 97%;
+	}
+	#repair input[name=repa_amnt]{
+		width: 49%;
+	}
+	#repair .td1 span{
+		    margin: 0 5%;
+	}
+	.table-bordered tr th {
+	    background-color: #78BAF3;
+	    color: white;
+	}
+	.table-bordered tr td {
+	    font-size: 01.2em;
+	    word-break:break-all;
+		white-space:nowrap;
+	}
+
+	textarea[name=move_purp],textarea[name=remk_cont]{
+	width: 76%;
+	}
+	.table-responsive tr:not(first-child):HOVER {
+		background-color: #78BAF3;
+		color: white;
+	}
+	.table-responsive input[type=button]{
+		color:black;
+	}
+	.numberFmt{
+		text-align: right;
+		width: 76%;
+		height:60px;
+		margin: 1% 0 ;
+	}

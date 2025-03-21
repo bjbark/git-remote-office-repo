@@ -1,0 +1,90 @@
+@CHARSET "UTF-8";
+/**/
+*{
+		padding:0;
+		margin : 0;
+	}
+	#container{
+		width: 415px;
+
+	}
+	#first{
+		background-color: #FFCCFF;
+	}
+	table{
+		width: 390px;
+	}
+	table input[readonly=readonly]{
+		text-align: center;
+		width: 252px;
+		background-color: lightgray;
+	}
+	table tr th{
+		text-align: right;
+		width: 100px;
+		padding-right: 10px;
+	}
+	table tr td{
+
+		width: 260px;
+	}
+	table input,table textarea,table select{
+		margin-top: 4px;
+		 margin-bottom: 4px;
+	}
+	table input,table select{
+		height: 20px;
+	}
+	input[type=submit]{
+		background-color: #3399FF;
+		border: 0;
+		color: white;
+		padding: 5px 15px;
+		border-radius: 5px;
+		font-weight: bold;
+		width: 100%;
+	}
+
+	#footer{
+
+		text-align: center;
+	}
+	.tab select{
+		width: 251px;
+	}
+	.tab textarea{
+		width: 251px;
+	}
+	.tab input[type=text]:not(.Datepicker){
+		 width: 251px;
+	}
+	.times input[type=text]{
+		width:50px;
+		text-align: center;
+	}
+	.setTime::-webkit-datetime-edit-ampm-field {
+
+    display: none;
+
+}
+	#repairChart th{
+		font-size: 0.1em;
+		text-align: center;
+		background-color: #ECFFFD;
+	}
+	.nav-tabs{
+		height: 30px;
+	}
+	.nav-item .nav-link{
+		height: 32px;
+		padding-top: 5px;
+
+	}
+	#totalTime{
+		margin-left:4px;
+		width: 60px;
+	}
+	.Datepicker{
+		width: 230px;
+		margin-right: 5px;
+	}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<!-- 
+#######################################
+#                                      
+#     실서버의 시스템 설정정보     
+#                                     
+#######################################
+ -->
+<properties>
+
+<!-- # 이미지ftp서버의 접속 정보 시작 -->
+
+	<!-- ftp타입 (0=ftp, 1=sftp) -->
+	<entry key="ftp.image.serverType">1</entry>
+	<entry key="ftp.image.host">182.162.143.62</entry>
+	<entry key="ftp.image.port">8422</entry>
+	<entry key="ftp.image.user">images</entry>
+	<entry key="ftp.image.password">http://images.c0.kr</entry>
+	<!-- 이미지 ftp서버의 업로드 경로 (ftp의 home디렉터리부터 시작)-->
+	<entry key="ftp.image.rootDir">system</entry>
+	<!-- 이미지 ftp서버 url -->
+	<entry key="ftp.image.url">http://images.sky.com</entry>
+	
+	
+<!-- was upload -->
+	<!-- was upload경로 -->
+	<entry key="upload.temp.dir">./temp/upload</entry>
+	
+	
+<!-- Jasper Report 정보 시작 -->
+	<entry key="jasper.dir">WEB-INF/report</entry>
+	
+	<!-- 파일 다운로드시에 파일명 형식 (ex=> 사업장정보(20131016_015501) ) -->
+	<entry key="jasper.file.expression">$file($date)</entry>
+	
+	<!-- 파일 다운로드시 파일명중 날짜가 들어갔을때 날짜포맷 (jasper.file.expression의 $date부분) -->
+	<entry key="jasper.file.dateformat">yyyyMMdd_HHmmss</entry>
+	
+	<!-- jasper 이미지 서블릿의 url (web.xml에 설정되는 url-pattern과 동일하게 해야 한다) -->
+	<entry key="jasper.imageservlet.url">/jriservlet/image</entry>
+	
+<!-- excel download 시작 -->
+	<!-- 엑셀 다운로드시 파일명 형식 -->
+	<entry key="exceldownload.file.expression">$file($date)</entry>
+	
+	<!-- 엑셀 다운로드시 파일명에 들어갈 날짜포맷 -->
+	<entry key="exceldownload.file.dateformat">yyyyMMdd_HHmmss</entry>
+	
+</properties>

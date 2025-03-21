@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="app.skysales.build" default="sencha.build" basedir="." xmlns:artifact="urn:maven-artifact-ant" >
+
+    <property name="target.path" value="../../target" />
+    <property name="target.home" value="${target.path}/skysales" />
+
+	<!--
+	#######################################################
+    센챠빌드
+    #######################################################
+    -->
+	<target name="sencha.build">
+
+		<echo message="delete target"/>
+<!-- 		<delete dir="${target.home}" /> -->
+
+
+		<exec executable="sencha" >
+			<arg line="app build package"/>
+		</exec>
+
+
+		<echo message="APP BUILD FOR SKYSALES" />
+<!-- 		<copy todir="${target.home}/package">  -->
+<!-- 			<fileset dir="../app.skysales">  -->
+<!-- 				<include name="**/*.*"/>  -->
+<!-- 				<exclude name="**/*.xml"/> -->
+<!-- 			</fileset>  -->
+<!-- 		</copy>	 -->
+
+
+<!-- 		<replace file="${target.home}/package/global.js"> -->
+<!-- 			<replacetoken>http://localhost:8070</replacetoken> -->
+<!-- 			<replacevalue>http://api.sky.com</replacevalue> -->
+<!--     	</replace>		 -->
+<!-- 		<replace file="${target.home}/package/global.js"> -->
+<!-- 			<replacetoken>../sdk</replacetoken> -->
+<!-- 			<replacevalue>./sdk</replacevalue> -->
+<!--     	</replace>		 -->
+
+<!-- 		<copy todir="${target.home}/package/sdk">  -->
+<!-- 			<fileset dir="../sdk"> -->
+<!-- 			    <include name="astouch/**/*.*"/> -->
+<!-- 			</fileset>  -->
+<!-- 			<fileset dir="../sdk"> -->
+<!-- 			    <include name="extjs4/**/*.*"/> -->
+<!-- 			</fileset>  -->
+<!-- 		</copy>	 -->
+ 	</target>
+
+	<!--
+	#######################################################
+    센챠빌드후 서버 배포 #1
+    #######################################################
+    -->
+	<target name="sencha.server.redmine" depends="sencha.build">
+
+    	<property name="remote.host" value="182.162.143.95" />
+    	<property name="remote.port" value="22" />
+    	<property name="remote.user" value="redmine" />
+    	<property name="remote.pswd" value="redmine.deploy" />
+    	<property name="remote.path" value="/storage/redmine/apps/cloudpos/htdocs" />
+    	<property name="client.path" value="../target/cloudpos/package" />
+
+        <scp todir="${remote.user}:${remote.pswd}@${remote.host}:${remote.path}" port="${remote.port}" trust="true" verbose="true" >
+		    <fileset dir="${client.path}" >
+                	<include name="**/*" />
+              		<exclude name="Thumbs.db" />
+            </fileset>
+	    </scp>
+    </target>
+
+	<target name="sencha.server.depoly.keypos" depends="sencha.build">
+
+    	<property name="remote.port" value="22" />
+    	<property name="remote.user" value="htdocs" />
+    	<property name="remote.pswd" value="dkfmanethtd@cs" />
+    	<property name="remote.path" value="/storage/webapps/keypos/htdocs/app" />
+    	<property name="client.path" value="../target/cloudpos/package" />
+
+<!--         <scp todir="${remote.user}:${remote.pswd}@182.162.143.115:${remote.path}" port="${remote.port}" trust="true" verbose="true" > -->
+<!-- 		    <fileset dir="${client.path}" > -->
+<!--                 	<include name="**/*" /> -->
+<!--               		<exclude name="Thumbs.db" /> -->
+<!--             </fileset> -->
+<!-- 	    </scp> -->
+        <scp todir="${remote.user}:${remote.pswd}@182.162.143.114:${remote.path}" port="${remote.port}" trust="true" verbose="true" >
+		    <fileset dir="${client.path}" >
+                	<include name="**/*" />
+              		<exclude name="Thumbs.db" />
+            </fileset>
+	    </scp>
+
+        <scp todir="${remote.user}:${remote.pswd}@182.162.143.115:${remote.path}" port="${remote.port}" trust="true" verbose="true" >
+		    <fileset dir="${client.path}" >
+                	<include name="**/*" />
+              		<exclude name="Thumbs.db" />
+            </fileset>
+	    </scp>
+
+
+    </target>
+
+
+	<!--
+	#######################################################
+    센챠빌드후 네이티브 빌드
+    #######################################################
+    -->
+<!-- 	<target name="sencha.native.compile" depends="sencha.build">  -->
+<!-- 	   <ant antfile="build.xml" dir="${target.home}/projects/apk.source/" target="native.compile"></ant>  -->
+<!--  	</target> -->
+
+	<!--
+	#######################################################
+    센챠빌드후 네이티브 설치
+    #######################################################
+    -->
+<!-- 	<target name="sencha.native.reinstall" depends="sencha.build">  -->
+<!-- 	   <ant antfile="build.xml" dir="${target.home}/projects/apk.source/" target="native.install"></ant>  -->
+<!--  	</target> -->
+
+</project>
+
+
+<!-- http://helexis.tistory.com/entry/YUI-Compressor-%EC%82%AC%EC%9A%A9%EA%B8%B0-1 -->

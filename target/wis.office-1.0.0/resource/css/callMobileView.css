@@ -1,0 +1,94 @@
+@CHARSET "UTF-8";
+/**/
+*{margin:0; padding : 0;}
+
+	#container{
+		width: 100%;
+
+	}
+	div{
+		width: 100%;
+	}
+	#first{
+		background-color: #FFCCFF;
+	}
+	table{
+		width:100%;
+		margin: 0 auto;
+	}
+	table:not(.repairTable) tr th{
+		text-align: right;
+		padding-right: 7%;
+		width: 40%;
+		font-size: 2.0em;
+	}
+	.repairTable{
+		font-size: 1.8em;
+	}
+	table tr td{
+		font-size: 2.0em;
+		text-align:left;
+		width: 50%;
+	}
+	input[type=text]:not(.Datepicker), select{
+		width: 70%;
+		height:60px;
+		margin: 5% 0 ;
+
+	}
+	input[type=text]{
+		text-align: center;
+	}
+	.nav-link{
+		font-size: 1.8em;
+	}
+	textarea{
+		width: 70%;
+		margin-bottom: 10px;
+		border: 2px solid;
+	}
+	.nav-tabs .nav-item:FIRST-CHILD{
+		margin-left: 27%;
+	}
+	input[type=submit]{
+		width: 100%;
+		border: 0;
+		height: 100px;
+		background-color: #99CCFF;
+		color: white;
+		font-size: 1.7em;
+		border-radius:10px;
+
+	}
+	input[readonly=readonly]{
+		background-color: lightgray;
+	}
+	.ui-datepicker-trigger{
+		width: 10%;
+	}
+	#ui-datepicker-div,.ui-datepicker-header{
+		width: 480px;
+		font-size: 1.5em;
+	}
+	.ui-datepicker-title select{
+		width: 200px;
+	}
+	.tab-content{
+		height: 890px;
+	}
+	input,select{
+		border: 2px solid ;
+	}
+	#totalTime{
+		margin-left: 86px;
+		width: 80px;
+	}
+	.Datepicker{
+		width: 60%;
+		height:60px;
+		margin: 5% 0 ;
+	}
+	#footer{
+		position: fixed;
+		bottom: 10px;
+	}

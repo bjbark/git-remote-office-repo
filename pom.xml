@@ -1,0 +1,391 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://maven.apache.org/POM/4.0.0
+		http://maven.apache.org/xsd/maven-4.0.0.xsd
+		">
+	<!-- http://ssongka.egloos.com/viewer/2436224,
+	     maven lifecycle : http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html -->
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.wis.service</groupId>
+	<artifactId>wis.office</artifactId>
+	<version>1.0.0</version>
+  	<packaging>war</packaging>
+
+	<properties>
+		<netty.version>4.0.24.Final</netty.version>
+		<java.version>1.8</java.version>
+		<war.directory>src/websource</war.directory>
+		<spring.version>3.1.2.RELEASE</spring.version>
+		<org.slf4j-version>1.7.5</org.slf4j-version>
+ 		<ch.qos.logback-version>1.1.2</ch.qos.logback-version>
+ 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+ 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+ 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.lib.path>${project.basedir}/src/websource/WEB-INF/lib</project.lib.path>
+	</properties>
+
+	<profiles>
+	    <profile>
+	        <id>developer</id>
+	        <properties>
+	        	<host>http://localhost</host>
+	            <spring.profiles.active>developer</spring.profiles.active>
+	        </properties>
+	    </profile>
+	    <profile>
+	        <id>staging</id>
+	        <properties>
+	        	<host>https://test.card7.co.kr</host>
+	            <spring.profiles.active>staging</spring.profiles.active>
+	        </properties>
+	    </profile>
+	    <profile>
+	        <id>production</id>
+	        <properties>
+	        	<host>https://admin.card7.co.kr</host>
+	            <spring.profiles.active>production</spring.profiles.active>
+	        </properties>
+	    </profile>
+	</profiles>
+
+	<repositories>
+<!-- 		<repository> -->
+<!--     		<id>localproject-repo</id> -->
+<!--     		<name>localproject-repo</name> -->
+<!--     		<url>file://${project.basedir}/src/main-repo/maven</url> -->
+<!-- 		</repository> -->
+
+		<repository>
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net Repository for Maven</name>
+			<url>https://repo.maven.apache.org/maven2/</url>
+			<releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+		</repository>
+
+	</repositories>
+
+	<dependencies>
+		<!-- sky -->
+		<dependency>
+			<groupId>com.sky.framework</groupId>
+			<artifactId>xpress</artifactId>
+			<version>1.0.0.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- logger -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${org.slf4j-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${ch.qos.logback-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${ch.qos.logback-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-access</artifactId>
+			<version>${ch.qos.logback-version}</version>
+		</dependency>
+		<dependency> <!-- logback.xml설정시 if condition으로 분기문 사용할수있게 도와준다. -->
+			<groupId>org.codehaus.janino</groupId>
+	        <artifactId>janino</artifactId>
+	        <version>2.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.logback-extensions</groupId>
+			<artifactId>logback-ext-spring</artifactId>
+			<version>0.1.2</version>
+		</dependency>
+
+		<!-- netty4 -->
+		<dependency>
+		    <groupId>io.netty</groupId>
+		    <artifactId>netty-all</artifactId>
+		    <version>${netty.version}</version>
+		</dependency>
+		<!-- local -->
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik</artifactId>
+			<version>1.5</version>
+			<scope>system</scope>
+			<systemPath>${project.lib.path}/batik.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>jsoup-1.14.3</groupId>
+			<artifactId>jsoup-1.14.3</artifactId>
+			<version>1.14.3</version>
+			<scope>system</scope>
+			<systemPath>${project.lib.path}/jsoup-1.14.3.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>1</version>
+			<scope>system</scope>
+			<systemPath>${project.lib.path}/axis.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>commons-discovery-0.2</groupId>
+			<artifactId>commons-discovery-0.2</artifactId>
+			<version>1</version>
+			<scope>system</scope>
+			<systemPath>${project.lib.path}/commons-discovery-0.2.jar</systemPath>
+		</dependency>
+<!-- 		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+			<scope>system</scope>
+			<systemPath>${project.lib.path}/commons-logging.jar</systemPath>
+		</dependency> -->
+		<dependency>
+			<groupId>jaxrpc</groupId>
+			<artifactId>jaxrpc</artifactId>
+			<version>1</version>
+			<scope>system</scope>
+			<systemPath>${project.lib.path}/jaxrpc.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+			<version>1</version>
+			<scope>system</scope>
+			<systemPath>${project.lib.path}/wsdl4j.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>saaj</groupId>
+			<artifactId>saaj</artifactId>
+			<version>1</version>
+			<scope>system</scope>
+			<systemPath>${project.lib.path}/saaj.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>barobill-api-axis</groupId>
+			<artifactId>barobill-api-axis</artifactId>
+			<version>1</version>
+			<scope>system</scope>
+			<systemPath>${project.lib.path}/barobill-api-axis.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>batik.batik</groupId>
+			<artifactId>pdf-transcoder</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.lib.path}/pdf-transcoder.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>miethxml-ui</groupId>
+			<artifactId>miethxml-ui</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.lib.path}/miethxml-ui.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.mozilla</groupId>
+			<artifactId>javascript</artifactId>
+			<version>1.7.2</version>
+			<scope>system</scope>
+			<systemPath>${project.lib.path}/javascript-1.7.2.jar</systemPath>
+		</dependency>
+
+		<!-- PDFBox -->
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>2.0.8</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.github.spullara.mustache.java/compiler -->
+		<dependency>
+		    <groupId>com.github.spullara.mustache.java</groupId>
+		    <artifactId>compiler</artifactId>
+		    <version>0.9.10</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+        <resources>
+	        <resource>
+	            <directory>src/main/resources</directory>
+	        </resource>
+	    </resources>
+
+  		<plugins>
+  			<plugin>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <additionalProjectnatures>
+                        <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+                    </additionalProjectnatures>
+                    <additionalBuildcommands>
+                        <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+                    </additionalBuildcommands>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                </configuration>
+            </plugin>
+
+			<!-- 메이븐 컴파일에 사용할 자바 버젼을 명시 -->
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <compilerArgument>-Xlint:all</compilerArgument>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+
+			<!-- 톰켓 웹서버 -beta-1 -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+				    <systemProperties>
+    					<JAVA_OPTS>-Djava.awt.headless=true -server -Xms1024m -Xmx1024m -XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m -XX:MaxPermSize=256m -XX:+DisableExplicitGC</JAVA_OPTS>
+  					</systemProperties>
+					<warSourceDirectory>${war.directory}</warSourceDirectory>
+					<path>/</path>
+					<port>80</port>
+					<contextReloadable>true</contextReloadable>
+					<uriEncoding>UTF-8</uriEncoding>
+				</configuration>
+			</plugin>
+
+		      <plugin>
+			   <groupId>org.apache.maven.plugins</groupId>
+			   <artifactId>maven-war-plugin</artifactId>
+			   <version>2.0.1</version>
+			   <executions>
+			    <execution>
+			     <id>prepare-war</id>
+			     <phase>prepare-package</phase>
+			     <goals>
+			      <goal>exploded</goal>
+			     </goals>
+			    </execution>
+			   </executions>
+			   <configuration>
+			   	 <warSourceDirectory>src/websource</warSourceDirectory>
+			   </configuration>
+			  </plugin>
+
+		      <!-- maven file replace plugin ( https://code.google.com/p/maven-replacer-plugin/wiki/UsageGuide )
+            	 target디렉터리안의 web.xml을 war로 만들기전에 spring.profiles.active문자열을 replace한다.
+            -->
+             <plugin>
+	            <groupId>com.google.code.maven-replacer-plugin</groupId>
+	            <artifactId>replacer</artifactId>
+	            <version>1.5.3</version>
+	            <executions>
+	                <execution>
+	                	<id>web.xml</id>
+	                    <phase>prepare-package</phase><!-- prepare-package:package전, package:패키지할때 -->
+	                    <goals>
+	                        <goal>replace</goal>
+	                    </goals>
+	                    <configuration> <!-- shoppingmall-1.0.0-BUILD-SNAPSHOT -->
+			                <ignoreMissingFile>false</ignoreMissingFile>
+			                <file>target/${project.artifactId}-${project.version}/WEB-INF/web.xml</file>
+			                <replacements>
+			                    <replacement>
+			                    	<token><![CDATA[developer]]></token>
+			                    	<value><![CDATA[${spring.profiles.active}]]></value>
+
+<!-- 				                     <token><![CDATA[<param-value>developer</param-value>]]></token> -->
+<!-- 				                     <value><![CDATA[<param-value>${spring.profiles.active}</param-value>]]></value> -->
+			                    </replacement>
+			                    <replacement>
+			                    	<token><![CDATA[classpath:config/property/developer/logger.xml]]></token>
+			                    	<value><![CDATA[classpath:config/property/${spring.profiles.active}/logger.xml]]></value>
+<!-- 				                     <token><![CDATA[<param-value>classpath:config/property/developer/logger.xml</param-value>]]></token> -->
+<!-- 				                     <value><![CDATA[<param-value>classpath:config/property/${spring.profiles.active}/logger.xml</param-value>]]></value> -->
+			                    </replacement>
+			                </replacements>
+			            </configuration>
+	                </execution>
+	                <execution>
+	                	<id>loader.js</id>
+	                    <phase>prepare-package</phase><!-- prepare-package:package전, package:패키지할때 -->
+	                    <goals>
+	                        <goal>replace</goal>
+	                    </goals>
+	                    <configuration> <!-- shoppingmall-1.0.0-BUILD-SNAPSHOT -->
+			                <ignoreMissingFile>false</ignoreMissingFile>
+			                <file>target/${project.artifactId}-${project.version}/loader.js</file>
+			                <replacements>
+			                    <replacement>
+				                     <token><![CDATA[https://test.card7.co.kr]]></token>
+				                     <value><![CDATA[${host}]]></value>
+			                    </replacement>
+			                </replacements>
+			            </configuration>
+	                </execution>
+	            </executions>
+	        </plugin>
+
+<!-- 			<plugin> -->
+<!--     					<JAVA_OPTS>-Xms256m -Xmx512m -XX:MaxPermSize=512m</JAVA_OPTS> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-surefire-plugin</artifactId> -->
+<!-- 				<version>2.7.1</version> -->
+<!-- 				<configuration> -->
+<!-- 					<argLine>-Xms512m -Xmx512m</argLine> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
+  		</plugins>
+	</build>
+
+</project>
+
+
+<!-- <configuration> -->
+<!--   <systemProperties> -->
+<!--     <JAVA_OPTS>-Xms256m -Xmx512m -XX:MaxPermSize=256m</JAVA_OPTS> -->
+<!--   </systemProperties> -->
+<!-- </configuration> -->
