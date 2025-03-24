@@ -770,7 +770,7 @@ Ext.define('module.custom.iypkg.sale.order.saleorder.SaleOrder', {
 			//					check = '1';
 			//			}
 			if (findrecord.get('need_qntt') == '' || findrecord.get('need_qntt') < 0 || findrecord.get('stnd_pric') == null) {
-				msg = "작업공정에서 계획수량을 입력하여 주시기 바랍니다."
+				msg = "작업공정에서 계획수량을 입력하여 주시기 바랍니다.!!!!!!"
 				check = '1';
 			}
 
